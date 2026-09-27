@@ -54,9 +54,11 @@ theorem trace_sq_offdiag {m k : Type*} [Fintype m] [Fintype k] (X : Matrix m k �
     trace (fromBlocks 0 X Xᴴ 0 * fromBlocks 0 X Xᴴ 0) = 2 * trace (X * Xᴴ) := by
   rw [fromBlocks_multiply]
   simp only [zero_mul, zero_add, mul_zero, add_zero]
-  have : trace (fromBlocks (X * Xᴴ) 0 0 (Xᴴ * X)) = trace (X * Xᴴ) + trace (Xᴴ * X) := by
+  have tb : ∀ (A : Matrix m m ℂ) (B : Matrix m k ℂ) (C : Matrix k m ℂ) (D : Matrix k k ℂ),
+      trace (fromBlocks A B C D) = trace A + trace D := by
+    intro A B C D
     simp only [trace, diag, Fintype.sum_sum_type, fromBlocks_apply₁₁, fromBlocks_apply₂₂]
-  rw [this, trace_mul_comm Xᴴ X]
+  rw [tb, trace_mul_comm Xᴴ X]
   ring
 
 /-! ## The intrinsic tensor as a Frobenius pairing -/
