@@ -19,6 +19,7 @@ import Mathlib
 namespace IqgtGrassmannian
 
 open Matrix ComplexConjugate
+open scoped ComplexOrder
 
 variable {n : Type*} [Fintype n] [DecidableEq n]
 
@@ -51,9 +52,11 @@ theorem tangent_offdiag (P V : Matrix n n ℂ) (hP : P * P = P) (hV : V = P * V 
 /-- **Theorem 3.2, metric.** For `V = [[0, X], [X†, 0]]`, `Tr V² = 2 Tr(XX†)`. -/
 theorem trace_sq_offdiag {m k : Type*} [Fintype m] [Fintype k] (X : Matrix m k ℂ) :
     trace (fromBlocks 0 X Xᴴ 0 * fromBlocks 0 X Xᴴ 0) = 2 * trace (X * Xᴴ) := by
-  rw [fromBlocks_multiply, trace_fromBlocks]
+  rw [fromBlocks_multiply]
   simp only [zero_mul, zero_add, mul_zero, add_zero]
-  rw [trace_mul_comm Xᴴ X]
+  have : trace (fromBlocks (X * Xᴴ) 0 0 (Xᴴ * X)) = trace (X * Xᴴ) + trace (Xᴴ * X) := by
+    simp only [trace, diag, Fintype.sum_sum_type, fromBlocks_apply₁₁, fromBlocks_apply₂₂]
+  rw [this, trace_mul_comm Xᴴ X]
   ring
 
 /-! ## The intrinsic tensor as a Frobenius pairing -/
@@ -74,8 +77,8 @@ theorem frob_herm (A B : Matrix n n ℂ) : trace (Bᴴ * A) = conj (trace (Aᴴ 
 
 /-- The Frobenius pairing as a sum of entries. -/
 theorem frob_sum (A B : Matrix n n ℂ) :
-    ∑ p : n × n, star (A p.1 p.2) * B p.1 p.2 = trace (Aᴴ * B) := by
-  simp only [trace, diag, mul_apply, conjTranspose_apply, Fintype.sum_prod_type]
+    ∑ p : n × n, conj (A p.1 p.2) * B p.1 p.2 = trace (Aᴴ * B) := by
+  simp only [trace, diag, mul_apply, conjTranspose_apply, Fintype.sum_prod_type, Complex.star_def]
   exact Finset.sum_comm
 
 /-- The two tangent vectors `VΠ`, `WΠ` as the columns of one matrix. -/
