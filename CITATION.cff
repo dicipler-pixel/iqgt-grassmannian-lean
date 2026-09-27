@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use these Lean proofs, please cite them as below."
+title: "Intrinsic Quantum Geometric Tensor on the Grassmannian and Spectral Lower Bounds on Dissipation: Lean proofs"
+authors:
+  - family-names: "Beasley"
+    given-names: "Jeromie"
+version: 0.1.0
+date-released: 2026-09-27
+license:
+  - MIT
+  - CC-BY-4.0
+repository-code: "https://github.com/dicipler-pixel/iqgt-grassmannian-lean"
+references:
+  - type: article
+    title: "Intrinsic Quantum Geometric Tensor on the Grassmannian and Spectral Lower Bounds on Dissipation"
+    authors:
+      - family-names: "Beasley"
+        given-names: "Jeromie"
+    doi: "10.5281/zenodo.20768258"
