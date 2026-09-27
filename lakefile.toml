@@ -1,0 +1,12 @@
+name = "iqgt-grassmannian-lean"
+version = "1.0.0"
+defaultTargets = ["IqgtGrassmannian"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.34.1"
+
+[[lean_lib]]
+name = "IqgtGrassmannian"
+roots = ["IqgtGrassmannian.Basic"]
