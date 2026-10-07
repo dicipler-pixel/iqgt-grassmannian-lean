@@ -30,9 +30,9 @@ every finite dimension.
 | Corollary 3.1 | A tangent vector at a projector (`V = ΠV + VΠ`) is purely off-diagonal: `ΠVΠ = 0`, `(1−Π)V(1−Π) = 0`, `V = ΠV(1−Π) + (1−Π)VΠ` | `tangent_offdiag` |
 | Theorem 3.2 | `Tr V² = 2 Tr(XX†)` for `V = [[0, X], [X†, 0]]` | `trace_sq_offdiag` |
 | Sec. 2 | `Q(V,W) = Tr((VΠ)†(WΠ))`; the pairing is Hermitian and equals a sum of entries | `Q_eq`, `frob_herm`, `frob_sum` |
-| Theorem 6.1 | The Gram matrix of `Q` is positive semidefinite, so `(Im Q(V,W))² ≤ g(V,V)g(W,W) − g(V,W)²`, i.e. `|Ω| ≤ 2√(det g)` | `gram_entries`, `gram_det_nonneg`, `metric_control` |
+| Theorem 6.1 | The Gram matrix of `Q` is positive semidefinite, so `(Im Q(V,W))² ≤ g(V,V)g(W,W) − g(V,W)²`, i.e. `\|Ω\| ≤ 2√(det g)` | `gram_entries`, `gram_det_nonneg`, `metric_control` |
 | Corollary 6.1 | Metric rigidity `g(V,V) = 0` forces `Ω(V,W) = 0` | `rigidity_kills_curvature` |
-| Sec. 6, two-level case | Lagrange's identity `|A|²|B|² − (A·B)² = |A×B|²`, the saturation step | `lagrange_identity` |
+| Sec. 6, two-level case | Lagrange's identity `\|A\|²\|B\|² − (A·B)² = \|A×B\|²`, the saturation step | `lagrange_identity` |
 | Lemma 3.1 | The partial fraction whose residue gives the inverse-gap weight | `partial_fraction` |
 
 Theorem 6.1 is bridge B1 of the Operator-First Atlas ("curvature cannot exceed what the metric

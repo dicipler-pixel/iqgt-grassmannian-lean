@@ -127,7 +127,7 @@ theorem metric_control (P V W : Matrix n n ℂ) (hP : Pᴴ = P) (hPP : P * P = P
     mul_zero, sub_zero] at hre
   nlinarith [hre]
 
-/-- **Corollary 6.1.** Metric rigidity `g(V,V) = 0` forces `Ω(V,W) = 0`, given `g(W,W) ≥ 0`. -/
+/-- **Corollary 6.1.** Metric rigidity `g(V,V) = 0` forces `Ω(V,W) = 0`. -/
 theorem rigidity_kills_curvature (P V W : Matrix n n ℂ) (hP : Pᴴ = P) (hPP : P * P = P)
     (hV : Vᴴ = V) (hW : Wᴴ = W) (h0 : (Q P V V).re = 0) : (Q P V W).im = 0 := by
   have h := metric_control P V W hP hPP hV hW
