@@ -175,4 +175,43 @@ theorem sld_kernel_block {P L : R} (hP : IsIdempotentElem P) :
 
 end Mixed
 
+section GapLaw
+variable {R : Type*} [Ring R]
+
+/-- §10.2, the gap identity behind the tip/tail law (finite Davis–Kahan). If `P` is a spectral
+projector of `A` and `Q` the complementary spectral projector of `A' = A + E` (each commuting with
+its operator), then `(QA'Q)(QP) − (QP)(PAP) = QEP`. The block `QP` measures how far the subspace
+moved; this Sylvester equation is what turns a gap into a bound on it. -/
+theorem gap_identity {P Q A A' : R} (hP : IsIdempotentElem P) (hQ : IsIdempotentElem Q)
+    (hA : A * P = P * A) (hA' : A' * Q = Q * A') :
+    (Q * A' * Q) * (Q * P) - (Q * P) * (P * A * P) = Q * (A' - A) * P := by
+  have hPP : P * P = P := hP.eq
+  have hQQ : Q * Q = Q := hQ.eq
+  have e1 : Q * A' * Q * (Q * P) = Q * A' * P := by
+    calc Q * A' * Q * (Q * P) = Q * A' * (Q * Q) * P := by noncomm_ring
+      _ = Q * A' * Q * P := by rw [hQQ]
+      _ = Q * (A' * Q) * P := by noncomm_ring
+      _ = Q * (Q * A') * P := by rw [hA']
+      _ = Q * Q * A' * P := by noncomm_ring
+      _ = Q * A' * P := by rw [hQQ]
+  have e2 : Q * P * (P * A * P) = Q * A * P := by
+    calc Q * P * (P * A * P) = Q * (P * P) * A * P := by noncomm_ring
+      _ = Q * P * A * P := by rw [hPP]
+      _ = Q * (P * A) * P := by noncomm_ring
+      _ = Q * (A * P) * P := by rw [hA]
+      _ = Q * A * (P * P) := by noncomm_ring
+      _ = Q * A * P := by rw [hPP]
+  rw [e1, e2]; noncomm_ring
+
+end GapLaw
+
+/-- §10.2, the tip is free at a tie: inside an exactly degenerate eigenspace every combination is
+again an eigenvector, so no single vector is selected. Only the subspace is determined. -/
+theorem tip_free_at_tie {K V : Type*} [CommRing K] [AddCommGroup V] [Module K V]
+    (A : V →ₗ[K] V) (c a b : K) {v w : V} (hv : A v = c • v) (hw : A w = c • w) :
+    A (a • v + b • w) = c • (a • v + b • w) := by
+  first
+  | (rw [map_add, map_smul, map_smul, hv, hw, smul_add, smul_comm a c v, smul_comm b c w])
+  | (simp [hv, hw, smul_smul, mul_comm])
+
 end IqgtGrassmannian.Rebuild
