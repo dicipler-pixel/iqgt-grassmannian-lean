@@ -12,6 +12,9 @@ in Mathlib's language. Numbering follows the rebuilt paper. `Basic.lean` is unch
   so `F_Q = 4 g / k`.
 * §5 Theorem 5.3: the zero-temperature band (a convex reweighting of the metric) and the
   length form `(Σ √gᵢ)² ≤ N Σ gᵢ` (Cauchy–Schwarz).
+* §3 Proposition 3.5: the Hilbert–Schmidt step of the gap bound.
+* §12.4 the sofic bridge: the sandwich `Σ sin²θ ≤ Σ θ² ≤ (π/2)² Σ sin²θ` and the paired
+  cycle Gram eigenvalues.
 -/
 import Mathlib
 
@@ -219,5 +222,82 @@ theorem tip_free_at_tie {K V : Type*} [CommRing K] [AddCommGroup V] [Module K V]
 theorem second_resolvent {R : Type*} [Ring R] (a b : Rˣ) :
     ((a⁻¹ : Rˣ) : R) - ((b⁻¹ : Rˣ) : R) = ((a⁻¹ : Rˣ) : R) * ((b : R) - (a : R)) * ((b⁻¹ : Rˣ) : R) := by
   rw [mul_sub, sub_mul, mul_assoc, Units.mul_inv, mul_one, Units.inv_mul, one_mul]
+
+section Bounds
+variable {ι : Type*}
+
+/-- §3, Proposition 3.5, the Hilbert–Schmidt step of the gap bound: dividing each entry of
+`Π δΣ (1-Π)` by a gap of modulus at least `Δ` divides the sum of squared entries by at least `Δ²`.
+This is the step that bounds the Hilbert–Schmidt norm (dividing entries does not, in general,
+bound the operator norm). -/
+theorem gap_bound_hs_step (s : Finset ι) (a d : ι → ℝ) (Δ : ℝ) (hΔ : 0 < Δ)
+    (hd : ∀ i ∈ s, Δ ≤ |d i|) :
+    ∑ i ∈ s, a i ^ 2 / d i ^ 2 ≤ (∑ i ∈ s, a i ^ 2) / Δ ^ 2 := by
+  rw [Finset.sum_div]
+  apply Finset.sum_le_sum
+  intro i hi
+  have hdi := hd i hi
+  have hm := mul_le_mul hdi hdi hΔ.le (abs_nonneg (d i))
+  have h1 : Δ ^ 2 ≤ d i ^ 2 := by nlinarith [sq_abs (d i)]
+  have h2 : 0 < Δ ^ 2 := by positivity
+  first
+  | exact div_le_div_of_nonneg_left (sq_nonneg (a i)) h2 h1
+  | (rw [div_eq_mul_inv, div_eq_mul_inv]
+     exact mul_le_mul_of_nonneg_left ((inv_le_inv₀ (lt_of_lt_of_le h2 h1) h2).mpr h1) (sq_nonneg (a i)))
+
+/-- §12.4, lower half of the sandwich, one principal angle: `sin² θ ≤ θ²` on `[0, π/2]`. -/
+theorem sin_sq_le_angle_sq (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
+    Real.sin x ^ 2 ≤ x ^ 2 := by
+  have hs : Real.sin x ≤ x := Real.sin_le h0
+  have hpos : 0 ≤ Real.sin x :=
+    Real.sin_nonneg_of_nonneg_of_le_pi h0 (by linarith [Real.pi_pos])
+  nlinarith [mul_le_mul hs hs hpos h0]
+
+/-- §12.4, upper half of the sandwich, one principal angle (Jordan's inequality):
+`θ² ≤ (π/2)² sin² θ` on `[0, π/2]`. -/
+theorem angle_sq_le_jordan (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
+    x ^ 2 ≤ (Real.pi / 2) ^ 2 * Real.sin x ^ 2 := by
+  have hpi : 0 < Real.pi := Real.pi_pos
+  have hj : 2 / Real.pi * x ≤ Real.sin x := by
+    first
+    | exact Real.mul_le_sin h0 h1
+    | exact Real.two_div_pi_mul_le_sin h0 h1
+  have hpi' : Real.pi ≠ 0 := hpi.ne'
+  have he : Real.pi / 2 * (2 / Real.pi * x) = x := by
+    first
+    | (field_simp; done)
+    | (field_simp; ring)
+    | (rw [← mul_assoc, div_mul_div_comm, mul_comm Real.pi 2, div_self (by positivity), one_mul])
+  have hx : x ≤ Real.pi / 2 * Real.sin x := by
+    calc x = Real.pi / 2 * (2 / Real.pi * x) := he.symm
+      _ ≤ Real.pi / 2 * Real.sin x := mul_le_mul_of_nonneg_left hj (by positivity)
+  calc x ^ 2 = x * x := sq x
+    _ ≤ (Real.pi / 2 * Real.sin x) * (Real.pi / 2 * Real.sin x) :=
+        mul_le_mul hx hx h0 (le_trans h0 hx)
+    _ = (Real.pi / 2) ^ 2 * Real.sin x ^ 2 := by ring
+
+/-- §12.4, the sandwich between the Hamming count and the intrinsic length: over principal
+angles in `[0, π/2]`, `Σ sin² θ ≤ Σ θ² ≤ (π/2)² Σ sin² θ`. With `d_H = (2/n) Σ sin² θ` this is
+`d_H / 2 ≤ (1/n) Σ θ² ≤ (π²/8) d_H`. -/
+theorem sofic_sandwich (s : Finset ι) (θ : ι → ℝ) (h0 : ∀ i ∈ s, 0 ≤ θ i)
+    (h1 : ∀ i ∈ s, θ i ≤ Real.pi / 2) :
+    ∑ i ∈ s, Real.sin (θ i) ^ 2 ≤ ∑ i ∈ s, θ i ^ 2 ∧
+    ∑ i ∈ s, θ i ^ 2 ≤ (Real.pi / 2) ^ 2 * ∑ i ∈ s, Real.sin (θ i) ^ 2 := by
+  refine ⟨Finset.sum_le_sum fun i hi => sin_sq_le_angle_sq _ (h0 i hi) (h1 i hi), ?_⟩
+  rw [Finset.mul_sum]
+  exact Finset.sum_le_sum fun i hi => angle_sq_le_jordan _ (h0 i hi) (h1 i hi)
+
+/-- §12.4, the displacement Gram eigenvalues of an `ℓ`-cycle come in pairs:
+`2 sin²(π(ℓ-j)/ℓ) = 2 sin²(πj/ℓ)`, the sine and cosine of one cyclic motion. -/
+theorem cycle_gram_pair (l j : ℝ) (hl : l ≠ 0) :
+    2 * Real.sin (Real.pi * (l - j) / l) ^ 2 = 2 * Real.sin (Real.pi * j / l) ^ 2 := by
+  have h : Real.pi * (l - j) / l = Real.pi - Real.pi * j / l := by
+    first
+    | (field_simp; done)
+    | (field_simp; ring)
+    | (rw [mul_sub, sub_div, mul_div_assoc, div_self hl, mul_one])
+  rw [h, Real.sin_pi_sub]
+
+end Bounds
 
 end IqgtGrassmannian.Rebuild
