@@ -4,7 +4,7 @@
 
 [![Lean proof check](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml/badge.svg)](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml)
 ![Lean](https://img.shields.io/badge/Lean-v4.34.1-blue)
-![Theorems](https://img.shields.io/badge/theorems-11-2EA043)
+![Theorems](https://img.shields.io/badge/theorems-59-2EA043)
 ![sorry](https://img.shields.io/badge/sorry-0-2EA043)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)
 ![Text: CC BY 4.0](https://img.shields.io/badge/text-CC%20BY%204.0-lightgrey)
@@ -35,6 +35,18 @@ every finite dimension.
 | Sec. 6, two-level case | Lagrange's identity `\|A\|²\|B\|² − (A·B)² = \|A×B\|²`, the saturation step | `lagrange_identity` |
 | Lemma 3.1 | The partial fraction whose residue gives the inverse-gap weight | `partial_fraction` |
 
+### Added with the section-by-section rebuild (numbering of the rebuilt paper)
+
+| Paper | Result | Theorem |
+| :--- | :--- | :--- |
+| §2, converse of (2.1) | Both diagonal blocks zero ⇒ `V = ΠV + VΠ`; one block alone is not enough (false control) | `Rebuild.tangent_of_blocks` |
+| §2 | `−V` is tangent at `1 − Π`, so `Π` and `1 − Π` carry the same metric | `Rebuild.tangent_compl` |
+| §2, Remark 2.3 | `Tr(ΠVW) + Tr(ΠWV) = Tr(VW)` once `V` is tangent; false without it (false control) | `Rebuild.trace_remark_2_3` |
+| §4.4, (4.7) | Redistribution operator `F = (1−Π)ΩΠ + ΠΩ(1−Π) = [[Ω,Π],Π]`, tangent at `Π`, and `F = 0 ⇔ ΩΠ = ΠΩ` (idempotent in any ring) | `Rebuild.redist_double_bracket`, `redist_tangent`, `redist_eq_zero_iff` |
+| §5, Lemma 5.1 | `L = 2V` solves the SLD equation; `2 Tr(ΠVV) = Tr(VV)`, so `F_Q = 4g/k` | `Rebuild.sld_two_tangent`, `two_trace_PVV` |
+| §5, Theorem 5.3 | Zero-temperature friction band; length form `(Σ√gᵢ)² ≤ N Σ gᵢ` | `Rebuild.friction_band`, `length_sq_le` |
+| §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |
+
 Theorem 6.1 is bridge B1 of the Operator-First Atlas ("curvature cannot exceed what the metric
 affords"). The file is [`IqgtGrassmannian/Basic.lean`](IqgtGrassmannian/Basic.lean). What is not
 proved is in [`LIMITATIONS.md`](LIMITATIONS.md).
@@ -43,7 +55,7 @@ proved is in [`LIMITATIONS.md`](LIMITATIONS.md).
 
 Every push runs [the proof check](.github/workflows/build.yml): build against Lean v4.34.1 and
 Mathlib v4.34.1, independent replay in Lean's kernel checker, an axiom audit (only `propext`,
-`Classical.choice`, `Quot.sound`), and three deliberately false statements that must fail.
+`Classical.choice`, `Quot.sound`), and five deliberately false statements that must fail.
 
 ## The paper
 
