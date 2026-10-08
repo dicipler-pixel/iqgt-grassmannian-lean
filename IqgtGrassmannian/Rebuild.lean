@@ -214,4 +214,10 @@ theorem tip_free_at_tie {K V : Type*} [CommRing K] [AddCommGroup V] [Module K V]
   | (rw [map_add, map_smul, map_smul, hv, hw, smul_add, smul_comm a c v, smul_comm b c w])
   | (simp [hv, hw, smul_smul, mul_comm])
 
+/-- Appendix A, the second resolvent identity with its sign: for invertible `a = z - Σ` and
+`b = z - Σ - δΣ`, `a⁻¹ - b⁻¹ = a⁻¹ (b - a) b⁻¹`, and `b - a = -δΣ`. Holds in any ring. -/
+theorem second_resolvent {R : Type*} [Ring R] (a b : Rˣ) :
+    ((a⁻¹ : Rˣ) : R) - ((b⁻¹ : Rˣ) : R) = ((a⁻¹ : Rˣ) : R) * ((b : R) - (a : R)) * ((b⁻¹ : Rˣ) : R) := by
+  rw [mul_sub, sub_mul, mul_assoc, Units.mul_inv, mul_one, Units.inv_mul, one_mul]
+
 end IqgtGrassmannian.Rebuild
