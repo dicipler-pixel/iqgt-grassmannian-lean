@@ -4,7 +4,7 @@
 
 [![Lean proof check](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml/badge.svg)](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml)
 ![Lean](https://img.shields.io/badge/Lean-v4.34.1-blue)
-![Theorems](https://img.shields.io/badge/theorems-72-2EA043)
+![Theorems](https://img.shields.io/badge/theorems-73-2EA043)
 ![sorry](https://img.shields.io/badge/sorry-0-2EA043)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)
 ![Text: CC BY 4.0](https://img.shields.io/badge/text-CC%20BY%204.0-lightgrey)
@@ -47,12 +47,13 @@ every finite dimension.
 | §5, Theorem 5.3 | Zero-temperature friction band; length form `(Σ√gᵢ)² ≤ N Σ gᵢ` | `Rebuild.friction_band`, `length_sq_le` |
 | §7.2 | Friction read from the response function, pair by pair: `ζ_rot = τ[α(0) − α(i/τ)]` | `Rebuild.friction_response_pair` |
 | §7.5 | The η-regularised pair metric stays below `|A|²/η²` at a closed gap | `Rebuild.eta_regularised_bound` |
-| §8.3 | Total internal reflection: `C = g∥ sin²θ ≤ g∥`, so a stratum with `g∥ = 0` is reached only with `C = 0` | `Rebuild.reflection_bound`, `stratum_needs_zero` |
+| §8.3 (geodesic refraction) | Total internal reflection: `C = g∥ sin²θ ≤ g∥`, so a stratum with `g∥ = 0` is reached only with `C = 0` | `Rebuild.reflection_bound`, `stratum_needs_zero` |
 | §9, Remark 9.2 | `(1−Π)(LΠ + ΠL)(1−Π) = 0`: a variation with a kernel–kernel block cannot solve the SLD equation | `Rebuild.sld_kernel_block` |
 | §10.2 | Gap identity `(QA′Q)(QP) − (QP)(PAP) = Q(A′−A)P` behind the tip/tail law | `Rebuild.gap_identity` |
-| §10.2 | At an exact tie every combination is an eigenvector: the tip is free, only the subspace is fixed | `Rebuild.tip_free_at_tie` |
+| §10.2, Remark 10.2 | At an exact tie every combination is an eigenvector: the tip is free, only the subspace is fixed | `Rebuild.tip_free_at_tie` |
 | §3, Proposition 3.5 | Hilbert–Schmidt step of the gap bound: `Σ aᵢ²/dᵢ² ≤ (Σ aᵢ²)/Δ²` when every `|dᵢ| ≥ Δ` | `Rebuild.gap_bound_hs_step` |
 | §12.4, sofic bridge | Per angle on `[0, π/2]`: `sin²θ ≤ θ²` and Jordan's `θ² ≤ (π/2)² sin²θ`; summed, `Σ sin²θ ≤ Σ θ² ≤ (π/2)² Σ sin²θ`, i.e. `d_H/2 ≤ (1/n)Σθ² ≤ (π²/8) d_H` | `Rebuild.sin_sq_le_angle_sq`, `angle_sq_le_jordan`, `sofic_sandwich` |
+| §12.4 | Chordal distance of projectors: `Tr((P−Q)²) = Tr P + Tr Q − 2 Tr(PQ)` for idempotents, i.e. `2k − 2Tr(PQ)` at equal rank | `Rebuild.hs_dist_proj` |
 | §12.4 | Cycle Gram eigenvalues pair up: `2 sin²(π(ℓ−j)/ℓ) = 2 sin²(πj/ℓ)` | `Rebuild.cycle_gram_pair` |
 | App. A | Second resolvent identity `a⁻¹ − b⁻¹ = a⁻¹(b − a)b⁻¹` (the minus sign of (A.2)) | `Rebuild.second_resolvent` |
 | §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |

@@ -13,7 +13,7 @@ in Mathlib's language. Numbering follows the rebuilt paper. `Basic.lean` is unch
 * §5 Theorem 5.3: the zero-temperature band (a convex reweighting of the metric) and the
   length form `(Σ √gᵢ)² ≤ N Σ gᵢ` (Cauchy–Schwarz).
 * §3 Proposition 3.5: the Hilbert–Schmidt step of the gap bound.
-* §12.4 the sofic bridge: the sandwich `Σ sin²θ ≤ Σ θ² ≤ (π/2)² Σ sin²θ` and the paired
+* §12.4 the sofic bridge: the chordal distance `Tr((P-Q)²) = Tr P + Tr Q - 2 Tr(PQ)`, the sandwich `Σ sin²θ ≤ Σ θ² ≤ (π/2)² Σ sin²θ` and the paired
   cycle Gram eigenvalues.
 -/
 import Mathlib
@@ -110,6 +110,17 @@ theorem trace_remark_2_3 {P V W : Matrix n n 𝕜} (hV : IsTangent P V) :
 theorem two_trace_PVV {P V : Matrix n n 𝕜} (hV : IsTangent P V) :
     2 * trace (P * V * V) = trace (V * V) := by
   rw [two_mul]; exact trace_remark_2_3 (W := V) hV
+
+/-- §12.4, the chordal distance between two projectors: for idempotent matrices,
+`Tr((P - Q)²) = Tr P + Tr Q - 2 Tr(PQ)`. For orthogonal projectors of equal rank `k` this is
+`2k - 2 Tr(PQ) = 2 Σ sin²θⱼ`, the identity behind the Hamming count of a permutation. -/
+theorem hs_dist_proj {P Q : Matrix n n 𝕜} (hP : P * P = P) (hQ : Q * Q = Q) :
+    trace ((P - Q) * (P - Q)) = trace P + trace Q - 2 * trace (P * Q) := by
+  have e : (P - Q) * (P - Q) = P * P - P * Q - Q * P + Q * Q := by noncomm_ring
+  rw [e, hP, hQ]
+  first
+  | (simp only [trace_add, trace_sub, trace_mul_comm Q P]; ring)
+  | (simp [trace_add, trace_sub, trace_mul_comm Q P]; ring)
 
 end Trace
 
