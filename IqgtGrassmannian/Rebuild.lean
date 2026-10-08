@@ -133,4 +133,31 @@ theorem length_sq_le (s : Finset ι) (g : ι → ℝ) (hg : ∀ i ∈ s, 0 ≤ g
         congr 1; exact Finset.sum_congr rfl fun i hi => Real.sq_sqrt (hg i hi)
 
 end Friction
+section Transport
+
+/-- §7.2: friction read from the response function, one pair at a time:
+`2Δg·τ/(1+τ²Δ²) = τ·[2Δg − 2Δ³g/(Δ² + 1/τ²)]`, i.e. `ζ_rot = τ[α(0) − α(i/τ)]`. -/
+theorem friction_response_pair (Δ g τ : ℝ) (hτ : 0 < τ) :
+    2 * Δ * g * τ / (1 + τ ^ 2 * Δ ^ 2) = τ * (2 * Δ * g - 2 * Δ ^ 3 * g / (Δ ^ 2 + 1 / τ ^ 2)) := by
+  have h1 : (0 : ℝ) < 1 + τ ^ 2 * Δ ^ 2 := by positivity
+  have h2 : (0 : ℝ) < Δ ^ 2 + 1 / τ ^ 2 := by positivity
+  field_simp
+  ring
+
+/-- §7.5: the regularised pair metric is bounded at a closed gap: `a/(Δ² + η²) ≤ a/η²` for `a ≥ 0`. -/
+theorem eta_regularised_bound (a Δ η : ℝ) (ha : 0 ≤ a) (hη : 0 < η) :
+    a / (Δ ^ 2 + η ^ 2) ≤ a / η ^ 2 := by
+  apply div_le_div_of_nonneg_left ha (by positivity)
+  nlinarith [sq_nonneg Δ]
+
+/-- §8.3, total internal reflection: if `C = g∥ sin²θ` with `sin²θ ≤ 1` and `g∥ ≥ 0`, then the
+trajectory only visits `g∥ ≥ C`; at a stratum `g∥ = 0` it would need `C = 0`. -/
+theorem reflection_bound (gpar s2 : ℝ) (hg : 0 ≤ gpar) (hs : 0 ≤ s2) (hs1 : s2 ≤ 1) :
+    gpar * s2 ≤ gpar := by
+  nlinarith
+
+theorem stratum_needs_zero (s2 : ℝ) : (0 : ℝ) * s2 = 0 := zero_mul s2
+
+end Transport
+
 end IqgtGrassmannian.Rebuild

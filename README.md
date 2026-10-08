@@ -4,7 +4,7 @@
 
 [![Lean proof check](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml/badge.svg)](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml)
 ![Lean](https://img.shields.io/badge/Lean-v4.34.1-blue)
-![Theorems](https://img.shields.io/badge/theorems-59-2EA043)
+![Theorems](https://img.shields.io/badge/theorems-63-2EA043)
 ![sorry](https://img.shields.io/badge/sorry-0-2EA043)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)
 ![Text: CC BY 4.0](https://img.shields.io/badge/text-CC%20BY%204.0-lightgrey)
@@ -45,6 +45,9 @@ every finite dimension.
 | §4.4, (4.7) | Redistribution operator `F = (1−Π)ΩΠ + ΠΩ(1−Π) = [[Ω,Π],Π]`, tangent at `Π`, and `F = 0 ⇔ ΩΠ = ΠΩ` (idempotent in any ring) | `Rebuild.redist_double_bracket`, `redist_tangent`, `redist_eq_zero_iff` |
 | §5, Lemma 5.1 | `L = 2V` solves the SLD equation; `2 Tr(ΠVV) = Tr(VV)`, so `F_Q = 4g/k` | `Rebuild.sld_two_tangent`, `two_trace_PVV` |
 | §5, Theorem 5.3 | Zero-temperature friction band; length form `(Σ√gᵢ)² ≤ N Σ gᵢ` | `Rebuild.friction_band`, `length_sq_le` |
+| §7.2 | Friction read from the response function, pair by pair: `ζ_rot = τ[α(0) − α(i/τ)]` | `Rebuild.friction_response_pair` |
+| §7.5 | The η-regularised pair metric stays below `|A|²/η²` at a closed gap | `Rebuild.eta_regularised_bound` |
+| §8.3 | Total internal reflection: `C = g∥ sin²θ ≤ g∥`, so a stratum with `g∥ = 0` is reached only with `C = 0` | `Rebuild.reflection_bound`, `stratum_needs_zero` |
 | §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |
 
 Theorem 6.1 is bridge B1 of the Operator-First Atlas ("curvature cannot exceed what the metric
