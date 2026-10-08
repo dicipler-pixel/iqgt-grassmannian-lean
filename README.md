@@ -4,7 +4,7 @@
 
 [![Lean proof check](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml/badge.svg)](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml)
 ![Lean](https://img.shields.io/badge/Lean-v4.34.1-blue)
-![Theorems](https://img.shields.io/badge/theorems-67-2EA043)
+![Theorems](https://img.shields.io/badge/theorems-72-2EA043)
 ![sorry](https://img.shields.io/badge/sorry-0-2EA043)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)
 ![Text: CC BY 4.0](https://img.shields.io/badge/text-CC%20BY%204.0-lightgrey)
@@ -51,8 +51,14 @@ every finite dimension.
 | §9, Remark 9.2 | `(1−Π)(LΠ + ΠL)(1−Π) = 0`: a variation with a kernel–kernel block cannot solve the SLD equation | `Rebuild.sld_kernel_block` |
 | §10.2 | Gap identity `(QA′Q)(QP) − (QP)(PAP) = Q(A′−A)P` behind the tip/tail law | `Rebuild.gap_identity` |
 | §10.2 | At an exact tie every combination is an eigenvector: the tip is free, only the subspace is fixed | `Rebuild.tip_free_at_tie` |
+| §3, Proposition 3.5 | Hilbert–Schmidt step of the gap bound: `Σ aᵢ²/dᵢ² ≤ (Σ aᵢ²)/Δ²` when every `|dᵢ| ≥ Δ` | `Rebuild.gap_bound_hs_step` |
+| §12.4, sofic bridge | Per angle on `[0, π/2]`: `sin²θ ≤ θ²` and Jordan's `θ² ≤ (π/2)² sin²θ`; summed, `Σ sin²θ ≤ Σ θ² ≤ (π/2)² Σ sin²θ`, i.e. `d_H/2 ≤ (1/n)Σθ² ≤ (π²/8) d_H` | `Rebuild.sin_sq_le_angle_sq`, `angle_sq_le_jordan`, `sofic_sandwich` |
+| §12.4 | Cycle Gram eigenvalues pair up: `2 sin²(π(ℓ−j)/ℓ) = 2 sin²(πj/ℓ)` | `Rebuild.cycle_gram_pair` |
 | App. A | Second resolvent identity `a⁻¹ − b⁻¹ = a⁻¹(b − a)b⁻¹` (the minus sign of (A.2)) | `Rebuild.second_resolvent` |
 | §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |
+
+The paper itself, its numerical checks, figures, data and the Grassmannian Mixer are in
+[`paper/`](paper/).
 
 Theorem 6.1 is bridge B1 of the Operator-First Atlas ("curvature cannot exceed what the metric
 affords"). The file is [`IqgtGrassmannian/Basic.lean`](IqgtGrassmannian/Basic.lean). What is not

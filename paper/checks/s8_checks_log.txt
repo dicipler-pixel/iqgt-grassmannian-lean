@@ -1,0 +1,14 @@
+PASS R0 numerical metric from Pi equals diag(k^2 sin^2 y /4, 1/4): 5.418e-10 (kill if >= 1e-08) 
+PASS R1 principal angle between neighbouring projectors = sqrt(g_par) dx (eigenvector overlaps, no trace identity): 9.403e-09 (kill if >= 1e-06) 
+     drifts: {'sqrt(gpar) sin': '8.64e-13', 'gpar sin^2': '1.73e-12', 'lmin sin^2': '1.33e+00', 'sin^2/lmin': '3.30e+00'}
+PASS R2 Clairaut: g_par sin^2(theta) conserved along a free geodesic: 1.727e-12 (kill if >= 1e-08) 
+PASS R3 opposite: index = lambda_min is NOT conserved here (kill if conserved): 7.544e-04 (kill if >= 1) 
+PASS R4 opposite: index = 1/lambda_min is NOT conserved (kill if conserved): 3.033e-04 (kill if >= 1) 
+     y crosses the lambda_min branch switch sin y = 1/k at y = 0.33984 ; trajectory y range 0.13 2.513
+PASS R5 total internal reflection: integrated turning point = predicted root of g_par = C: 2.276e-15 (kill if >= 1e-08) C=0.23600011 predicted 0.32981248 observed 0.32981248, sin(theta) at turn 1.00000000
+PASS R6 no oblique geodesic reaches the stratum y=0 (min turning y over 20..89 deg): 5.146e-06 (kill if >= 1) turning y [0.1943 0.3298 0.4473 0.5372 0.5999]
+PASS R6b opposite: the exactly normal geodesic (C=0) does reach y=0: 0.000e+00 (kill if >= 1e-09) min y -1.80e+00
+PASS R7 polar stratum: Pi does not move along the locus (kernel = along-interface direction): 0.000e+00 (kill if >= 1e-14) 
+PASS R8 fold stratum: metric degenerates at x=0 (d_x Pi = 0) ...: 0.000e+00 (kill if >= 1e-09) 
+PASS R8b ... while Pi moves along the locus (|d_y Pi| > 0): 2.030e-03 (kill if >= 1) |d_y Pi| = 0.493
+SUMMARY 11 / 11

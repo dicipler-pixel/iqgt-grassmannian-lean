@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="427.32pt" height="230.616pt" viewBox="0 0 427.32 230.616" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-08T11:55:01.348469</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 230.616 
+L 427.32 230.616 
+L 427.32 0 
+L 0 0 
+z
+" style="fill: #0c1220"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 84.6225 223.416 
+L 84.6225 7.2 
+" clip-path="url(#p115b8a28aa)" style="fill: none; stroke: #1a2740; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 213.66 223.416 
+L 213.66 7.2 
+" clip-path="url(#p115b8a28aa)" style="fill: none; stroke: #1a2740; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 342.6975 223.416 
+L 342.6975 7.2 
+" clip-path="url(#p115b8a28aa)" style="fill: none; stroke: #1a2740; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 84.6225 75.6684 
+L 213.66 75.6684 
+L 342.6975 75.6684 
+" clip-path="url(#p115b8a28aa)" style="fill: none; stroke: #4cc3ff; stroke-opacity: 0.6; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 213.66 162.1548 
+L 342.6975 162.1548 
+" clip-path="url(#p115b8a28aa)" style="fill: none; stroke: #a99bff; stroke-opacity: 0.6; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'Newsreader', 'DejaVu Serif', serif; text-anchor: middle; fill: #7088a8" x="84.6225" y="18.0108" transform="rotate(-0 84.6225 18.0108)">Δ⁻¹</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'Newsreader', 'DejaVu Serif', serif; text-anchor: middle; fill: #7088a8" x="213.66" y="18.0108" transform="rotate(-0 213.66 18.0108)">Δ⁰</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'Newsreader', 'DejaVu Serif', serif; text-anchor: middle; fill: #7088a8" x="342.6975" y="18.0108" transform="rotate(-0 342.6975 18.0108)">Δ¹</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #4cc3ff" transform="translate(13.651875 71.924318)">metric</text>
+    <text style="font-size: 11px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #4cc3ff" transform="translate(13.651875 85.127326)">family  gₙ</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #a99bff" transform="translate(13.651875 158.410718)">curvature</text>
+    <text style="font-size: 11px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #a99bff" transform="translate(13.651875 171.613726)">family  Ωₙ</text>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m2dfaa443a7" d="M 0 5.91608 
+C 1.568963 5.91608 3.073876 5.292724 4.1833 4.1833 
+C 5.292724 3.073876 5.91608 1.568963 5.91608 0 
+C 5.91608 -1.568963 5.292724 -3.073876 4.1833 -4.1833 
+C 3.073876 -5.292724 1.568963 -5.91608 0 -5.91608 
+C -1.568963 -5.91608 -3.073876 -5.292724 -4.1833 -4.1833 
+C -5.292724 -3.073876 -5.91608 -1.568963 -5.91608 0 
+C -5.91608 1.568963 -5.292724 3.073876 -4.1833 4.1833 
+C -3.073876 5.292724 -1.568963 5.91608 0 5.91608 
+z
+" style="stroke: #4cc3ff"/>
+    </defs>
+    <g clip-path="url(#p115b8a28aa)">
+     <use xlink:href="#m2dfaa443a7" x="84.6225" y="75.6684" style="fill: #4cc3ff; stroke: #4cc3ff"/>
+    </g>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(44.440063 30.992874)">Berry connection</text>
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(54.051906 42.03539)">polarizability</text>
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(33.958531 53.077905)">(nonlinear Hall input)</text>
+   </g>
+   <g id="PathCollection_2">
+    <g clip-path="url(#p115b8a28aa)">
+     <use xlink:href="#m2dfaa443a7" x="213.66" y="75.6684" style="fill: #4cc3ff; stroke: #4cc3ff"/>
+    </g>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; text-anchor: middle; fill: #b9dcff" x="213.66" y="53.998804" transform="rotate(-0 213.66 53.998804)">quantum metric</text>
+   </g>
+   <g id="PathCollection_3">
+    <g clip-path="url(#p115b8a28aa)">
+     <use xlink:href="#m2dfaa443a7" x="342.6975" y="75.6684" style="fill: #4cc3ff; stroke: #4cc3ff"/>
+    </g>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(307.3465 30.992874)">static response</text>
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(321.809906 42.03539)">−E₀″ and</text>
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(305.623656 53.077905)">rotation friction</text>
+   </g>
+   <g id="PathCollection_4">
+    <defs>
+     <path id="mad58ebb65f" d="M 0 5.91608 
+C 1.568963 5.91608 3.073876 5.292724 4.1833 4.1833 
+C 5.292724 3.073876 5.91608 1.568963 5.91608 0 
+C 5.91608 -1.568963 5.292724 -3.073876 4.1833 -4.1833 
+C 3.073876 -5.292724 1.568963 -5.91608 0 -5.91608 
+C -1.568963 -5.91608 -3.073876 -5.292724 -4.1833 -4.1833 
+C -5.292724 -3.073876 -5.91608 -1.568963 -5.91608 0 
+C -5.91608 1.568963 -5.292724 3.073876 -4.1833 4.1833 
+C -3.073876 5.292724 -1.568963 5.91608 0 5.91608 
+z
+" style="stroke: #a99bff"/>
+    </defs>
+    <g clip-path="url(#p115b8a28aa)">
+     <use xlink:href="#mad58ebb65f" x="213.66" y="162.1548" style="fill: #a99bff; stroke: #a99bff"/>
+    </g>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; text-anchor: middle; fill: #b9dcff" x="213.66" y="190.766244" transform="rotate(-0 213.66 190.766244)">Berry curvature</text>
+   </g>
+   <g id="PathCollection_5">
+    <g clip-path="url(#p115b8a28aa)">
+     <use xlink:href="#mad58ebb65f" x="342.6975" y="162.1548" style="fill: #a99bff; stroke: #a99bff"/>
+    </g>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(306.668719 191.687861)">orbital-moment</text>
+    <text style="font-size: 9.2px; font-family: 'Newsreader', 'DejaVu Serif', serif; fill: #b9dcff" transform="translate(327.832313 202.730377)">kernel</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10px; font-family: 'Newsreader', 'DejaVu Serif', serif; text-anchor: middle; fill: #e0b85c" x="213.66" y="118.9116" transform="rotate(-0 213.66 118.9116)">same cross-gap pairs  ⟨0|∂Σ|n⟩,  different power of the gap</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p115b8a28aa">
+   <rect x="7.2" y="7.2" width="412.92" height="216.216"/>
+  </clipPath>
+ </defs>
+</svg>

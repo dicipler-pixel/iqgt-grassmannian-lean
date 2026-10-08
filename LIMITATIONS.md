@@ -19,3 +19,11 @@ Lean proves exactly the statements written, under exactly the hypotheses written
 * The redistribution flow `Π̇ = [[Ω,Π],Π]` (Brockett's double-bracket flow) is not formalized; only
   the operator identities are. Neither is the pullback to parameter space (Sec. 4).
 * `Core.lean` is checked against a minimal ring declared in the file, with no library.
+* Proposition 3.5: only the scalar Hilbert–Schmidt step (a finite sum of squared entries divided by
+  gaps of modulus at least `Δ`) is formalized; the identification of those entries with the
+  resolvent formula (3.2) is not.
+* Section 12.4: the sandwich between the Hamming count and the intrinsic length and the pairing of
+  the cycle Gram eigenvalues are formalized as statements about real angles. The identity
+  `d_H = (2/n) Σ sin²θ` between permutation graphs and principal angles, and the geodesic length
+  `√Σθ²`, are checked numerically (`paper/checks/sofic_bridge.py`), not in Lean.
+

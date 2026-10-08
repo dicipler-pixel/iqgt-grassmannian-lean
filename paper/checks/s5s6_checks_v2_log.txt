@@ -1,0 +1,23 @@
+PASS W1 |Omega| <= 2 sqrt(gVV gWW - gVW^2): most negative slack over 5000 pairs: 0.000e+00 (kill if >= 1e-12) min slack 1.276e+01
+PASS W1b the weaker June-12 form |Omega| <= 2 sqrt(gVV gWW) also holds: 0.000e+00 (kill if >= 1e-12) 
+PASS W2 equality when Y = cX (c complex): 2.842e-14 (kill if >= 1e-10) 
+PASS W2b opposite: a generic pair is strictly inside (kill if equal): 1.985e-08 (kill if >= 1) 
+PASS W3 extremal partner iX: g(V,W)=0: 8.400e-16 (kill if >= 1e-12) 
+PASS W3b ... and |Omega| = 2||X||^2 = the bound: 1.421e-14 (kill if >= 1e-10) 
+PASS W4 parametric form 4 det g >= Omega^2 (kill if violated): 0.000e+00 (kill if >= 1e-12) 4det=1.0436 Om^2=0.0014
+     gap  2.00: |Omega| = 5.0000e-01, bound = 5.0000e-01
+     gap  0.20: |Omega| = 5.0000e+01, bound = 5.0000e+01
+     gap  0.02: |Omega| = 5.0000e+03, bound = 5.0000e+03
+PASS W5 near a closing gap both sides diverge together (two levels saturate at every gap): relative control, not boundedness: 0.000e+00 (kill if >= 1) see lines above
+PASS X1 k=1: L = 2 dPi solves the SLD equation for rho = Pi/k: 3.404e-16 (kill if >= 1e-09) 
+PASS X2 k=1: F_Q = 4 g / k (exact QFI formula, independent of L): 1.216e-16 (kill if >= 1e-07) F=14.614197 4g/k=14.614197
+PASS X1 k=2: L = 2 dPi solves the SLD equation for rho = Pi/k: 5.096e-16 (kill if >= 1e-09) 
+PASS X2 k=2: F_Q = 4 g / k (exact QFI formula, independent of L): 9.719e-16 (kill if >= 1e-07) F=4.569328 4g/k=4.569328
+PASS X1 k=3: L = 2 dPi solves the SLD equation for rho = Pi/k: 7.758e-17 (kill if >= 1e-09) 
+PASS X2 k=3: F_Q = 4 g / k (exact QFI formula, independent of L): 2.945e-16 (kill if >= 1e-07) F=0.376936 4g/k=0.376936
+PASS X3 unitary motion of Pi/k leaves von Neumann entropy unchanged: 1.110e-16 (kill if >= 1e-12) 
+PASS X4 driving-time bound: worst Delta_min L /(sqrt(k) sup||dS||) over 300 paths of duration 1 (must be <= 1): 3.454e-01 (kill if >= 1) 0.3454
+PASS X5a zero-temperature band min 2cD g <= zeta_rot <= max 2cD g (400 paths): 0.000e+00 (kill if >= 1e-09) 
+PASS X5b length form W_ex >= (2 min c D) L^2 / T (Cauchy-Schwarz) over 400 paths: 0.000e+00 (kill if >= 1e-09) 
+PASS X6 opposite: fast bath (tau=1e-3) gives entropy rate below g-rate, so the uncorrected bound is violated (kill if not violated): 9.242e-04 (kill if >= 1) Sigma rate 9.24e-04 vs g 1.0
+SUMMARY 19 / 19

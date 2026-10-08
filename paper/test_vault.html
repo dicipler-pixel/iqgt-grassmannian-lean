@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#070a12;color-scheme:dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark"><title>Intrinsic Quantum Geometric Tensor</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Spectral:wght@500;600&display=swap"><style>/* Layout: one reading column on a night-field ground; figures may run wider than the text; theorems set off by type, not boxes. Single dark look by request. */
+:root {
+  --ground: #070a12;      /* night sky */
+  --ground-2: #0c1220;    /* figure bed */
+  --grass: #b9dcff;       /* running text: electric blue letters */
+  --blade: #4cc3ff;       /* headings, labels */
+  --stem: #7088a8;        /* captions, rules, quiet text */
+  --soil: #1a2740;        /* hairlines */
+  --pollen: #e0b85c;      /* the one warm note: reported / open */
+  --water: #a99bff;       /* measured */
+  --rose: #ff7a85;        /* open */
+  --display: 'Spectral', 'Newsreader', Georgia, serif;
+  --body: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'DejaVu Sans Mono', monospace;
+  color-scheme: dark;
+}
+html { background: var(--ground); }
+body { background: var(--ground); color: var(--grass); font-family: var(--body); font-size: 1.09rem; line-height: 1.62; font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+.paper { max-width: 46rem; margin: 0 auto; padding-inline: 18px; padding-block: 3.2rem 5rem; }
+a { color: var(--blade); text-decoration-color: var(--soil); text-underline-offset: 3px; }
+a:hover, a:focus-visible { text-decoration-color: var(--blade); }
+:focus-visible { outline: 2px solid var(--blade); outline-offset: 2px; }
+p { margin: 0 0 1rem; }
+b { color: #e3f2ff; font-weight: 600; }
+.masthead { padding-block: 0.5rem 2.2rem; border-bottom: 1px solid var(--soil); margin-bottom: 2rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stem); margin-bottom: 1.1rem; }
+h1 { font-family: var(--display); font-weight: 600; color: var(--blade); font-size: clamp(1.75rem, 4.6vw, 2.6rem); line-height: 1.14; margin: 0 0 1.2rem; text-wrap: balance; letter-spacing: -0.005em; }
+.byline { font-family: var(--display); font-size: 1.2rem; color: var(--grass); margin: 0; }
+.dateline { font-family: var(--mono); font-size: 0.8rem; color: var(--stem); margin: 0.2rem 0 0; }
+h2 { font-family: var(--display); font-weight: 600; color: var(--blade); font-size: 1.5rem; line-height: 1.25; margin: 3.2rem 0 1.1rem; text-wrap: balance; display: flex; gap: 0.8rem; align-items: baseline; }
+h2 .num { font-family: var(--mono); font-size: 0.95rem; color: var(--stem); font-weight: 400; min-width: 1.6rem; }
+h2.small { font-size: 0.82rem; font-family: var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--stem); font-weight: 500; margin: 0 0 0.9rem; }
+h3 { font-family: var(--display); font-weight: 500; color: var(--blade); font-size: 1.17rem; margin: 2.1rem 0 0.7rem; text-wrap: balance; }
+.abstract { margin-bottom: 2.4rem; }
+.abstract p { font-size: 1.04rem; }
+.toc { border-top: 1px solid var(--soil); border-bottom: 1px solid var(--soil); padding-block: 1.4rem; margin-bottom: 1rem; }
+.toc ol { margin: 0; padding-left: 1.6rem; columns: 2 18rem; column-gap: 2rem; font-size: 0.98rem; }
+.toc li { break-inside: avoid; margin-bottom: 0.2rem; }
+.gradekey { font-size: 0.9rem; color: var(--stem); margin: 1.1rem 0 0; }
+.gr { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.06rem 0.38rem; border: 1px solid currentColor; border-radius: 3px; white-space: nowrap; vertical-align: 0.12em; }
+.gr.p { color: var(--blade); } .gr.v { color: var(--blade); border-style: dashed; } .gr.m { color: var(--water); } .gr.r { color: var(--pollen); } .gr.o { color: var(--rose); }
+.thm { margin-top: 1.4rem; }
+.thm, .rem { font-size: 1.05rem; }
+.thm > :not(.lab):not(.gr) { }
+.lab { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--blade); margin-right: 0.35rem; }
+.rem .lab { color: var(--stem); }
+.thm { font-style: italic; }
+.thm .lab, .thm .gr { font-style: normal; }
+ol.claims, ol.parts { padding-left: 1.4rem; margin: 0 0 1.2rem; display: grid; gap: 0.55rem; }
+ol.parts { font-style: normal; }
+dl.levels { margin: 0 0 1.2rem; display: grid; gap: 0.8rem; }
+dl.levels dt { font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.05em; color: var(--blade); }
+dl.levels dd { margin: 0.15rem 0 0 1.2rem; }
+.tablewrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+th { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--stem); font-weight: 500; text-align: left; padding: 0.45rem 0.7rem 0.45rem 0; border-bottom: 1px solid var(--stem); }
+td { padding: 0.5rem 0.7rem 0.5rem 0; border-bottom: 1px solid var(--soil); vertical-align: top; }
+table.record td:last-child { font-family: var(--mono); font-size: 0.82rem; white-space: nowrap; }
+.fig { margin: 2rem 0 2.2rem; }
+@media (min-width: 64rem) { .fig { margin-inline: -3rem; } }
+.figart { background: var(--ground-2); border-top: 1px solid var(--soil); border-bottom: 1px solid var(--soil); padding: 0.8rem 0.4rem; }
+.figart svg { display: block; width: 100%; height: auto; max-width: 100%; }
+figcaption { font-size: 0.93rem; color: var(--stem); margin-top: 0.7rem; line-height: 1.5; max-width: 46rem; }
+figcaption .lab { color: var(--blade); }
+mjx-container { color: var(--grass); }
+mjx-container[display="true"] { margin: 1.1rem 0 1.3rem !important; max-width: 100%; }
+mjx-container[display="true"] > svg { max-width: 100%; height: auto; }
+.refs { padding-left: 1.6rem; font-size: 0.93rem; display: grid; gap: 0.35rem; }
+#refs, #scripts { margin-top: 3rem; }
+details.script { border-top: 1px solid var(--soil); padding-block: 0.6rem; }
+details.script summary { font-family: var(--mono); font-size: 0.85rem; color: var(--blade); cursor: pointer; }
+details.script pre { overflow-x: auto; font-family: var(--mono); font-size: 0.74rem; line-height: 1.5; color: var(--grass); background: var(--ground-2); padding: 1rem; margin: 0.6rem 0 0; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media (max-width: 30rem) { body { font-size: 1.02rem; } h2 { font-size: 1.3rem; } }
+.abstract { border-top: 1px solid var(--soil); border-bottom: 1px solid var(--soil); padding: 0.6rem 0 1rem; margin-bottom: 2rem; }
+.abstract h2 { font-size: 1.05rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blade); }
+.abstract p { font-size: 1.0rem; }
+ol.refs { font-size: 0.95rem; padding-left: 1.4rem; }
+ol.refs li { margin-bottom: 0.45rem; }
+
+
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #0c1220;
+  color: #b9dcff;
+  box-shadow: 2px 2px 5px #070a12;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #0c1220;
+  color: #b9dcff;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head>
+<body bgcolor="#070a12" text="#b9dcff" style="background:#070a12;color:#b9dcff;margin:0">
+<main class="paper">
+<header class="masthead"><h1>Intrinsic Quantum Geometric Tensor on the Grassmannian and Spectral Lower Bounds on Dissipation</h1><p class="byline">Jeromie Beasley</p></header>
+<section>
+<h2>Test vault for the Intrinsic QGT paper</h2>
+<p>This is a working ledger kept for our own use and is not part of the paper. Every old idea gets tested. What survives goes into the paper. What fails is kept here with its kill condition and the measured number, so it can be reopened if it pays off later. What cannot yet be tested says exactly what it is waiting for.</p>
+
+<h3>1. Survived: goes into the paper</h3>
+<table class="ledger">
+<tr><th>Claim</th><th>Test (kill condition)</th><th>Result</th><th>Where it goes</th></tr>
+<tr><td>Sofic bridge: Hamming distance d_H = (2/n)Σ sin²θ_j over the principal angles of the permutation graph subspace; IQGT length √Σθ²; sandwich d_H/2 ≤ (1/n)Σθ² ≤ (π²/8) d_H</td><td>sofic_bridge.py S1–S6: any mismatch &gt; 1e-12, any sandwich violation</td><td>all pass; five swaps vs one 10-cycle (n = 20): Σsin² = 5 and 5, lengths 3.512 vs 2.896</td><td>§12.4; Mixer eye 8</td></tr>
+<tr><td>Mixer core reproduces the paper</td><td>core_test.js C1–C7: Jacobi residual, turning points 0.32981248 and −1.0969, perm lengths, speed ≤ ceiling, curvature ≤ envelope, tail &lt; tip</td><td>7/7 pass</td><td>Grassmannian Mixer v1</td></tr>
+<tr><td>Redistribution operator F(Ω,Π) = (I−Π)ΩΠ + ΠΩ(I−Π) = ΩΠ+ΠΩ−2ΠΩΠ = [[Ω,Π],Π]</td><td>identities, residual &gt; 1e-12</td><td>1e-15</td><td>§2 tangent space / §4</td></tr>
+<tr><td>F = 0 ⇔ [Ω,Π] = 0 for any Ω; |F| = |[Ω,Π]|</td><td>case with F = 0 but [Ω,Π] ≠ 0</td><td>none; norms equal</td><td>same</td></tr>
+<tr><td>For self-adjoint Ω, F is tangent and is the g-gradient of Tr(ΩΠ)</td><td>g(F,V) ≠ ½Tr(ΩV) for some tangent V</td><td>3.6e-15</td><td>same</td></tr>
+<tr><td>Flow Π̇ = F lands on the top-k eigenprojector of Ω (the opposite flow lands on the bottom-k)</td><td>final distance &gt; 1e-6</td><td>1e-10 / 1e-13</td><td>same; Brockett double-bracket flow, cited as known</td></tr>
+<tr><td>E8's 240 roots form a spherical 7-design, so they can serve as an exact probe set ("sphere packing traces flows")</td><td>degree 2, 4 or 6 moments not identical in every direction; the opposite test is degree 8, which must vary</td><td>60 / 36 / 30 identical to 14 digits; degree 8 varies by 7.6</td><td>measurement section (probe sets)</td></tr>
+<tr><td>8 → 5: four bodies in space. Configuration 9 → pre-shape sphere S⁸ (scale removed) → shape space 5 (SO(3) removed)</td><td>rank of X ↦ shape ≠ 5; physical rotations or scale move the shape</td><td>rank 5; with G = XᵀX, rotations move it by 3e-11 and scale by 8e-11</td><td>pullback examples</td></tr>
+<tr><td>8 = 3 + 5 inside su(3): 3 rotation generators (imaginary Gell-Mann) and 5 real symmetric generators, which are exactly the tangent directions of the shape space</td><td>split ≠ 5 + 3</td><td>5 + 3</td><td>three-band example (with June App. C)</td></tr>
+<tr><td>Collinear four-body stratum: W is a rank-1 projector, so that stratum is the Grassmannian Gr(1,ℝ³)</td><td>W² ≠ W</td><td>5e-17</td><td>pullback examples</td></tr>
+<tr><td>14 → 8 → 4: G₂ = Der(octonions) has dim 14; the stabiliser of an imaginary unit is SU(3), dim 8 (G₂/SU(3) = S⁶); the stabiliser of a line in ℂ³ is U(2), dim 4, so SU(3)/U(2) = Gr(1,ℂ³), real dim 4</td><td>any dimension off</td><td>14 / 8 / 6 / 4 computed from the multiplication table</td><td>known Lie theory; a remark only</td></tr>
+<tr><td>g for Π equals g for I−Π for every Π (June "particle-hole duality")</td><td>exact equality fails</td><td>exact; holds with no flat band needed</td><td>§3 remark</td></tr>
+<tr><td>Figure-eight A-polynomial has the double root L = 1 at M = ±i</td><td>roots not (1,1); the opposite test is generic M, which must give distinct roots</td><td>(1,1) both; generic |L₁−L₂| = 2.14</td><td>a later moduli example</td></tr>
+<tr><td>g(v,v) = 0 exactly when ∂ᵥΣ has no cross-gap block (silent direction)</td><td>block-diagonal direction with g &gt; 0</td><td>0 vs 2.22 generic</td><td>§3 (already)</td></tr>
+<tr><td>§3–§8: residue lemma, gap bound (worst 0.68 in 3,000), pullback forms, exact second-order formula, Fisher information 4g/k, driving time, friction band and length form, sharp curvature bound with the iX partner, exact dipole (7.3), weights family, gap exponents, refraction with index g∥, total internal reflection, polar and fold strata</td><td>62 kill conditions</td><td>62/62</td><td>§3–§8 (done)</td></tr>
+<tr><td>§2 in full: tangent law, Lemma 2.1, PSD, block formula, sign convention, Remarks 2.3–2.4, Riesz contour</td><td>23 kill conditions</td><td>23/23</td><td>§2 (done)</td></tr>
+<tr><td>§9 mixed states: SLD, Q_ρ = ¼Tr(ρLL), exact reduction for k = 1 with the 1/k, existence iff kernel–kernel block vanishes, Kronecker solve</td><td>11 kill conditions (s9_checks_v2)</td><td>11/11</td><td>§9 (done); Lean sld_kernel_block</td></tr>
+<tr><td>Level 0/1/2 angle standard and the four-quantity reporting table (June 7.6)</td><td>θ_G must not move under a frame change; a raw angle must</td><td>0 vs 9.7°</td><td>§10.1</td></tr>
+<tr><td>Reporting inequality |Ω| ≤ 2√(C(V)C(W)) sin θ_G (June eq. 17)</td><td>differs from (6.1); any violation in 2,000</td><td>identical to 6e-15; 0 violations</td><td>§10.1 (10.2)</td></tr>
+<tr><td>Voting scatter √(λ₁λ₂)/((λ₁−λ₂)√N) at N = 9,949</td><td>simulated/predicted outside [0.6, 1.6]</td><td>0.38/0.38, 3.13/3.15 (ratio 1.02: 30.8/29)</td><td>§10.1 (10.3)</td></tr>
+<tr><td>Gap identity and Davis–Kahan sinΘ; tip free at a tie</td><td>residual &gt; 1e-12; any violation in 2,000; tie vector median ≤ 10°</td><td>7e-15; 0 (worst 0.998); 40.7°, projector within bound</td><td>§10.2; Lean gap_identity, tip_free_at_tie</td></tr>
+<tr><td>Heat-engine readout resolves 4 populations from 3 prepared states (Untitled21)</td><td>BIC minimum not at 4</td><td>minimum at 4 (−329,740.6)</td><td>§10.3</td></tr>
+<tr><td>Ground-state tail has its own shape (Untitled21, opposite of the angle test)</td><td>edge ratio inside the noise 99.9%</td><td>2.22 vs noise max 1.27</td><td>§10.3, Figure 12</td></tr>
+<tr><td>BEC: vectors trade identity, subspace keeps it; gap law 18/18 at relative gap ≥ 0.10 (BEC-FINAL-LEDGER-V1)</td><td>written in that script before the run</td><td>ratio 1.00/1.08/0.99; 40.69° vs 5.19°</td><td>§10.4</td></tr>
+<tr><td>Appendices A–D and the gap-narrowing refraction (June App. A, B, B.1, B.2; Aug open question)</td><td>13 kill conditions (IQGT-APPENDIX-CHECKS-V2)</td><td>13/13</td><td>App. A–D, §8.6; Lean second_resolvent</td></tr>
+</table>
+
+<h3>2. Failed: kept for later</h3>
+<table class="ledger">
+<tr><th>Claim (where it lived)</th><th>Kill condition</th><th>Measured</th><th>What survives / repair</th></tr>
+<tr><td>Shape matrix M = XXᵀ is rotation-invariant (4-body, June 23)</td><td>physical rotation moves it</td><td>moves by 0.93; it is invariant under Jacobi relabelling X → XR instead</td><td>use XᵀX; same spectrum, so strata and ranks are unchanged, but the eigenvectors (and so the projectors) differ</td></tr>
+<tr><td>Spin-1 metric = (9/16)|d|⁻²|δd⊥|² (June App. C)</td><td>≠ 9/16</td><td>1/2 for k = 1 and k = 2</td><td>coefficient ½</td></tr>
+<tr><td>Duality needs the flat middle band (June App. C)</td><td>an opposite run with the band tilted</td><td>k=1 vs k=2 split (1.389 vs 0.255) once tilted, but g for Π equals g for I−Π always holds</td><td>state as complementation, not k = 1 ↔ k = 2</td></tr>
+<tr><td>Curvature sign used both ways (June 17)</td><td>brute force vs formula</td><td>±0.148, ±0.195</td><td>one convention (August), matches F = dA</td></tr>
+<tr><td>Antisymmetric part = commutator across the gap (June 17)</td><td>weights</td><td>each term carries 1/(λₙ−λₘ)²</td><td>true only with the weights</td></tr>
+<tr><td>Two-index dipole eq. 17</td><td>vs true ∂ₖgᵢⱼ</td><td>+0.0755 vs +0.3740</td><td>contour formula (verified)</td></tr>
+<tr><td>Krylov dipole eq. 42</td><td>same</td><td>−0.161 vs −0.410</td><td>metric part of the shifted system holds</td></tr>
+<tr><td>δS<sub>irr</sub> ≥ ∫¼F<sub>Q</sub> dt</td><td>dimensions; unitary driving</td><td>off by 1/time; no entropy from unitary motion</td><td>¼F<sub>Q</sub> = g holds; the dissipation bound goes through the friction weight (passed K1–K5)</td></tr>
+<tr><td>App. A resolvent sign and condition</td><td>algebra</td><td>wrong sign</td><td>minus sign; condition sup‖δΣ(z−Σ)⁻¹‖ &lt; 1 on Γ</td></tr>
+<tr><td>Cor. 6.1/6.2 and the "causal hierarchy"</td><td>content</td><td>vacuous</td><td>the metric bounds the curvature (Thm 6.1 holds)</td></tr>
+<tr><td>Fidelity susceptibility reduction for all k</td><td>k &gt; 1</td><td>true only for k = 1</td><td>restrict to k = 1</td></tr>
+<tr><td>NLHE eqs 18–20, orbital magnetisation 21–22 as printed</td><td>indices and symmetry</td><td>unmatched indices; metric-type symmetry</td><td>rebuilt through the weights table</td></tr>
+<tr><td>SciPy GMRES routine</td><td>runs</td><td>TypeError (tol)</td><td>CG/MINRES (Hermitian PD)</td></tr>
+<tr><td>Eight heat-engine channels = E8 roots; Viazovska "friction shield" (July 10–11)</td><td>8 independent dimensions exist</td><td>the 8 were reruns of one protocol; no calculation behind the shield</td><td>E8 kept only as a probe set (section 1)</td></tr>
+<tr><td>Participation fixed at 8.000, phase autocorrelation 0.9028, θ₄ = 4.72° (June 17 data section)</td><td>data behaviour</td><td>normalisation-forced / padding cells / sits on noise 4.66°</td><td>tip/tail law tested on BEC instead</td></tr>
+<tr><td>Topp et al. as the heat-engine experiment [17], [13]</td><td>citation exists</td><td>wrong authors; [13] not found</td><td>Uusnäkki et al. arXiv:2502.20143; Abiuso et al. Entropy 2020</td></tr>
+<tr><td>Two-index dipole (17) as the exact spectral form; "verifies the primacy conjecture" (June 17–20)</td><td>against the contour value</td><td>off by up to ×138</td><td>(7.2) kept; exact completion (7.3) adds eigenvector rotation, 4×10⁻¹² on 40 families</td></tr>
+<tr><td>Nonlinear Hall χ = εᵢₗₘ e³/2ℏ² ∫ G_jk,l from the metric dipole (June 17–20)</td><td>index structure; literature</td><td>m unmatched; intrinsic NLHE input is the Berry connection polarizability (weight −2/Δ)</td><td>(7.4), Kaplan–Holder–Yan 2024 form, cited</td></tr>
+<tr><td>Nonlinear orbital magnetisation as a Christoffel / metric-symmetric sum (June 17–20, note)</td><td>symmetry type</td><td>metric symmetry, not curvature</td><td>orbital kernel = −½ΣΔΩ (4×10⁻⁸); full α_ijk open</td></tr>
+<tr><td>Refraction index R = 1/(λ_min + ε) (June 20 §6.2)</td><td>conservation along a free geodesic</td><td>λ_min drifts 1.3, 1/λ_min drifts 3.3, g∥ 1.7×10⁻¹²</td><td>Proposition 8.1 with R = g∥ (Clairaut), total internal reflection</td></tr>
+
+<tr><td>δS_irr ≥ ∫ȧ²g dt with no bath weight (June Thm 2)</td><td>a fast bath must not fall below it</td><td>τ = 10⁻³: entropy rate 9.2×10⁻⁴ against g = 1</td><td>Theorem 5.3: the metric times a spectral bath weight; length form W_ex ≥ min(2cΔ) ℒ²/T</td></tr>
+<tr><td>Primacy: every geometric quantity factors through cross-gap amplitudes (June 19 note)</td><td>a silent direction must leave g unchanged</td><td>∂_B g = 0.113 while ∂_BΠ = 10⁻¹²</td><td>Proposition 4.3: exact at first order; second order also sees couplings inside each sector</td></tr>
+<tr><td>"Causal hierarchy" transits ⇒ g ⇒ Ω (June 12–20)</td><td>does g generate Ω?</td><td>no: both come from the transits; g only bounds Ω</td><td>§6.2 control hierarchy</td></tr>
+<tr><td>Angle safeguard keeps curvature from blowing up near a node (June 13–20)</td><td>two levels as the gap closes</td><td>|Ω| and the bound both grow 0.5 → 5×10³, ratio stays 1</td><td>Relative control only (§6.1)</td></tr>
+
+<tr><td>Ground-state tail axis 75.43° from the core axis, against one noise run at 4.66° (Untitled21 cell 10)</td><td>measured inside the noise 99.9th percentile over 300 runs</td><td>noise median 17.8°, 99.9th 86.8°: inside</td><td>core axis undefined (ratio 1.076, ±8°); the tail's own shape survives instead</td></tr>
+<tr><td>Effective refraction angle as an observed lock across 1000 sweeps (June 7.5, Fig. 4)</td><td>a recipe that reproduces it from the shots</td><td>none recovered; settings count is 522, not 1000</td><td>not a paper claim; see open item</td></tr>
+<tr><td>Heat-engine leading-eigenvector jumps (64.6°, 85.9°) are real crossings (Untitled21)</td><td>jumps must recur in independent halves above the shifted null (QHE-CROSSING-SPLIT-V1)</td><td>4 of 4 comparisons at chance: 6/5.4, 5/6.7, 3/6.3, 8/8.2; step correlation ≈ 0</td><td>they are noise-decided ties: the free tip of §10.2, measured</td></tr>
+<tr><td>"Saturation of the curvature bound is special to two bands" (my own expectation, App. C)</td><td>spin-1 lowest band must fall strictly inside</td><td>it saturates to 2e-12</td><td>saturation holds for spin-1 too; generic three-band is strict</td></tr>
+</table>
+
+<h3>3. Open: waiting on something specific</h3>
+<table class="ledger">
+<tr><th>Item</th><th>Waiting on</th></tr>
+<tr><td>Principal angles 32.33°, 23.29°, 13.22° (June 7.5)</td><td>the recipe that produced them (six notebooks hard-code them)</td></tr>
+<tr><td>Frame-free direction of the readout tail (Level 1)</td><td>rescale the I–Q plane to equal noise, re-extract; needs the raw calibration file</td></tr>
+<tr><td>Connection-energy note (⅛‖[H,H*]‖² = Σ edge terms; verified 8e-16)</td><td>decided: goes in the next paper, not this one</td></tr>
+<tr><td>How the sector-block covariance matrix was built</td><td>your account, GPT's find, or the raw single_shots_three_cycles.nc</td></tr>
+<tr><td>14.22° (not a paper claim)</td><td>closed by your call: not being looked for</td></tr>
+<tr><td>L, B, C algebra (B² = −288L, dim 5); the "5 = 5" match with the four-body shape space</td><td>the three matrices from the Catalan Problem 2.5 file; then a map, or the match stays a coincidence</td></tr>
+<tr><td>Figure-eight minimum spectral gap 1.5330493341</td><td>the twisted Dirac operator used in the Aug 5 knot file</td></tr>
+<tr><td>Piccirillo trace as a continuation test</td><td>a defined question: which projector data survive when two knots share a trace</td></tr>
+<tr><td>Hessian kernel ↔ metric kernel</td><td>a hypothesis under which they coincide (they do not in general: E2)</td></tr>
+<tr><td>Which "8 → 5" you heard (Lisi or Weinstein)</td><td>unknown; ours is S⁸/SO(3) and su(3) = so(3) ⊕ 5, both verified</td></tr>
+</table>
+<p class="small">Scripts: S10-CHECKS-V1, S10-H2-OPPOSITE-V1, S9 checks v2, IQGT-REBUILD-S2-CHECKS-02, IQGT-GPT-RECOVERY-STRAWMAN-01, IQGT-OLD-WORK-BATTERY-01, -01b; earlier IQGT-V25-CHECKS, IQGT-FRICTION-GATE-V1/V2.</p>
+</section>
+<svg style="display: none;" id="MJX-SVG-global-cache"><defs></defs></svg>
+</main>
+</body></html>

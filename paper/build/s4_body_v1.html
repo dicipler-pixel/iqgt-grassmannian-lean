@@ -1,0 +1,49 @@
+<section id="s4">
+<h2><span class="num">4</span> Parametric Realization (Pullback Structure)</h2>
+
+<p>The intrinsic quantum geometric tensor \(Q_{\Pi_k}\) constructed on the Grassmannian is independent of any auxiliary parameter space. In physical applications, however, one is typically given a smooth family of Hamiltonians \(\Sigma(a)\) parameterized by points of a manifold \(M\). This section shows how the familiar coordinate expressions for the quantum metric and Berry curvature arise as the pullback of the intrinsic tensor under the map induced by the family.</p>
+
+<p>Let \(M\) be a smooth manifold and \(a\mapsto\Sigma(a)\) a smooth family of self-adjoint operators. Let \(M_\Delta=\{a\in M:\ \text{the isolating contour }\Gamma_k\text{ persists at }a\}\) be the open set on which the spectral gap stays open. By the Riesz–Kato construction the map</p>
+\[\gamma:\ M_\Delta\longrightarrow\mathrm{Gr}(k,\mathcal H),\qquad a\longmapsto\Pi_k(a)\]
+<p>is smooth. Smoothness is a consequence of the gap hypothesis, and \(\gamma\) need not extend to the boundary of \(M_\Delta\); for unbounded \(\Sigma\) it is read in the norm-resolvent sense (Appendix A). If \(\{\partial/\partial a^i\}\) is the coordinate basis of \(T_aM\), then</p>
+\[V_i:=\gamma_*\Big(\frac{\partial}{\partial a^i}\Big)=\partial_{a^i}\Pi_k(a)\]
+<p>is a tangent vector at \(\Pi_k(a)\), and by Corollary 3.4 each \(V_i\) is strictly off-diagonal with respect to the decomposition induced by \(\Pi_k(a)\).</p>
+
+{{FIG:pullback}}
+
+<h3><span class="num">4.1</span> Pullback of the metric and the curvature</h3>
+<p>The components \(g_{ij}(a)=g_{\Pi_k}(\partial_i\Pi_k,\partial_j\Pi_k)\) and \(\Omega_{ij}(a)=\Omega_{\Pi_k}(\partial_i\Pi_k,\partial_j\Pi_k)\) follow from Theorem 3.6 applied pointwise:</p>
+\[g_{ij}(a)=\sum_{m\in\mathcal I}\sum_{n\in\mathcal I^c}\frac{\mathrm{Re}\big[\langle m|\partial_i\Sigma|n\rangle\langle n|\partial_j\Sigma|m\rangle\big]}{\big(\lambda_n(a)-\lambda_m(a)\big)^2}, \tag{4.1}\]
+\[\Omega_{ij}(a)=i\sum_{m\in\mathcal I}\sum_{n\in\mathcal I^c}\frac{\langle m|\partial_i\Sigma|n\rangle\langle n|\partial_j\Sigma|m\rangle-\langle m|\partial_j\Sigma|n\rangle\langle n|\partial_i\Sigma|m\rangle}{\big(\lambda_n(a)-\lambda_m(a)\big)^2}. \tag{4.2}\]
+<p>Expanding in blocks gives the band-traced forms used in the literature,</p>
+\[g_{ij}=\mathrm{Re}\,\mathrm{Tr}\big(\Pi\,\partial_i\Pi\,\partial_j\Pi\big),\qquad \Omega_{ij}=-2\,\mathrm{Im}\,\mathrm{Tr}\big(\Pi\,\partial_i\Pi\,\partial_j\Pi\big). \tag{4.3}\]
+<p>For \(k=1\) the diagonal component \(g_{ii}=\sum_n|\langle m|\partial_i\Sigma|n\rangle|^2/(\lambda_n-\lambda_m)^2\) is the fidelity susceptibility of the state. For \(k>1\) it is the corresponding subspace quantity.</p>
+
+<p class="thm"><span class="lab">Proposition 4.1</span> <span class="tname">(Two ways the pullback degenerates).</span> \(g_{ij}(a)=\mathrm{Re}\,\mathrm{Tr}(X_iX_j^*)\) is a Gram matrix and is therefore positive semi-definite. It is degenerate at \(a\) precisely when the \(\partial_i\Pi\) are linearly dependent, that is, when \(\gamma\) fails to be an immersion at \(a\). This is a different mechanism from a closing gap: a closing gap makes the denominators in (4.1) small and the metric large, while failure of immersion makes the metric degenerate with the gap wide open. The two are opposite limits and are kept distinct throughout.</p>
+
+<h3><span class="num">4.2</span> Structural statement</h3>
+<p>Collecting (4.1)–(4.2), the pullback of the intrinsic tensor is</p>
+\[\gamma^*Q=g_{ij}\,da^i\otimes da^j-\tfrac{i}{2}\,\Omega_{ij}\,da^i\wedge da^j. \tag{4.4}\]
+<p>The conventional parametric quantum geometric tensor on \(M\) is therefore not a primitive object: it is the coordinate representation of the pullback \(\gamma^*Q_{\Pi_k}\) of the single intrinsic tensor living on the Grassmannian. The parameter manifold \(M\) does not generate the geometry; it merely selects a finite-dimensional trajectory through the much larger tangent bundle of \(\mathrm{Gr}(k,\mathcal H)\). This makes the coordinate independence of the underlying structures transparent and explains why different parameterizations or local frames yield equivalent physical results.</p>
+
+<p class="rem"><span class="lab">Remark 4.2</span> <span class="tname">(Trace sector).</span> For \(k>1\) the Berry curvature of the occupied subspace is non-abelian: \(F_{ij}\) is a \(k\times k\) matrix and \(\Omega_{ij}=\mathrm{tr}\,F_{ij}\). The traceless part of \(F_{ij}\) is invisible on \(\mathrm{Gr}(k,\mathcal H)\), since \(\Pi\) retains no frame information; the non-abelian connection lives on the Stiefel bundle \(V_k(\mathcal H)\to\mathrm{Gr}(k,\mathcal H)\), a principal \(U(k)\) bundle. Statement (4.4) is a statement about the trace sector.</p>
+
+<p class="thm"><span class="lab">Proposition 4.3</span> <span class="tname">(First-order factorization through the gap).</span> Every first-order geometric quantity of the family — \(V_i\), \(g_{ij}\), \(\Omega_{ij}\) — depends on \(\partial_i\Sigma\) only through its cross-gap block \(\Pi\,\partial_i\Sigma\,(I-\Pi)\) and the eigenvalues. A direction \(B\) whose cross-gap block vanishes is silent: \(\partial_B\Pi=0\).</p>
+<p>This is immediate from (3.2). It does not persist to second order. A silent direction leaves \(\Pi\) fixed but can still change the metric, because moving along it rotates the eigenvectors inside each sector and shifts the gaps; in a generic six-level family the derivative of \(g_{11}\) along a silent direction is \(0.113\) while \(\partial_B\Pi\) vanishes to \(10^{-12}\). Second-order quantities therefore see the intra-sector couplings as well.</p>
+
+<h3><span class="num">4.3</span> Second-order response</h3>
+<p>Differentiating \(g_{ij}=\tfrac12\mathrm{Tr}(\partial_i\Pi\,\partial_j\Pi)\) gives the variation of the metric along the parameter manifold,</p>
+\[\partial_kg_{ij}=\tfrac12\,\mathrm{Tr}\big(\partial_k\partial_i\Pi\;\partial_j\Pi+\partial_i\Pi\;\partial_k\partial_j\Pi\big), \tag{4.5}\]
+<p>which is exact and coordinate-free. Differentiating \(V_i=\Pi V_i+V_i\Pi\) gives</p>
+\[\partial_kV_i=V_kV_i+\Pi(\partial_kV_i)+(\partial_kV_i)\Pi+V_iV_k .\]
+<p>Since \(V_j\) is purely off-diagonal, \(\mathrm{Tr}\big((\partial_kV_i)V_j\big)\) receives contributions only from the off-diagonal blocks of the second variation; the diagonal blocks, fixed algebraically by products of first derivatives, drop out. The second variation itself is given exactly by the second-order Riesz formula,</p>
+\[\partial_k\partial_i\Pi=\frac{1}{2\pi i}\oint_{\Gamma_k}\Big[R\,\partial_k\partial_i\Sigma\,R+R\,\partial_k\Sigma\,R\,\partial_i\Sigma\,R+R\,\partial_i\Sigma\,R\,\partial_k\Sigma\,R\Big]dz,\qquad R=(zI-\Sigma)^{-1}. \tag{4.6}\]
+<p>Inserted into (4.5), this gives the metric gradient (the quantum metric dipole) with no truncation. Resolved in the eigenbasis, (4.6) contains three-state terms, in which one coupling crosses the gap and the other stays within a sector, and the gap derivatives \(\partial_k(\lambda_n-\lambda_m)=\langle n|\partial_k\Sigma|n\rangle-\langle m|\partial_k\Sigma|m\rangle\) (Hellmann–Feynman). Any spectral form of the dipole that treats \(|m\rangle,|n\rangle\) as parameter-independent omits the three-state terms, which live in exactly the off-diagonal block that survives the trace, and is therefore incomplete; (4.6) carries them automatically.</p>
+
+<h3><span class="num">4.4</span> The redistribution operator and its flow</h3>
+<p>For any operator \(\Omega\) define its redistribution relative to \(\Pi\),</p>
+\[F(\Omega,\Pi)=(I-\Pi)\,\Omega\,\Pi+\Pi\,\Omega\,(I-\Pi)=\Omega\Pi+\Pi\Omega-2\Pi\Omega\Pi=\big[[\Omega,\Pi],\Pi\big]. \tag{4.7}\]
+<p>\(F\) is the part of \(\Omega\) that couples the subspace to its complement, so \(F(\Omega,\Pi)=0\) exactly when \([\Omega,\Pi]=0\), and \(\|F\|_{\mathrm{HS}}=\|[\Omega,\Pi]\|_{\mathrm{HS}}\) for every \(\Omega\). For self-adjoint \(\Omega\), \(F\) is a tangent vector of the form (2.1), and it is the gradient of \(\Pi\mapsto\mathrm{Tr}(\Omega\Pi)\) with respect to the intrinsic metric: \(g_\Pi(F,V)=\tfrac12\mathrm{Tr}(\Omega V)\) for all \(V\in T_\Pi\mathrm{Gr}(k,\mathcal H)\). The gradient flow</p>
+\[\dot\Pi=F(\Omega,\Pi)=\big[[\Omega,\Pi],\Pi\big] \tag{4.8}\]
+<p>is Brockett's double-bracket flow [Brockett 1991; Helmke–Moore 1994]. It stays on \(\mathrm{Gr}(k,\mathcal H)\) and carries \(\Pi\) to the spectral projector onto the top \(k\) eigenvectors of \(\Omega\); the reversed flow carries it to the bottom \(k\). It is the motion through the Grassmannian, in the intrinsic metric, by which a subspace finds the leading spectral subspace of an operator — the operation every eigen-analysis of measured data performs implicitly.</p>
+</section>

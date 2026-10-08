@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="JetBrains Mono, monospace">
+<rect width="760" height="300" fill="#0c1220"/>
+<line x1="40" y1="170" x2="720" y2="170" stroke="#7088a8" stroke-width="1.2"/>
+<text x="712" y="192" fill="#7088a8" font-size="13">Re z</text>
+<ellipse cx="200" cy="170" rx="150" ry="70" fill="none" stroke="#4cc3ff" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="60" y="262" fill="#4cc3ff" font-size="14">Γ encloses the occupied levels</text>
+<g fill="#4cc3ff"><circle cx="110" cy="170" r="6"/><circle cx="190" cy="170" r="6"/><circle cx="290" cy="170" r="6"/></g>
+<g fill="#b9dcff"><circle cx="450" cy="170" r="6"/><circle cx="560" cy="170" r="6"/><circle cx="660" cy="170" r="6"/></g>
+<line x1="300" y1="150" x2="300" y2="190" stroke="#e0b85c" stroke-width="1" stroke-dasharray="3 3"/><line x1="440" y1="150" x2="440" y2="190" stroke="#e0b85c" stroke-width="1" stroke-dasharray="3 3"/><line x1="302" y1="140" x2="438" y2="140" stroke="#e0b85c" stroke-width="1.2"/>
+<text x="350" y="132" fill="#e0b85c" font-size="14">gap Δ</text>
+<path d="M110 160 Q150 118 190 160" fill="none" stroke="#7088a8" stroke-width="1.5"/>
+<text x="60" y="80" fill="#7088a8" font-size="12">both inside: residues cancel</text>
+<path d="M560 160 Q610 118 660 160" fill="none" stroke="#7088a8" stroke-width="1.5"/>
+<text x="520" y="118" fill="#7088a8" font-size="12">both outside: no pole inside</text>
+<path d="M290 182 Q370 262 450 182" fill="none" stroke="#e0b85c" stroke-width="2.4"/>
+<text x="300" y="290" fill="#e0b85c" font-size="14">one in, one out:  ⟨m|δΣ|n⟩ / (λ_in − λ_out)</text>
+<text x="95" y="196" fill="#7088a8" font-size="12">λ₁</text><text x="176" y="196" fill="#7088a8" font-size="12">λ₂</text><text x="276" y="196" fill="#7088a8" font-size="12">λ_k</text>
+<text x="452" y="196" fill="#7088a8" font-size="12">λ_k+1</text>
+</svg>

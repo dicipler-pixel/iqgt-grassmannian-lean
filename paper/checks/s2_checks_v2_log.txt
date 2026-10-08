@@ -1,0 +1,26 @@
+PASS K1a dPi satisfies V=PV+VP: 8.716e-10 (kill if >= 1e-06) -- a true projector velocity violating the linearised law
+PASS K1b diagonal blocks vanish: 9.148e-10 (kill if >= 1e-06) -- nonzero intra-subspace block
+PASS K1c every off-diagonal V obeys the law: 5.546e-15 (kill if >= 1e-12) -- converse fails
+PASS K2a curve velocity equals V: 2.730e-10 (kill if >= 1e-07) -- constructed curve does not hit the target V
+PASS K2b curve stays rank-k projector: 4.705e-15 (kill if >= 1e-10) -- curve leaves Gr(k)
+PASS K3 real dim = 2k(n-k): 0.000e+00 (kill if >= 0.5) -- rank 20 vs 20
+PASS K4a Q(A,A) >= 0 on complexification: 0.000e+00 (kill if >= 1e-12) -- negative value
+PASS K4b definite on real tangent (min Q(V,V)/|V|^2 = 1/2): 8.327e-16 (kill if >= 1e-12) -- degenerate real direction
+PASS K4c complexified form only semi-definite (A!=0, Q(A,A)=0): 3.501e-16 (kill if >= 1e-12) -- if this were nonzero the 'semi' would be unnecessary
+PASS K5a Q(V,W)=Tr(XY*): 1.192e-14 (kill if >= 1e-12) -- block formula wrong
+PASS K5b Aug convention Q=g-(i/2)Omega, Omega=iTr(P[V,W]): 1.066e-14 (kill if >= 1e-12) -- 
+PASS K5c June convention Q=g+(i/2)Omega, Omega=-iTr(P[V,W]): 1.066e-14 (kill if >= 1e-12) -- June definition self-inconsistent
+PASS K5d Omega_Aug = -2 Im Tr(XY*): 1.066e-14 (kill if >= 1e-12) -- 
+PASS K6a Aug Omega = standard Berry curvature F_ab (k=1, Wilson loop): 1.226e-06 (kill if >= 0.0001) -- Omega=-1.105138 F=-1.105140
+     June sign gives 1.1051381474614692 i.e. -F: same tensor, opposite orientation of the 2-form
+PASS K6b k=2: Omega = Tr of non-abelian curvature (det Wilson loop): 4.052e-07 (kill if >= 0.0001) -- Omega=-0.297305 F=-0.297305
+PASS K7 Q_Pi(d_aPi,d_bPi) = <d_a u|(1-P)|d_b u>: 5.792e-12 (kill if >= 1e-06) -- 0.133760+0.552569j vs 0.133760+0.552569j
+PASS K8a identity holds on tangent vectors: 2.132e-14 (kill if >= 1e-12) -- 
+PASS K8b identity FAILS for generic operators (kill if residual < 1e-3): 2.363e-04 (kill if >= 1) -- generic residual 4.232
+PASS K9 g_thth = 1/4 (Fubini-Study): 3.556e-11 (kill if >= 1e-08) -- 0.25000000003555906; Tr(VW) would give 0.5000000000711181
+PASS K10a Riesz integral = eigenprojector: 4.305e-15 (kill if >= 1e-09) -- 
+PASS K10b contour independence within the gap: 2.837e-15 (kill if >= 1e-09) -- 
+PASS K10c opposite: contour past the gap gives a different projector (kill if |diff| < 0.5): 5.000e-01 (kill if >= 1) -- |diff|=1.000
+PASS K11 Pi (hence Q) invariant under U(k) rotation of the occupied basis: 6.336e-16 (kill if >= 1e-12) -- 
+
+SUMMARY 23 / 23 pass

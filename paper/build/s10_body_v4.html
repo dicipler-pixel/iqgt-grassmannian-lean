@@ -1,0 +1,136 @@
+<section id="s10">
+<h2><span class="num">10</span> From Raw Data to Intrinsic Angles</h2>
+
+<p>The framework makes three structural predictions that can be checked on measured data. Tangent deformations are strictly off-diagonal with respect to the instantaneous spectral decomposition. The spectral subspace keeps its identity while individual eigenvectors inside it are free to scramble. Transport angles are constrained by the metric–curvature inequality. Each of these is a statement about the projector, not about a basis. Data, however, arrive in a basis: the instrument's own. This section sets out how to get from one to the other, then applies it to two independent public datasets.</p>
+
+<h3><span class="num">10.1</span> A standard for extracting angles</h3>
+
+<p>Laboratories process their data before publishing it. Readout axes are rotated and rescaled, correction matrices are applied, populations are fitted. Every such step changes raw angles while leaving the physics unchanged. An angle read directly off processed data therefore mixes two things: the system's geometry and the instrument's point of view. To separate them, every extracted angle is assigned one of three levels.</p>
+
+<ol>
+<li><b>Level 0, raw angle \(\theta_{\mathrm{raw}}\).</b> The angle as the instrument's frame sees it, computed from the measured object with no model imposed.</li>
+<li><b>Level 1, geometric angle \(\theta_G\).</b> What remains once the point of view is removed: the angle inside the intrinsic metric of the Grassmannian,
+\[\cos\theta_G=\frac{g_\Pi(V,W)}{\sqrt{g_\Pi(V,V)\,g_\Pi(W,W)}} .\tag{10.1}\]</li>
+<li><b>Level 2, physical interpretation.</b> A physical meaning is assigned only after \(\theta_G\) has been obtained unambiguously.</li>
+</ol>
+
+<p>The test that separates the first two levels is a change of frame. Under a unitary change of basis \(\Pi\mapsto U\Pi U^\dagger\), \(V\mapsto UVU^\dagger\), the geometric angle (10.1) does not move: every quantity in it is a trace. A raw angle between two readout vectors moves as soon as the readout axes are rescaled; rescaling one axis by a factor of two shifts a raw angle of \(52^\circ\) by \(9.7^\circ\). Only what survives every change of view is a property of the system.</p>
+
+<p>To make extractions comparable across datasets and across competing frameworks, every reported transport tensor should carry at least the four quantities of Table 10.1.</p>
+
+<table class="tbl">
+<caption><span class="lab">Table 10.1.</span> Standard reporting for geometric transport extractions.</caption>
+<tr><th>Quantity</th><th>Symbol</th><th>Meaning</th></tr>
+<tr><td>Transport capacity</td><td>\(C(V)=g_\Pi(V,V)\)</td><td>Total available geometric transport strength</td></tr>
+<tr><td>Transport alignment</td><td>\(\cos\theta_G\)</td><td>Mutual orientation of two transport channels</td></tr>
+<tr><td>Transport chirality</td><td>\(\sin\theta_G\)</td><td>Fraction of capacity convertible to curvature</td></tr>
+<tr><td>Resulting curvature</td><td>\(\Omega_\Pi(V,W)\)</td><td>Measured or derived Berry or Uhlmann curvature</td></tr>
+</table>
+
+<p>With these four numbers in hand, Theorem 6.1 becomes directly testable on data. Since \(g_\Pi(V,V)g_\Pi(W,W)-g_\Pi(V,W)^2=C(V)C(W)\sin^2\theta_G\), inequality (6.1) reads</p>
+\[|\Omega_\Pi(V,W)|\ \le\ 2\sqrt{C(V)\,C(W)}\,\sin\theta_G .\tag{10.2}\]
+<p>This is (6.1) exactly, not a weaker form, and it is sharp on the same extremal partner. It says that curvature can only be produced from the part of the capacity that is perpendicular in the intrinsic metric. Any proposed alternative transport metric can then be compared with the intrinsic one on the same footing.</p>
+
+<p>One further condition decides whether a Level 1 angle exists at all. A direction extracted as the leading eigenvector of an estimated operator is defined only as sharply as its eigenvalue is separated from the next. For a two-dimensional covariance with eigenvalues \(\lambda_1>\lambda_2\) estimated from \(N\) samples, the leading direction scatters by</p>
+\[\delta\theta\ \approx\ \frac{\sqrt{\lambda_1\lambda_2}}{(\lambda_1-\lambda_2)\sqrt N}\tag{10.3}\]
+<p>radians. At \(N=9{,}949\) this predicts \(0.38^\circ\), \(3.15^\circ\) and \(29^\circ\) for eigenvalue ratios 4, 1.2 and 1.02; direct simulation gives \(0.38^\circ\), \(3.13^\circ\) and \(30.8^\circ\). As the ratio approaches one the direction becomes uniformly random and carries no information (Figure 12, left). A direction is reported only where its gap is resolved.</p>
+
+<h3><span class="num">10.2</span> The tip and the tail: why the subspace is the observable</h3>
+
+<p>Formula (10.3) is one instance of a general law, and Section 3 already contains its infinitesimal form: by Proposition 3.5 the projector moves by at most \(\sqrt{2k}\|\delta\Sigma\|/\Delta\), where \(\Delta\) is the gap that separates the whole subspace from the rest. The finite form follows from one identity.</p>
+
+<p class="thm"><span class="lab">Proposition 10.1</span> <span class="tname">(Gap identity).</span> Let \(A\) and \(A'=A+E\) be self-adjoint, let \(P\) be a spectral projector of \(A\) and \(Q'\) a spectral projector of \(A'\), with \(AP=PA\) and \(A'Q'=Q'A'\). Then</p>
+\[(Q'A'Q')(Q'P)-(Q'P)(PAP)=Q'EP .\tag{10.4}\]
+<p class="proof"><span class="lab">Proof.</span> Using \(Q'^2=Q'\) and \(A'Q'=Q'A'\), \((Q'A'Q')(Q'P)=Q'A'P\). Using \(P^2=P\) and \(AP=PA\), \((Q'P)(PAP)=Q'AP\). Subtract. <span class="qed">∎</span></p>
+
+<p>The block \(Q'P\) measures how far the subspace has moved: its operator norm is the sine of the largest principal angle between \(\mathrm{Ran}\,P\) and \(\mathrm{Ran}\,P'\), where \(P'=I-Q'\). Equation (10.4) is a Sylvester equation for that block. If the spectrum of \(A'\) on \(\mathrm{Ran}\,Q'\) and the spectrum of \(A\) on \(\mathrm{Ran}\,P\) are separated by \(\delta>0\), it gives</p>
+\[\|\sin\Theta(P,P')\|\ =\ \|Q'P\|\ \le\ \frac{\|Q'EP\|}{\delta}, \tag{10.5}\]
+<p>the \(\sin\Theta\) theorem of Davis and Kahan [Davis–Kahan 1970; Bhatia 1997]. It is a known result and is stated here because the rest of the section rests on it. On 2,000 random instances of sizes 3 to 8, (10.5) held every time, with the largest ratio of left to right side 0.998.</p>
+
+<p>What (10.5) makes visible is that two different gaps govern two different objects.</p>
+<ul>
+<li><b>The tip.</b> A single eigenvector is a rank-one projector. Its \(\delta\) is the distance to its nearest neighbour, which inside a cluster of close eigenvalues can be arbitrarily small.</li>
+<li><b>The tail.</b> The projector onto the whole cluster has its \(\delta\) set by the distance from the cluster to the rest of the spectrum, which can be large while the internal splittings vanish.</li>
+</ul>
+
+<p class="thm"><span class="lab">Proposition 10.2</span> <span class="tname">(The tip is free at a tie).</span> If \(Av=cv\) and \(Aw=cw\), then \(A(av+bw)=c(av+bw)\) for all scalars \(a,b\).</p>
+<p class="proof"><span class="lab">Proof.</span> Linearity. <span class="qed">∎</span></p>
+
+<p>At an exact tie no single vector is selected; any perturbation, however small, picks one. In a six-level test with a doubly degenerate ground level, a perturbation of size \(10^{-3}\) turns the selected vector by a median of \(40.7^\circ\), while the projector onto the pair stays within its bound (10.5), never exceeding it. This is the mechanism behind the framework's central choice: <em>the eigenvectors vote, and they can trade identity; the subspace keeps it</em>. Geometry built on the projector inherits the stability of the tail. Geometry built on eigenvectors inherits the freedom of the tip.</p>
+
+<p>Near a tie the freedom has a definite shape. For two levels with splitting \(\Delta\) and coupling \(g\), the upper eigenvector sits at mixing angle \(\theta\) with</p>
+\[\tan 2\theta=\frac{2g}{\Delta}. \tag{10.6}\]
+<p>An eigenvector angle is a coupling-to-gap ratio. As \(\Delta\) is swept through zero, the two eigenvectors do not pass through each other: they trade places, and the upper one turns through a full \(90^\circ\) inside a window of width about \(g\). Sampled at 29 points, as the heat-engine drive amplitudes are, a wide crossing never turns by more than \(5^\circ\) in one step, while a crossing narrower than the sampling step shows up as a single jump of \(87^\circ\). A large single-step jump of a leading eigenvector is therefore the signature of a crossing or of a near-tie decided by noise. An independent split of the data separates the two: a real crossing jumps in both halves, while a noise-decided tie jumps at random.</p>
+
+{{FIG:gaplaw}}
+
+<h3><span class="num">10.3</span> Superconducting quantum heat engine readout</h3>
+
+<p>The first dataset is the public single-shot readout of a transmon quantum Otto engine [Uusnakki et al. 2025]. In the calibration set, 19,899 shots were recorded for each prepared state \(g\), \(e\), \(f\), each shot a point in the in-phase/quadrature (I–Q) readout plane. These are Level 0 objects: the plane is the instrument's.</p>
+
+<p><b>Number of populations.</b> A Gaussian mixture fitted to the pooled calibration shots is scored by the Bayesian information criterion. The score is lowest at four components (\(-329{,}740.6\)), against \(-328{,}497.6\) at three and \(-329{,}614.2\) at five. Three states were prepared and four populations are resolved. The fourth is a small component (weight \(0.069\)) with the most elongated covariance of the four, eigenvalue ratio 2.49. What it is physically is not tested here.</p>
+
+<p><b>The core and the tail of one cloud.</b> Within the ground-state cloud alone, split by distance from its mean:</p>
+<ul>
+<li>The inner half (9,950 shots) is almost round, with eigenvalue ratio 1.076. By (10.3) its long axis is defined only to about \(8^\circ\), and because of the radial cut the realised scatter is larger still.</li>
+<li>The outer tenth (1,990 shots) is clearly elongated, with ratio 2.216.</li>
+</ul>
+<p>A noise model with the core's covariance shows which of these is real. Three hundred synthetic clouds were cut exactly as the data were.</p>
+<ul>
+<li><b>Angle between the two axes.</b> In the data it is \(75.4^\circ\). In the synthetic clouds it ranges from \(0^\circ\) to \(87^\circ\) (median \(17.8^\circ\), 99.9th percentile \(86.8^\circ\)). The angle is therefore not a Level 1 quantity: the core has no direction to compare against.</li>
+<li><b>Elongation of the tail.</b> In the synthetic clouds it never exceeds 1.27. The measured 2.22 lies far outside that band.</li>
+</ul>
+<p>The tail has a shape that the noise does not have (Figure 13). That shape is a property of the data. Its direction is still read in the readout frame, so it remains Level 0 until a frame-free version is built.</p>
+
+<p><b>What the tail is made of, and how it moves with the cycle.</b> The same core/tail split applied to the engine shots, about the centre of all shots at one drive setting, separates the populations sharply. Early in the first stroke, while \(f\) is high, the inner 90% of shots read as \(f\) 0.722, \(g\) 0.218, \(e\) 0.059; the outer 10% read almost entirely as \(e\) 0.623 and \(h\) 0.369, with \(f\) only 0.006. Late in the same stroke, as \(f\) drains, the core moves to \(f\) 0.569, \(g\) 0.251, \(e\) 0.173, and the tail's balance reverses to \(e\) 0.387, \(h\) 0.602. With about a thousand tail shots at each point, the shift of the \(e\) share is close to eleven standard errors. The tail therefore tracks the engine: it is where the \(e\) and leakage populations live, and its make-up changes as the stroke proceeds. Reading these shots as ones caught mid-transition is a Level 2 interpretation and is not tested here.</p>
+
+{{FIG:direction}}
+
+<p><b>The leading eigenvector along the cycle.</b> Counting every shot of the three-cycle run into the four populations, and correcting the counts with the authors' own overlap-correction matrix, gives a clean 128-point \(g/e/f/h\) trajectory through the engine strokes. In the first stroke it shows \(f\) draining from 0.620 to 0.487 while \(e\) rises from 0.111 to 0.182. The leading eigenvector of the population covariance over a sliding five-point window turns by \(23.1^\circ\) per step on average on the corrected trajectory. On the uncorrected counts it averages \(21.6^\circ\), with isolated single-step jumps of \(64.6^\circ\) and \(85.9^\circ\). By (10.6), single jumps near \(90^\circ\) are what a crossing between samples produces, but they are also what a near-tie decided by shot noise produces.</p>
+
+<p><b>Crossing or tie: the split-half test.</b> The two readings make opposite predictions. A crossing is in the system, so if every setting's shots are divided into two independent halves, each half must jump at the same step. A tie decided by noise jumps at random places. Each half was given its own 128-point trajectory, both with and without the correction matrix, and the halves were formed twice: odd against even shots, and after shuffling the shot order. Before the run the test was checked on synthetic shots of the same layout: planted structure repeated in both halves, and pure shot noise did not. The kill condition, written in advance, was that fewer than half of one half's jumps (steps over \(45^\circ\)) recur in the other within one step, or that the number of recurrences does not exceed the 99th percentile of the count obtained by sliding one half along the other.</p>
+<ul>
+<li>The full-data trajectories reproduce the notebook: a mean step of \(23.1^\circ\) corrected and \(21.6^\circ\) uncorrected, with the same largest jumps.</li>
+<li>Odd/even, corrected: 20 and 14 jumps, 6 recurring, against 5.4 expected by chance (99th percentile 10). Uncorrected: 19 and 17, 5 recurring, against 6.7 (10.8).</li>
+<li>Shuffled split, corrected: 23 and 12, 3 recurring, against 6.3 (12). Uncorrected: 21 and 17, 8 recurring, against 8.2 (12).</li>
+<li>The step sizes of the two halves are uncorrelated: \(+0.05\), \(+0.03\), \(-0.03\), \(+0.23\).</li>
+</ul>
+<p>The big jumps do not repeat beyond chance in any of the four comparisons. They are ties decided by shot noise, not crossings in the engine. That is itself the law of Section 10.2: a five-point window of populations has no resolved gap between its top two directions, so the leading eigenvector is the free tip, and noise casts its vote.</p>
+
+<h3><span class="num">10.4</span> Dark solitons in a Bose–Einstein condensate</h3>
+
+<p>The second dataset is a different experiment entirely: the NIST dark-soliton image set [Fritsch et al. 2022]. It contains 16,478 absorption images of \(^{87}\)Rb condensates (11,913 from July and 4,565 from August), binned \(2\times2\) to 5,412 pixels and normalised by atom number. The images are split into two halves, either odd against even or at random, and the covariance of each half is diagonalised independently. The prediction for how far each rank-\(k\) projector should move between halves is the first-order formula of Lemma 3.1 applied to the covariance difference \(E=C_A-C_B\):</p>
+\[\sin\theta\ \approx\ \Big\|\sum_{j}\frac{u_j^{\mathsf T}EU}{\lambda_i-\lambda_j}\Big\| .\tag{10.7}\]
+<p>Before use, this predictor was calibrated on synthetic data and returned a ratio of 1.00.</p>
+
+<p><b>Results.</b></p>
+<ul>
+<li><b>Agreement.</b> The median ratio of measured to predicted motion is 1.00 for the odd/even split, and 1.08 and 0.99 for two random splits. A pure-noise control gives projectors that disagree by \(88.9^\circ\) at rank 3.</li>
+<li><b>Vector against subspace, rank 3, odd/even split.</b> The third eigen-image turns by \(40.69^\circ\) between halves. The rank-3 subspace that contains it moves by \(5.19^\circ\).</li>
+<li><b>The gap law.</b> The 36 rank cuts (12 ranks, 3 splits) were ordered by relative gap \((\lambda_k-\lambda_{k+1})/\lambda_k\).
+  <ul>
+  <li>At every cut with relative gap at least 0.10, 18 of 18, the measured motion lies between 0.93 and 1.12 of the prediction.</li>
+  <li>Below 0.10 the ratio scatters from 0.10 to 7.82, because the halves' own noise reorders near-tied modes. At rank 10 the formula expects \(10^\circ\)–\(18^\circ\) and the measurement is \(70^\circ\)–\(81^\circ\): modes 10 and 11 exchanged order.</li>
+  </ul></li>
+</ul>
+
+<p><b>Locked pairs.</b> The spectrum carries near-degenerate pairs \((2,3)\), \((7,8)\) and \((10,11)\) in every split. At the cut that closes each pair, the single vectors are loose while the subspace holds (Table 10.2; Figure 12, right).</p>
+
+<table class="tbl">
+<caption><span class="lab">Table 10.2.</span> Angle between independent halves at the cut closing each pair (range over three splits).</caption>
+<tr><th>Closing cut</th><th>Single eigen-image</th><th>Subspace</th></tr>
+<tr><td>\(k=3\)</td><td>\(26^\circ\)–\(64^\circ\)</td><td>\(5.2^\circ\)–\(8.7^\circ\)</td></tr>
+<tr><td>\(k=8\)</td><td>\(12^\circ\)–\(39^\circ\)</td><td>\(7.7^\circ\)–\(11.4^\circ\)</td></tr>
+<tr><td>\(k=11\)</td><td>\(69^\circ\)–\(81^\circ\)</td><td>\(11.8^\circ\)–\(14.2^\circ\)</td></tr>
+</table>
+
+<p>The eigen-images make the pairs readable. Images 2–5, 7, 8 and 10–12 are stripe patterns across the long axis of the cloud, recording where the soliton sits. Each pair is two stripe patterns offset by a quarter period: a sine–cosine pair for one translation family, which is how principal components describe a feature that moves. Inside such a pair the two members are nearly tied, so the tip is free. The pair as a whole is separated from its neighbours, so the tail holds.</p>
+
+<p>The months themselves differ. Between July and August the top eigen-image differs by \(88.6^\circ\), the eigenvalues differ by 9–60% at every rank, and first order holds at only 5 of 12 ranks. They are two different clouds, not two samples of one, and the analysis above is therefore made within the pooled set and its splits rather than across months.</p>
+
+<p>Nothing in this subsection is new as a law: it is the gap law of Section 10.2, which is the Davis–Kahan theorem. What the data add is a measurement of it, in an experiment unrelated to the heat engine, with the vector and the subspace measured side by side on the same images: <em>the vectors trade identity, the subspace keeps it</em>.</p>
+
+<h3><span class="num">10.5</span> What remains open</h3>
+
+<p>One test is specified but not yet run: a frame-free version of the readout-tail direction, obtained by rescaling the readout plane to equal noise in both quadratures before extracting the axis, so that a Level 1 angle can be stated. Its kill condition is written in advance.</p>
+</section>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 330" role="img" aria-label="Block structure of a tangent vector: zero diagonal blocks, cross-gap blocks X and X star">
+<rect x="0" y="0" width="800" height="330" fill="#070a12"/>
+<g font-family="Newsreader, 'DejaVu Serif', serif">
+<!-- spectrum ladder -->
+<text x="40" y="34" fill="#7088a8" font-size="13" letter-spacing="1.5">SPECTRUM OF Σ</text>
+<g stroke-width="2.4" stroke-linecap="round">
+<line x1="60" y1="70" x2="170" y2="70" stroke="#b9dcff"/>
+<line x1="60" y1="96" x2="170" y2="96" stroke="#b9dcff"/>
+<line x1="60" y1="118" x2="170" y2="118" stroke="#b9dcff"/>
+<line x1="60" y1="232" x2="170" y2="232" stroke="#4cc3ff"/>
+<line x1="60" y1="258" x2="170" y2="258" stroke="#4cc3ff"/>
+<line x1="60" y1="290" x2="170" y2="290" stroke="#4cc3ff"/>
+</g>
+<rect x="44" y="140" width="142" height="70" fill="#1a2740" opacity="0.55"/>
+<text x="115" y="181" fill="#e0b85c" font-size="15" text-anchor="middle">gap Δ</text>
+<text x="196" y="99" fill="#b9dcff" font-size="13">complement  Ran(I − Π)</text>
+<text x="196" y="265" fill="#4cc3ff" font-size="13">occupied  Ran Π</text>
+<g fill="none" stroke="#e0b85c" stroke-width="1.6">
+<path d="M 92 228 C 80 180, 80 140, 92 122"/>
+<path d="M 132 254 C 150 190, 150 130, 132 100"/>
+</g>
+<polygon points="92,122 86,134 97,132" fill="#e0b85c"/>
+<polygon points="132,100 127,112 138,111" fill="#e0b85c"/>
+<!-- block matrix -->
+<text x="420" y="34" fill="#7088a8" font-size="13" letter-spacing="1.5">A TANGENT VECTOR V</text>
+<rect x="420" y="56" width="120" height="120" fill="#0c1220" stroke="#1a2740"/>
+<rect x="540" y="56" width="120" height="120" fill="#0f2a44" stroke="#4cc3ff" stroke-width="1.6"/>
+<rect x="420" y="176" width="120" height="120" fill="#0f2a44" stroke="#4cc3ff" stroke-width="1.6"/>
+<rect x="540" y="176" width="120" height="120" fill="#0c1220" stroke="#1a2740"/>
+<text x="480" y="124" fill="#7088a8" font-size="30" text-anchor="middle">0</text>
+<text x="600" y="244" fill="#7088a8" font-size="30" text-anchor="middle">0</text>
+<text x="600" y="126" fill="#4cc3ff" font-size="34" font-style="italic" text-anchor="middle">X</text>
+<text x="480" y="246" fill="#4cc3ff" font-size="34" font-style="italic" text-anchor="middle">X*</text>
+<text x="410" y="120" fill="#7088a8" font-size="12" text-anchor="end">Π</text>
+<text x="410" y="240" fill="#7088a8" font-size="12" text-anchor="end">I − Π</text>
+<text x="480" y="318" fill="#7088a8" font-size="12" text-anchor="middle">Π</text>
+<text x="600" y="318" fill="#7088a8" font-size="12" text-anchor="middle">I − Π</text>
+<text x="676" y="102" fill="#b9dcff" font-size="13">Π V Π = 0</text>
+<text x="676" y="122" fill="#7088a8" font-size="12">no motion inside</text>
+<text x="676" y="232" fill="#b9dcff" font-size="13">(I−Π)V(I−Π) = 0</text>
+<text x="676" y="252" fill="#7088a8" font-size="12">no motion outside</text>
+<line x1="300" y1="178" x2="400" y2="178" stroke="#e0b85c" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="300" y="168" fill="#e0b85c" font-size="13">change crosses the gap</text>
+</g>
+</svg>

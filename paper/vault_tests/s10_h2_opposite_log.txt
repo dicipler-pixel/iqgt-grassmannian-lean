@@ -1,0 +1,2 @@
+edge ratio measured 2.2163 | null median 1.147  99.9pct 1.265  max 1.266 -> LIVES
+edge axis vs true noise axis measured 75.43 deg | null median 4.90 99.9pct 26.68 -> LIVES

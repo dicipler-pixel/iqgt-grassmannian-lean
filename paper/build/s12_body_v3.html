@@ -1,0 +1,71 @@
+<section id="s12">
+<h2><span class="num">12</span> Separately and as a Whole</h2>
+
+<p>Every object in this paper is a subspace held in place by a gap. The quantum metric measures how fast that subspace moves; the curvature measures how it turns; the friction measures what its motion costs; the refractive index is the rate at which it rotates; the data of Section 10 measure whether it holds still between independent halves of an experiment. Read together, the sections say one thing at two grains, and this closing section draws it out.</p>
+
+<h3><span class="num">12.1</span> One law at two grains</h3>
+
+<p>Section 10.2 stated the gap identity and its consequence, the \(\sin\Theta\) theorem of Davis and Kahan. Read as a statement about what can be looked at, it says the following. Take a cluster of levels separated from the rest of the spectrum by an <em>outer gap</em> \(\Delta_{\mathrm{out}}\), and let the levels inside the cluster be separated from each other by <em>inner gaps</em> \(\delta_{\mathrm{in}}\). Under a perturbation \(E\),</p>
+\[\angle(\text{cluster subspace})\ \lesssim\ \frac{\|E\|}{\Delta_{\mathrm{out}}},\qquad \angle(\text{one vector inside it})\ \lesssim\ \frac{\|E\|}{\delta_{\mathrm{in}}} . \tag{12.1}\]
+<p>The cluster as a whole is held by the outer gap; each member separately is held only by its nearest neighbour. When \(\delta_{\mathrm{in}}\ll\Delta_{\mathrm{out}}\) the members swing while the whole stays put. We call the single vector the <em>tip</em> and the cluster subspace the <em>tail</em>: tips swing, the tail holds, and the outer gap sets the width of the corridor the tail can move in.</p>
+
+<p>Figure 14 (left) shows this on a seven-level operator with a three-level cluster, the outer gap fixed at 3 and a perturbation of norm \(0.005\). As the inner gap falls from 1 to 0.01, the median turn of one vector inside the cluster rises from \(0.08^\circ\) to \(7.8^\circ\), following \(\|E\|/\delta_{\mathrm{in}}\), while the cluster subspace stays at \(0.04^\circ\)–\(0.05^\circ\), below its bound \(\|E\|/\Delta_{\mathrm{out}}=0.096^\circ\) in every one of 900 trials. Levels that sit together fuse into one object; the gap decides where one object ends and the next begins.</p>
+
+<p>The same law governs motion in time. Theorem 5.2 bounds the speed of a subspace by the drive divided by the gap, \(\sqrt{g}\le\sqrt k\,\|\partial_t\Sigma\|/\Delta\). Figure 14 (right) follows a driven three-level path: the metric speed stays under the ceiling everywhere, and the two approach where the gap is narrowest. A two-level off-diagonal drive reaches the ceiling exactly. Whether the question is how far a subspace can be pushed by a perturbation or how fast it can be driven, the answer is set by the gap that encloses it.</p>
+
+{{FIG:corridor}}
+
+<h3><span class="num">12.2</span> How each part reads under it</h3>
+<ul>
+<li><b>The tangent law (Section 2).</b> A subspace can only move by mixing across its own boundary: \(V\) is block off-diagonal. Motion inside the cluster does not move the tail at all.</li>
+<li><b>The gap bound (Section 3).</b> Proposition 3.5 is (12.1) at first order: the tail moves by at most \(\sqrt{2k}\|\delta\Sigma\|/\Delta\).</li>
+<li><b>Pullbacks and silent directions (Section 4).</b> A direction that only reshuffles levels inside the cluster is silent: it leaves the tail unmoved at first order, though at second order it changes how far the other directions move it.</li>
+<li><b>Dissipation (Section 5).</b> The friction is a sum over pairs straddling the outer gap, each weighted by its own gap; the speed limit is the ceiling of Figure 14.</li>
+<li><b>The curvature bound (Section 6).</b> Curvature lives in the sine between two directions of the tail's motion; it cannot exceed what the metric allows.</li>
+<li><b>Transport tensors (Section 7).</b> One sum over the same cross-gap pairs, read with different powers of the gap.</li>
+<li><b>Degenerate strata (Section 8).</b> The refractive index is the rotation rate of the tail. Where the tail stops rotating, trajectories turn back; where the gap narrows and the tail turns faster, they are guided.</li>
+<li><b>Mixed states (Section 9).</b> The symmetric logarithmic derivative exists exactly when the variation has no block inside the kernel: the same boundary that decides what moves.</li>
+</ul>
+
+<h3><span class="num">12.3</span> Looking separately, then as a whole</h3>
+
+<p>This gives a working rule for any data set, and it is the rule Section 10 followed. First look at each part separately: compute every eigenvector and every gap on independent halves of the data, and ask of each direction whether its own gap is resolved. Then look at the whole: cut the spectrum only where a gap is resolved, and treat everything above the cut as one subspace. A part is reported only where its own gap holds it; a whole is reported at every resolved gap. Nothing is lost by this. What cannot be named separately is still measured, as part of the whole that contains it.</p>
+
+<p>The condensate data show the rule at every cut (Figure 15). On the odd/even split, the single eigen-image and the rank-\(k\) subspace move together wherever the cut falls on a resolved gap. Inside each near-degenerate pair they part company:</p>
+<ul>
+<li>at \(k=3\), the cut that closes the pair \((2,3)\), the third eigen-image turns by \(40.7^\circ\) and the subspace by \(5.2^\circ\);</li>
+<li>at \(k=8\) it is \(29.9^\circ\) against \(11.4^\circ\);</li>
+<li>at \(k=11\), \(78.9^\circ\) against \(12.8^\circ\).</li>
+</ul>
+<p>At the cut inside a pair (\(k=2,7,10\)) the subspace inherits the free vector and turns with it, to within a degree. Across all three splits, every cut with relative gap at least 0.10 lands within 0.93–1.12 of the gap prediction, 18 of 18; every cut that misses it sits at a near-tie, with relative gap below 0.10.</p>
+
+<p>The pairs themselves say what "the whole" is. The relative gap inside the pair \((2,3)\) is 0.03; at its outer edge it is 0.30. Eigen-images 2 and 3 are two stripe patterns offset by a quarter period, the sine and cosine of one moving pattern, and the soliton position oscillates in hold time at 2.70 Hz. A combination \(\cos\varphi\cdot\text{image }2+\sin\varphi\cdot\text{image }3\) is the stripe at phase \(\varphi\) of its swing. The two directions inside the pair are nearly tied, so each half of the data picks its own combination of them, and the tip is free; the plane the two images span is the motion itself, and it holds. Sharp gaps make sharp subspaces: ten eigen-images carry half of all the variation in 16,478 images, and the participation of the spectrum is 26.5 against 1,911 for noise of the same spread.</p>
+
+<p>The same rule, applied where no gap is resolved, gives the other half of the answer. In the heat-engine populations a five-point window has no resolved gap between its top two directions, and the leading eigenvector's large jumps do not repeat across independent halves of the shots. There the honest report is that no single direction exists at that grain. That is a measurement too.</p>
+
+{{FIG:cuts}}
+
+<h3><span class="num">12.4</span> The same geometry in a deck of cards</h3>
+
+<p>The rule applies wherever a distance is read off subspaces, and one such place is the Hamming metric on permutations that underlies the soficity question [Chapman–Lubotzky 2025; Beasley 2026]. For a permutation matrix \(U\) of degree \(n\), let \(P_U\) be the orthogonal projector onto its graph, the column space of \(\tfrac1{\sqrt2}\binom{I}{U}\). Then</p>
+\[d_H(U,V)=\frac1n\|P_U-P_V\|_F^2=\frac2n\sum_{j=1}^n\sin^2\theta_j , \tag{12.2}\]
+<p>where \(\theta_j\) are the principal angles between the two graphs and \(\sin^2\theta_j=\sin^2(\phi_j/2)\) over the eigenphases \(\phi_j\) of \(U^*V\). The proof is two lines: \(P_U-P_V\) has off-diagonal blocks \(\tfrac12(U-V)\) and its adjoint, so \(\|P_U-P_V\|_F^2=\tfrac12\|U-V\|_F^2=n\,d_H\); and \(Q_U^*Q_V=\tfrac12(I+U^*V)\) has singular values \(|\cos(\phi_j/2)|=\cos\theta_j\). The card count is therefore a chordal distance between two points of the Grassmannian.</p>
+
+<p>The intrinsic metric adds the geodesic. Along \(U(t)=\exp(t\log U)\) the graph projector moves with constant speed in the metric of Section 2, so its intrinsic length from \(P_I\) to \(P_U\) is</p>
+\[\mathcal L=\Big(\sum_j\theta_j^2\Big)^{1/2}, \tag{12.3}\]
+<p>the Grassmannian geodesic distance (agreement \(6\times10^{-10}\) on 20 random permutations, with the speed constant along each path). The count reads \(\sum\sin^2\theta_j\); the intrinsic length reads \(\sum\theta_j^2\). They see the same angles weighted differently, and the difference is the arrangement the count forgets. On twenty points, five disjoint swaps and one 10-cycle both move ten points and both give \(\sum\sin^2\theta_j=5\); the swaps place five angles at \(90^\circ\), the cycle spreads its angles from \(0^\circ\) to \(90^\circ\) in steps of \(18^\circ\), and the intrinsic lengths are \(3.512\) and \(2.896\) (Figure 16). Per point the two are tied together by \(d_H/2\le\frac1n\sum\theta_j^2\le\frac{\pi^2}8d_H\) [Beasley 2026], which held on 2,000 random pairs. So the geodesic separates arrangements, but it still vanishes with the defect, and like every native reading of the Hamming metric it obstructs nothing.</p>
+
+<p>The tip and the tail are visible here too. The displacement Gram \(G=I-\tfrac12(U+U^*)\) of an \(\ell\)-cycle has eigenvalues \(2\sin^2(\pi j/\ell)\), which coincide for \(j\) and \(\ell-j\): a cyclic motion comes in sine–cosine pairs, exactly as the condensate's moving stripes do in Section 12.3. Five swaps give the eigenvalue 2 five times over (and 0 five times), a complete tie in which no single mode is selected; the cycle resolves its modes into pairs. Each pair is a tail held by its gap; the vectors inside it are tips.</p>
+
+{{FIG:perm}}
+
+<h3><span class="num">12.5</span> What the paper adds to the law</h3>
+<p>The \(\sin\Theta\) bound is classical. What this paper adds is the reading of it as the organising principle of quantum geometry, and its use as a measuring rule:</p>
+<ul>
+<li>the gap identity (10.4) and the free tip at a tie (Proposition 10.2), both checked in Lean;</li>
+<li>the observation that every intrinsic quantity of Sections 2–9 is a property of the tail, held by the outer gap, and so inherits its stability;</li>
+<li>the three-level standard of Section 10.1, which asks of every reported angle whether a gap holds it;</li>
+<li>two independent experiments in which the vector and the subspace were measured side by side on the same data, showing the tips trade identity while the tail keeps it.</li>
+</ul>
+<p>Looked at separately, the parts of a quantum system are only as definite as the gaps between them. Looked at as a whole, the subspace above a resolved gap is definite, stable and measurable, and every geometric quantity in this paper is a quantity of that whole.</p>
+</section>
