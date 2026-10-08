@@ -1,0 +1,2 @@
+arbitrary unit field: max |4det g - Bz^2| / max Bz^2 = 7.383810555704039e-16 FORCED
+their model:          max |4det g - Bz^2| / max Bz^2 = 3.7629236048945853e-16

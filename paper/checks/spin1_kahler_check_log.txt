@@ -1,0 +1,4 @@
+K1 holomorphic form, best choice w = -1/conj z : max |1-overlap| = 5.551115123125783e-16 PASS
+   (all choices: {'z': 1.0, '-z': 0.95, 'conj z': 1.0, '-conj z': 1.0, '1/z': 1.0, '-1/conj z': 5.6e-16} )
+K2 spin-1 saturation: max |4det g - Om^2|/Om^2 = 7.631243626919891e-12 PASS
+K3 generic three-band control: min |Om|/(2 sqrt det g) = 0.0034289665480410902 PASS
