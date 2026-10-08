@@ -160,4 +160,19 @@ theorem stratum_needs_zero (s2 : ℝ) : (0 : ℝ) * s2 = 0 := zero_mul s2
 
 end Transport
 
+section Mixed
+variable {R : Type*} [Ring R]
+
+/-- §9, Remark 9.2: anything of the form `Lρ + ρL` with `ρ` supported on `Ran Π` has no
+kernel–kernel block, so a variation with such a block can never solve the SLD equation. -/
+theorem sld_kernel_block {P L : R} (hP : IsIdempotentElem P) :
+    (1 - P) * (L * P + P * L) * (1 - P) = 0 := by
+  have h1 : P * (1 - P) = 0 := proj_mul_compl hP
+  have h2 : (1 - P) * P = 0 := compl_mul_proj hP
+  have e : (1 - P) * (L * P + P * L) * (1 - P)
+      = (1 - P) * L * (P * (1 - P)) + ((1 - P) * P) * L * (1 - P) := by noncomm_ring
+  rw [e, h1, h2]; simp
+
+end Mixed
+
 end IqgtGrassmannian.Rebuild
