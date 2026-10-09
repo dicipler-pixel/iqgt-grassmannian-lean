@@ -3,7 +3,7 @@
 Jeromie Beasley
 
 The paper (`iqgt_grassmannian_v6.html`, `iqgt_grassmannian_v6.pdf`), the Grassmannian Mixer
-(`grassmannian_mixer_v2.html`, open it in any browser), and the code, checks and data behind them.
+(`grassmannian_mixer_v3.html`, open it in any browser), and the code, checks and data behind them.
 The Lean proofs are at the top of this repository.
 
 ## What is in this archive
@@ -13,7 +13,7 @@ The Lean proofs are at the top of this repository.
 | `checks/` | One numerical check script per section of the paper, each with its pass/fail conditions written at the top before it was run, and the log of its run. |
 | `vault_tests/` | Tests of older ideas that were tried and recorded rather than discarded, including those that failed. `test_vault.html` lists every one with its result. |
 | `figures/` | The figure scripts and the 18 figures as SVG. |
-| `mixer/` | Source of the Grassmannian Mixer v2: maths core `core_v2.js`, its test `core_v2_test.js`, the page script `app_v2.js`, the page shell `shell_v2.html` and the condensate table `bec.json`. |
+| `mixer/` | Source of the Grassmannian Mixer v3: maths core `core_v2.js`, its test `core_v2_test.js`, the bench script `app_v2.js`, the animated stage `stage.js` (seven eyes from the Tip and Tail Mixer), the page shell `shell_v3.html` and the condensate table `bec.json`. |
 | `data/` | The condensate numbers used in Sections 10 and 12 (`bec_numbers.json`, `bec_cuts_by_split.json`) and the measured eigen-images 2 and 3 shown in the mixer (`bec_eigenimages_2_3.json`, 104 × 84; overlap 0.012, stripes offset 90.6°). |
 | `build/` | The section sources of the paper and the scripts that assemble the HTML and print the PDF. |
 | `test_vault.html` | Survived, failed-and-kept, and open tests. |
@@ -72,7 +72,7 @@ numbers: turning points 0.32981248 (polar stratum, 35°) and −1.0969 (gap-narr
 50°), the swap and cycle lengths 3.512 and 2.896, speed under the gap ceiling, curvature inside
 the envelope, the tail holding while the tip turns, two-level and spin-1 bands on the curvature bound,
 generic three-level bands strictly inside it, and the Fisher speed from fidelity equal to the metric
-speed. The published mixer page is these files inlined into `shell_v2.html`.
+speed. The published mixer page is these files inlined into `shell_v3.html`.
 
 ## Rebuilding the paper
 

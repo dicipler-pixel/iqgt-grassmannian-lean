@@ -1,6 +1,6 @@
 <title>Grassmannian Mixer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Spectral:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Spectral:wght@500;600&display=swap">
 <style>
 /* Layout: an instrument bench. Controls on the left rail, the eyes on the right; Eye shows one large, Mix shows all at once.
    Single dark look by choice (the paper's own night field and electric-blue lettering). */
@@ -59,6 +59,36 @@ label.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--blade); }
 .panel .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .panel .head button { font-size: 0.7rem; padding: 3px 8px; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+
+/* The animated stage: the eyes of the Tip and Tail Mixer, kept in their own look (own namespace, tt-) */
+.ttstage { --tcyan:#5fd4ff; --tmag:#ff5fa8; --tamb:#ffc35a; --tdim:#7f93ad; --tbench:#0a111b; --trule:#17243a; --tink:#d8e4f4;
+  margin-top: 18px; display: grid; gap: 12px; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+.ttstage .tt-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.ttstage .tt-head h2 { font-family: 'Rajdhani', 'Arial Narrow', sans-serif; font-weight: 700; letter-spacing: .05em; font-size: clamp(1.3rem, 2.4vw, 1.8rem); color: var(--tink); margin: 0; }
+.ttstage .tt-head h2 span { color: var(--tcyan); }
+.ttstage .tt-head p { margin: 0; color: var(--tdim); font-size: .9rem; max-width: 70ch; }
+.ttstage .tt-bench { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; }
+@media (max-width: 980px) { .ttstage .tt-bench { grid-template-columns: minmax(0, 1fr); } }
+.ttstage .tt-stage { background: #000; border: 1px solid var(--trule); border-radius: 6px; overflow: hidden; min-width: 0; }
+.ttstage .tt-stage canvas { display: block; width: 100%; height: auto; aspect-ratio: 1220 / 834; max-width: 100%; }
+.ttstage .tt-side { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.ttstage .tt-card { background: var(--tbench); border: 1px solid var(--trule); border-radius: 6px; padding: 12px 14px; display: grid; gap: 10px; }
+.ttstage .tt-card h3 { font-family: 'Rajdhani', 'Arial Narrow', sans-serif; font-size: 1.15rem; letter-spacing: .06em; text-transform: uppercase; margin: 0; color: var(--tcyan); }
+.ttstage .tt-card p { margin: 0; color: var(--tdim); font-size: .88rem; }
+.ttstage .tt-ctl { display: grid; gap: 4px; }
+.ttstage .tt-ctl label { display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .8rem; color: var(--tink); }
+.ttstage .tt-ctl label output { color: var(--tamb); font-variant-numeric: tabular-nums; }
+.ttstage input[type=range] { width: 100%; accent-color: var(--tcyan); }
+.ttstage .tt-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ttstage .tt-rail { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+.ttstage .tt-eye { display: grid; gap: 2px; text-align: left; padding: 9px 11px; background: var(--tbench); border: 1px solid var(--trule); border-radius: 6px; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+.ttstage .tt-eye b { font-family: 'Rajdhani', 'Arial Narrow', sans-serif; font-size: 1.02rem; letter-spacing: .04em; font-weight: 600; color: var(--tink); }
+.ttstage .tt-eye small { color: var(--tdim); font-size: .76rem; line-height: 1.3; }
+.ttstage .tt-eye[aria-pressed=true] { border-color: var(--tcyan); box-shadow: 0 0 0 1px var(--tcyan) inset; }
+.ttstage .tt-card, .ttstage .tt-card > *, .ttstage .tt-ctl > * { min-width: 0; }
+.ttstage select { width: 100%; }
+.ttstage .tt-legend { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .74rem; color: var(--tdim); }
+.part-title { font-family: var(--display); color: var(--blade); font-size: 1.25rem; margin: 26px 0 0; font-weight: 600; }
 </style>
 <div class="wrap">
 <header>
@@ -74,6 +104,36 @@ label.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--blade); }
     <button id="film" aria-pressed="false">Run film</button>
   </div>
 </header>
+<section class="ttstage" aria-label="Animated stage">
+  <div class="tt-head"><h2>Animated <span>stage</span></h2><p>The eyes run on their own clock: tips swing, the tail holds, the corridor breathes, the stripes slide. Pick an eye below, or run them in film order.</p></div>
+  <div class="tt-bench">
+    <div class="tt-stage"><canvas id="tt-stage" width="1220" height="834" aria-label="Live eye"></canvas></div>
+    <div class="tt-side">
+      <div class="tt-card">
+        <h3 id="tt-eyeTitle">Eye</h3>
+        <p id="tt-eyeSub"></p>
+        <div id="tt-controls" class="tt-ctl" style="gap:10px"></div>
+      </div>
+      <div class="tt-card">
+        <h3>Mix</h3>
+        <p>One spectrum feeds the vote and the tip and tail.</p>
+        <div class="tt-ctl"><label for="tt-feed">Spectrum feeding the mix</label>
+          <select id="tt-feed">
+            <option value="bec">condensate, measured (12 eigen-images)</option>
+            <option value="levels">levels eye, live</option>
+          </select></div>
+        <div class="tt-row"><input type="checkbox" id="tt-feedTT"><label for="tt-feedTT" style="font-size:.85rem">Tip and tail takes its gaps from the feed</label></div>
+        <div class="tt-row">
+          <button id="tt-play" type="button">Pause</button>
+          <button id="tt-film" type="button">Run film order</button>
+          <span class="tt-legend" id="tt-clock">t = 0.0 s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tt-rail" id="tt-rail"></div>
+</section>
+<h2 class="part-title">Instrument bench</h2>
 <div class="bench">
   <aside class="rail">
     <fieldset>
@@ -115,4 +175,7 @@ label.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--blade); }
 /*CORE*/
 /*BEC*/
 /*APP*/
+</script>
+<script>
+/*STAGE*/
 </script>
