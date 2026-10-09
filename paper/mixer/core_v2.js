@@ -1,4 +1,4 @@
-// SCRIPT: GRASSMANN-MIXER-CORE
+// SCRIPT: GRASSMANN-MIXER-CORE-V2
 // Math core for the Grassmannian mixer. Pure functions, no DOM. Tested by core_test.js against the paper's numbers.
 const Core = (() => {
   // seeded RNG (mulberry32) so every run of the page is reproducible
@@ -125,4 +125,53 @@ const Core = (() => {
   }
   return { rng, gauss, eigh, principal, cols, deg, randSym, randOrth, makeFeed, feedOp, clusters, tipTail, speed, geodesic, families, cycleAngles, permStats, envelopePoint, matmul, T, opnorm };
 })();
+
+// ---------- v2 additions: complex bands (Appendices B and C) and Fisher speed from fidelity (Lemma 5.1) ----------
+Object.assign(Core, (() => {
+  const C = Core;
+  // gauge-fix a complex vector: component idx real and positive, unit norm
+  function gauge(re, im, idx) { const a = re[idx], b = im[idx], m = Math.hypot(a, b) || 1, c = a / m, s = -b / m;
+    const r2 = re.map((x, i) => x * c - im[i] * s), i2 = im.map((y, i) => re[i] * s + y * c); const n = Math.hypot(...r2, ...i2);
+    return { re: r2.map(x => x / n), im: i2.map(x => x / n) }; }
+  // lowest eigenvector of a complex Hermitian H = {re, im} through the real embedding [[A,-B],[B,A]]
+  function lowestVec(H, idx) { const n = H.re.length, M = Array.from({ length: 2 * n }, () => new Float64Array(2 * n));
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { M[i][j] = H.re[i][j]; M[i + n][j + n] = H.re[i][j]; M[i][j + n] = -H.im[i][j]; M[i + n][j] = H.im[i][j]; }
+    const e = C.eigh(M), re = [], im = []; for (let i = 0; i < n; i++) { re.push(e.V[i][0]); im.push(e.V[i + n][0]); }
+    if (idx === undefined) { let best = 0; re.forEach((x, i) => { if (Math.hypot(x, im[i]) > Math.hypot(re[best], im[best])) best = i; }); idx = best; }
+    return Object.assign(gauge(re, im, idx), { idx, lam: e.w[0] }); }
+  const cdot = (u, v) => { let re = 0, im = 0; for (let i = 0; i < u.re.length; i++) { re += u.re[i] * v.re[i] + u.im[i] * v.im[i]; im += u.re[i] * v.im[i] - u.im[i] * v.re[i]; } return { re, im }; };
+  // tensor Q_ij = <d_i v_perp | d_j v_perp> of the lowest band of Hf(p), p in R^2
+  function bandQ(Hf, p, h = 1e-5) { const v = lowestVec(Hf(p)), idx = v.idx, d = [];
+    for (let i = 0; i < 2; i++) { const pp = p.slice(), pm = p.slice(); pp[i] += h; pm[i] -= h; const a = lowestVec(Hf(pp), idx), b = lowestVec(Hf(pm), idx);
+      const dv = { re: a.re.map((x, j) => (x - b.re[j]) / (2 * h)), im: a.im.map((x, j) => (x - b.im[j]) / (2 * h)) }; const o = cdot(v, dv);
+      d.push({ re: dv.re.map((x, j) => x - (v.re[j] * o.re - v.im[j] * o.im)), im: dv.im.map((x, j) => x - (v.re[j] * o.im + v.im[j] * o.re)) }); }
+    return [[cdot(d[0], d[0]), cdot(d[0], d[1])], [cdot(d[1], d[0]), cdot(d[1], d[1])]]; }
+  // one random pair of tangent directions V = a.d, W = b.d at the point; returns the same fields as envelopePoint
+  function pairFromQ(Q, a, b) { const q = (x, y) => { let re = 0, im = 0; for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) { re += x[i] * y[j] * Q[i][j].re; im += x[i] * y[j] * Q[i][j].im; } return { re, im }; };
+    const xy = q(a, b), xx = q(a, a).re, yy = q(b, b).re, g12 = xy.re, Om = -2 * xy.im, bound = 2 * Math.sqrt(Math.max(0, xx * yy - g12 * g12));
+    return { Om, bound, ratio: Math.abs(Om) / bound, thetaG: Math.acos(Math.max(-1, Math.min(1, g12 / Math.sqrt(xx * yy)))) }; }
+  const r2 = Math.SQRT2;
+  const SIG = { x: { re: [[0, 1], [1, 0]], im: [[0, 0], [0, 0]] }, y: { re: [[0, 0], [0, 0]], im: [[0, -1], [1, 0]] }, z: { re: [[1, 0], [0, -1]], im: [[0, 0], [0, 0]] } };
+  const SPN = { x: { re: [[0, 1 / r2, 0], [1 / r2, 0, 1 / r2], [0, 1 / r2, 0]], im: [[0, 0, 0], [0, 0, 0], [0, 0, 0]] },
+                y: { re: [[0, 0, 0], [0, 0, 0], [0, 0, 0]], im: [[0, -1 / r2, 0], [1 / r2, 0, -1 / r2], [0, 1 / r2, 0]] },
+                z: { re: [[1, 0, 0], [0, 0, 0], [0, 0, -1]], im: [[0, 0, 0], [0, 0, 0], [0, 0, 0]] } };
+  const comb = (cs, Ms) => { const n = Ms[0].re.length, out = { re: [], im: [] }; for (let i = 0; i < n; i++) { out.re.push(new Float64Array(n)); out.im.push(new Float64Array(n));
+    for (let j = 0; j < n; j++) Ms.forEach((M, k) => { out.re[i][j] += cs[k] * M.re[i][j]; out.im[i][j] += cs[k] * M.im[i][j]; }); } return out; };
+  const dirH = ops => p => comb([Math.sin(p[0]) * Math.cos(p[1]), Math.sin(p[0]) * Math.sin(p[1]), Math.cos(p[0])], [ops.x, ops.y, ops.z]);
+  function randHerm(n, r) { const re = [], im = []; for (let i = 0; i < n; i++) { re.push(new Float64Array(n)); im.push(new Float64Array(n)); }
+    for (let i = 0; i < n; i++) for (let j = i; j < n; j++) { const a = C.gauss(r), b = i === j ? 0 : C.gauss(r); re[i][j] = re[j][i] = a; im[i][j] = b; im[j][i] = -b; } return { re, im }; }
+  const gr = C.rng(404), G0 = randHerm(3, gr), G1 = randHerm(3, gr), G2 = randHerm(3, gr);
+  const bandFamilies = {
+    two: { label: 'two levels (d·σ; the polariton case)', H: dirH(SIG), point: r => [0.3 + 2.5 * r(), 2 * Math.PI * r()] },
+    spin1: { label: 'spin 1, lowest band (d·S)', H: dirH(SPN), point: r => [0.3 + 2.5 * r(), 2 * Math.PI * r()] },
+    generic: { label: 'generic three levels (H₀ + aH₁ + bH₂)', H: p => comb([1, p[0], p[1]], [G0, G1, G2]), point: r => [C.gauss(r) * 0.5, C.gauss(r) * 0.5] } };
+  function bandCloud(fam, n, seed) { const r = C.rng(seed), F = bandFamilies[fam], pts = [];
+    for (let t = 0; t < n; t++) { const Q = bandQ(F.H, F.point(r)); pts.push(pairFromQ(Q, [C.gauss(r), C.gauss(r)], [C.gauss(r), C.gauss(r)])); } return pts; }
+  // Fisher speed of rho = Pi_k / k from the Bures fidelity of neighbouring projectors: F_Q = 8 (1 - (1/k) Σ cos θ_j) / ds²
+  function fisherSpeed(F, inner, outer, s, k, ds = 1e-4) { const ids = [...Array(k).keys()];
+    const a = C.eigh(C.feedOp(F, inner, outer, s - ds / 2)), b = C.eigh(C.feedOp(F, inner, outer, s + ds / 2));
+    const th = C.principal(C.cols(a.V, ids), C.cols(b.V, ids)); const fq = 8 * (1 - th.reduce((x, t) => x + Math.cos(t), 0) / k) / (ds * ds);
+    return { fq, v: Math.sqrt(k * fq / 4) }; }
+  return { lowestVec, bandQ, pairFromQ, bandFamilies, bandCloud, fisherSpeed };
+})());
 if (typeof module !== 'undefined') module.exports = Core;

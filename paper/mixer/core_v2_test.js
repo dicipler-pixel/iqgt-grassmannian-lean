@@ -1,4 +1,4 @@
-// SCRIPT: GRASSMANN-MIXER-CORE-TEST
+// SCRIPT: GRASSMANN-MIXER-CORE-V2-TEST
 // Kill conditions written before the run (each must match the paper or the Python checks):
 // C1 Jacobi eigen: residual ||A V - V diag(w)|| < 1e-10 on random 6x6 and 12x12
 // C2 polar family geodesic from y=0.6 at 35 deg turns at y = 0.32981248 (paper S8), |err| < 1e-5
@@ -7,7 +7,7 @@
 // C5 speed never exceeds the ceiling on 200 random feed points
 // C6 envelope: alpha = pi/2, mix = 0 sits on the bound (ratio 1 within 1e-12); random mix falls inside (ratio <= 1)
 // C7 tail stays under its Davis-Kahan bound in the corridor setup: subspace angle median < tip median at inner gap 0.01
-const C = require('./core.js');
+const C = require('./core_v2.js');
 const out = {};
 { const r = C.rng(5); let worst = 0;
   for (const n of [6, 12]) for (let t = 0; t < 20; t++) { const A = C.randSym(n, r), e = C.eigh(A);
@@ -26,4 +26,22 @@ const out = {};
   for (let t = 0; t < 60; t++) { const rows = C.tipTail(C.feedOp(F, 0.01, 3, 0), 0.0015, r); tips.push(rows[1].vec); tails.push(rows[2].sub); }
   const med = a => a.slice().sort((x, y) => x - y)[a.length >> 1];
   out.C7 = [[med(tips), med(tails)], med(tails) < med(tips)]; }
+
+// v2 kill conditions, written before the run:
+// C8  two-level band: every random pair sits on the bound, |ratio - 1| < 1e-6 (Appendix B)
+// C9  spin-1 lowest band: every random pair sits on the bound, |ratio - 1| < 1e-6 (Appendix C, coherent state)
+// C10 generic three-level band: some pair falls strictly inside, min ratio < 0.99
+// C11 Fisher speed from the Bures fidelity of rho = Pi/k equals the metric speed sqrt(g), relative error < 1e-3 (Lemma 5.1)
+// C12 complex eigenvector: residual |Hv - lam v| < 1e-10
+{ const a = C.bandCloud('two', 200, 1).map(p => Math.abs(p.ratio - 1)); out.C8 = [Math.max(...a), Math.max(...a) < 1e-6]; }
+{ const a = C.bandCloud('spin1', 200, 2).map(p => Math.abs(p.ratio - 1)); out.C9 = [Math.max(...a), Math.max(...a) < 1e-6]; }
+{ const a = C.bandCloud('generic', 300, 3).map(p => p.ratio); out.C10 = [Math.min(...a), Math.min(...a) < 0.99]; }
+{ const F = C.makeFeed(11), r = C.rng(12); let worst = 0;
+  for (let t = 0; t < 50; t++) { const inner = 0.05 + r() * 0.5, outer = 0.5 + 2 * r(), s = -1 + 2 * r(), k = 1 + Math.floor(r() * 3);
+    const m = C.speed(F, inner, outer, s, k).v, f = C.fisherSpeed(F, inner, outer, s, k).v; worst = Math.max(worst, Math.abs(f - m) / m); }
+  out.C11 = [worst, worst < 1e-3]; }
+{ const H = C.bandFamilies.generic.H([0.3, -0.2]), v = C.lowestVec(H); let res = 0;
+  for (let i = 0; i < 3; i++) { let re = 0, im = 0; for (let j = 0; j < 3; j++) { re += H.re[i][j] * v.re[j] - H.im[i][j] * v.im[j]; im += H.re[i][j] * v.im[j] + H.im[i][j] * v.re[j]; }
+    res = Math.max(res, Math.hypot(re - v.lam * v.re[i], im - v.lam * v.im[i])); }
+  out.C12 = [res, res < 1e-10]; }
 for (const [k, [v, ok]] of Object.entries(out)) console.log(k, ok ? 'PASS' : 'FAIL', JSON.stringify(v));

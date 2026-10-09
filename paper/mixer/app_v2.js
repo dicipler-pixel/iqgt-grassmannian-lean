@@ -1,10 +1,10 @@
-// SCRIPT: GRASSMANN-MIXER-APP
+// SCRIPT: GRASSMANN-MIXER-APP-V2
 (() => {
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const COL = { ink: css('--ink'), blade: css('--blade'), stem: css('--stem'), warm: css('--warm'), vio: css('--vio'), rose: css('--rose'), rule: css('--rule'), bed: css('--bed'), ground: css('--ground') };
 const CLUSTER = [COL.blade, COL.warm, COL.vio, COL.rose, '#6fe0b0', '#f2a65a'];
 const $ = id => document.getElementById(id);
-const S = { inner: 0.08, outer: 1.6, s: 0, noise: 0.004, thr: 0.06, k: 3, fam: 'polar', launch: 35, alpha: 90, mix: 0, tt: 'live', pp: 0, cone: 60, mode: 'mix', focus: 'levels', playing: false, t0: 0 };
+const S = { inner: 0.08, outer: 1.6, s: 0, noise: 0.004, thr: 0.06, k: 3, fam: 'polar', launch: 35, alpha: 90, mix: 0, tt: 'live', pp: 0, cone: 60, envfam: 'random', film: false, mode: 'mix', focus: 'levels', playing: false, t0: 0 };
 const F = Core.makeFeed(11);
 const fmt = (x, d = 3) => Number.isFinite(x) ? x.toFixed(d) : '–';
 
@@ -20,9 +20,9 @@ function levelsTrack() {
 function speedTrack() {
   const key = [S.inner, S.outer, S.k].join();
   if (cache.spKey === key) return cache.sp;
-  const ss = [], v = [], c = [];
-  for (let i = 0; i <= 120; i++) { const s = -1.5 + 3 * i / 120; const r = Core.speed(F, S.inner, S.outer, s, S.k); ss.push(s); v.push(r.v); c.push(r.ceil); }
-  cache.spKey = key; cache.sp = { ss, v, c }; return cache.sp;
+  const ss = [], v = [], c = [], fv = [];
+  for (let i = 0; i <= 120; i++) { const s = -1.5 + 3 * i / 120; const r = Core.speed(F, S.inner, S.outer, s, S.k); ss.push(s); v.push(r.v); c.push(r.ceil); fv.push(Core.fisherSpeed(F, S.inner, S.outer, s, S.k).v); }
+  cache.spKey = key; cache.sp = { ss, v, c, fv }; return cache.sp;
 }
 function tipTailLive() {
   const key = [S.inner, S.outer, S.s, S.noise].join();
@@ -66,6 +66,7 @@ function envelopeCloud() {
   const cur = Core.envelopePoint(Core.rng(31), 2, 4, S.alpha * Math.PI / 180, S.mix);
   cache.enKey = key; cache.en = { pts, cur }; return cache.en;
 }
+function bandCloud(fam) { const key = 'band_' + fam; if (cache[key]) return cache[key]; cache[key] = Core.bandCloud(fam, 140, 17); return cache[key]; }
 const PAIRS = [ { n: 20, A: [2, 2, 2, 2, 2], B: [10], la: 'five swaps', lb: 'one 10-cycle' },
   { n: 12, A: [2, 2, 2], B: [6], la: 'three swaps', lb: 'one 6-cycle' },
   { n: 12, A: [3, 3], B: [6], la: 'two 3-cycles', lb: 'one 6-cycle' },
@@ -102,7 +103,7 @@ const EYES = {
       text(c, `${cl.length} subspaces at s = ${fmt(S.s, 2)}: ` + cl.map(g => g.length).join(' + '), pad + 6, h - 8, COL.ink); } },
   grass: { name: 'The Grassmannian moving', sec: 'Sections 2, 5.2, 8.2',
     short: 'Principal angles between the rank-k subspace at s and at s = 0, and its speed under the gap ceiling.',
-    long: 'Left: the moving subspace seen from its starting position. Each spoke is one principal angle between the rank-k eigenspace at s and the same eigenspace at s = 0; the Hilbert–Schmidt distance is the sum of their squared sines. Right: the speed of the subspace in the intrinsic metric along the whole sweep (blue) and the ceiling that the drive and the gap allow (amber, Theorem 5.2). The speed rises toward the ceiling where the gap is narrowest.',
+    long: 'Left: the moving subspace seen from its starting position. Each spoke is one principal angle between the rank-k eigenspace at s and the same eigenspace at s = 0; the Hilbert–Schmidt distance is the sum of their squared sines. Right: the speed of the subspace in the intrinsic metric along the whole sweep (blue) and the ceiling that the drive and the gap allow (amber, Theorem 5.2). The speed rises toward the ceiling where the gap is narrowest. The dashed line is the Fisher speed of ρ = Π/k computed independently, from the Bures fidelity of neighbouring projectors; it lies on the metric speed, which is Lemma 5.1, F_Q = 4g/k.',
     draw(cv) { const { c, w, h } = setup(cv); const k = S.k;
       const e0 = Core.eigh(Core.feedOp(F, S.inner, S.outer, 0)), e1 = Core.eigh(Core.feedOp(F, S.inner, S.outer, S.s));
       const ids = [...Array(k).keys()], th = Core.principal(Core.cols(e1.V, ids), Core.cols(e0.V, ids));
@@ -111,11 +112,11 @@ const EYES = {
       th.forEach((t, i) => line(c, [[cx, cy], [cx + R * Math.cos(t), cy - R * Math.sin(t)]], CLUSTER[i % 6], 2.4));
       text(c, 'angles to s = 0', cx, 16, COL.stem, 10); text(c, th.map(t => Core.deg(t).toFixed(1) + '°').join(' '), cx, 30, COL.ink, 10);
       text(c, 'Σ sin²θ = ' + fmt(th.reduce((a, t) => a + Math.sin(t) ** 2, 0)), cx, cy + 16, COL.ink);
-      const sp = speedTrack(), x0 = w * 0.5, x1 = w - 10, y0 = 40, y1 = h - 26; axes(c, x0, y0, x1, y1);
+      const sp = speedTrack(), x0 = w * 0.5, x1 = w - 10, y0 = 54, y1 = h - 26; axes(c, x0, y0, x1, y1);
       const vmax = Math.max(...sp.c) * 1.05, X = s => x0 + (s + 1.5) / 3 * (x1 - x0), Y = v => y1 - Math.log10(Math.max(v, vmax / 300) / (vmax / 300)) / Math.log10(300) * (y1 - y0);
-      line(c, sp.ss.map((s, i) => [X(s), Y(sp.c[i])]), COL.warm, 2); line(c, sp.ss.map((s, i) => [X(s), Y(sp.v[i])]), COL.blade, 2);
+      line(c, sp.ss.map((s, i) => [X(s), Y(sp.c[i])]), COL.warm, 2); line(c, sp.ss.map((s, i) => [X(s), Y(sp.v[i])]), COL.blade, 3.2); line(c, sp.ss.map((s, i) => [X(s), Y(sp.fv[i])]), COL.rose, 1.6, [5, 4]);
       const now = Core.speed(F, S.inner, S.outer, S.s, k); dot(c, X(S.s), Y(now.v), 4, COL.ink);
-      text(c, 'ceiling √k‖∂Σ‖/gap', x0, 16, COL.warm, 10); text(c, 'speed √g', x0, 30, COL.blade, 10); text(c, 's', x1 - 6, h - 10); } },
+      text(c, 'ceiling √k‖∂Σ‖/gap', x0, 16, COL.warm, 10); text(c, 'speed √g', x0, 30, COL.blade, 10); text(c, 'Fisher speed √(kF_Q/4), dashed', x0, 44, COL.rose, 10); text(c, 's', x1 - 6, h - 10); } },
   bloch: { name: 'Bloch sphere: Gr(1, ℂ²)', sec: 'Sections 2, 6, Appendix B',
     short: 'The smallest Grassmannian is a sphere. A loop of the lower-band projector, its metric and the curvature flux it encloses.',
     long: 'For two levels the Grassmannian of lines is the Bloch sphere, and every projector is a point on it. The lower band of d·σ traces a loop of opening θ as s sweeps. The metric is a quarter of the round metric (g_θθ = 1/4) and the curvature is half the area element, so the Berry phase of the loop is half the solid angle it encloses, and the Chern number over the whole sphere is 1. Two levels always sit on the curvature bound: every pair of directions is extremal.',
@@ -169,16 +170,53 @@ const EYES = {
       if (G.pred !== null) { c.setLineDash([4, 4]); c.strokeStyle = COL.ink; c.globalAlpha = 0.6; c.beginPath(); c.moveTo(0, Y(G.pred)); c.lineTo(w, Y(G.pred)); c.stroke(); c.setLineDash([]); c.globalAlpha = 1; }
       c.font = "10px 'JetBrains Mono', monospace"; const words = f.note.split(' '), lines = [''], maxw = w - 28; words.forEach(wd => { const t = lines[lines.length - 1] ? lines[lines.length - 1] + ' ' + wd : wd; if (c.measureText(t).width > maxw) lines.push(wd); else lines[lines.length - 1] = t; });
       c.fillStyle = 'rgba(7,10,18,0.78)'; c.fillRect(6, 6, w - 12, 22 + 13 * lines.length); text(c, f.label, 12, 20, COL.ink, 11); lines.forEach((l, i) => text(c, l, 12, 34 + 13 * i, COL.stem, 10)); } },
-  envelope: { name: 'Curvature inside the metric', sec: 'Section 6, eq. (10.2)',
+  envelope: { name: 'Curvature inside the metric', sec: 'Section 6, Appendices B–C',
     short: 'Curvature per unit of capacity against the geometric angle. Nothing can rise above sin θG; the partner iX sits on it.',
-    long: 'For a pair of tangent directions at a projector, the curvature divided by 2√(C(V)C(W)) can never exceed sin θG, the sine of their angle in the intrinsic metric: this is the sharp bound (6.1) in the reporting form (10.2). Grey points are random pairs. The bright point is the partner you set: turning the block X by α moves it along the envelope, and α = 90° (the partner iX) sits exactly on it; mixing in an unrelated block drops it inside.',
+    long: 'For a pair of tangent directions at a projector, the curvature divided by 2√(C(V)C(W)) can never exceed sin θG, the sine of their angle in the intrinsic metric: this is the sharp bound (6.1) in the reporting form (10.2). Grey points are random pairs. The bright point is the partner you set: turning the block X by α moves it along the envelope, and α = 90° (the partner iX) sits exactly on it; mixing in an unrelated block drops it inside. The band switch draws real bands: every two-level pair lands on the curve (the polariton measurement is this case), the lowest spin-1 band lands on it too because it is a spin coherent state with Kähler geometry, and a generic three-level band falls strictly inside (Appendices B and C).',
     draw(cv) { const { c, w, h } = setup(cv); const E = envelopeCloud(); const pad = 34, x0 = pad, x1 = w - 10, y0 = 12, y1 = h - 24; axes(c, x0, y0, x1, y1);
       const X = t => x0 + t / Math.PI * (x1 - x0), Y = v => y1 - v * (y1 - y0);
       const env = []; for (let i = 0; i <= 100; i++) { const t = Math.PI * i / 100; env.push([X(t), Y(Math.sin(t))]); } line(c, env, COL.warm, 2);
       E.pts.forEach(p => dot(c, X(p.thetaG), Y(p.ratio * Math.sin(p.thetaG)), 2.2, 'rgba(112,136,168,0.7)'));
-      const cu = E.cur; dot(c, X(cu.thetaG), Y(cu.ratio * Math.sin(cu.thetaG)), 5.5, COL.vio);
+      const cu = E.cur;
+      if (S.envfam !== 'random') { const fc = { two: COL.blade, spin1: '#6fe0b0', generic: COL.rose }[S.envfam]; const B = bandCloud(S.envfam);
+        B.forEach(p => dot(c, X(p.thetaG), Y(p.ratio * Math.sin(p.thetaG)), 3, fc)); const rs = B.map(p => p.ratio).sort((a, b) => a - b);
+        text(c, Core.bandFamilies[S.envfam].label, x0 + 8, y0 + 38, fc, 10); text(c, `|Ω| / bound: ${fmt(rs[0] * 100, 1)}% to ${fmt(rs[rs.length - 1] * 100, 1)}%`, x0 + 8, y0 + 52, fc, 10); }
+      dot(c, X(cu.thetaG), Y(cu.ratio * Math.sin(cu.thetaG)), 5.5, COL.vio);
       text(c, 'sin θG, the bound', x1 - 4, y0 + 10, COL.warm, 10, 'right'); text(c, 'θG', x1 - 14, h - 8); text(c, '|Ω| / 2√(C C)', x0 + 8, y0 + 10, COL.stem, 10);
       text(c, `partner: |Ω| = ${fmt(cu.ratio * 100, 1)}% of the bound`, x0 + 8, y0 + 24, COL.ink, 10); } },
+  vote: { name: 'The vote', sec: 'Sections 10.2, 12.3',
+    short: 'Every rank as a dial: the amber needle is one direction, half B against half A; the blue arc is the rank-k subspace.',
+    long: 'The same two-halves comparison as the tip and tail bars, drawn as dials. At each rank the grey needle is half A, the amber needle is where half B puts the single direction, and the blue arc is how far the rank-k subspace moved. Inside a near-tie the needle swings wide while the arc stays short at the cut that closes the cluster. The highlighted dial follows the rank slider, and its numbers are written underneath. Uses the same data choice as the tip and tail eye: live from the feed, or the measured condensate halves.',
+    draw(cv) { const { c, w, h } = setup(cv); const live = S.tt === 'live';
+      const rows = live ? tipTailLive() : BEC[S.tt].map(r => ({ k: r[0], vec: r[1], sub: r[2], gap: r[3] }));
+      const cols = live ? rows.length : 6, nr = Math.ceil(rows.length / cols), cw = w / cols, chh = (h - 46) / nr, R = Math.min(cw * 0.38, chh * 0.62);
+      rows.forEach((r, i) => { const cx = (i % cols + 0.5) * cw, cy = 14 + Math.floor(i / cols) * chh + chh / 2 + R / 2 - 6, sel = r.k === S.k;
+        c.strokeStyle = sel ? COL.ink : COL.rule; c.lineWidth = sel ? 1.6 : 1; c.beginPath(); c.arc(cx, cy, R, Math.PI, 2 * Math.PI); c.stroke();
+        const ang = d => Math.PI + Math.min(90, d) / 90 * (Math.PI / 2);
+        c.strokeStyle = COL.blade; c.lineWidth = 4; c.beginPath(); c.arc(cx, cy, R - 4, Math.PI, ang(r.sub)); c.stroke();
+        line(c, [[cx, cy], [cx - R, cy]], COL.stem, 1.4); const a = ang(r.vec); line(c, [[cx, cy], [cx + R * Math.cos(a), cy + R * Math.sin(a)]], COL.warm, 2.2);
+        if (!live && r.gap < 0.10 || live && r.gap < S.thr) { c.fillStyle = 'rgba(169,155,255,0.14)'; c.beginPath(); c.arc(cx, cy, R + 3, Math.PI, 2 * Math.PI); c.fill(); }
+        text(c, 'k = ' + r.k, cx, cy + 13, sel ? COL.ink : COL.stem, 10, 'center'); });
+      const r = rows.find(x => x.k === S.k) || rows[0];
+      text(c, `rank ${r.k}: direction ${fmt(r.vec, 2)}°, subspace ${fmt(r.sub, 2)}°, relative gap ${fmt(r.gap, 3)}`, 8, h - 22, COL.ink, 11);
+      text(c, (live ? 'live feed' : 'condensate, ' + S.tt) + '   ·   violet: no resolved gap at that cut', 8, h - 8, COL.stem, 10); } },
+  pair: { name: 'The condensate pair', sec: 'Section 12.3',
+    short: 'Measured eigen-images 2 and 3 of the condensate: the sine and cosine of one moving stripe pattern. The phase is the tip; the plane is the tail.',
+    long: 'These are the real second and third eigen-images of the NIST dark-soliton absorption images (each carries about 6.7% of the variance; their overlap is 0.012 and their stripes are offset by a quarter period, 90.6°). The large image is cos φ · image 2 + sin φ · image 3: as φ turns the stripe slides, which is the soliton swinging in the trap (2.70 Hz in hold time, measured). Which single image comes out on top in one half of the data depends on where in the swing that half sits, so the phase, the tip, is free; the plane of the two images is the motion itself and holds. On the odd/even split the third eigen-image turns 40.7° between halves while the subspace that closes the pair turns 5.2°. The sweep slider sets φ; run the sweep to watch it slide.',
+    draw(cv) { const { c, w, h } = setup(cv); const E = EIG, phi = (S.s + 1.5) / 3 * 2 * Math.PI, cs = Math.cos(phi), sn = Math.sin(phi);
+      const img = (arr, x, y, sc) => { const im = c.createImageData(E.w, E.h); let m = 0; arr.forEach(v => m = Math.max(m, Math.abs(v)));
+        arr.forEach((v, i) => { const t = v / (m || 1), p = Math.max(0, t), n = Math.max(0, -t); im.data[4 * i] = 12 + 64 * p + 243 * n; im.data[4 * i + 1] = 18 + 177 * p + 104 * n; im.data[4 * i + 2] = 32 + 223 * p + 101 * n; im.data[4 * i + 3] = 255; });
+        const off = document.createElement('canvas'); off.width = E.w; off.height = E.h; off.getContext('2d').putImageData(im, 0, 0); c.imageSmoothingEnabled = true; c.drawImage(off, x, y, E.w * sc, E.h * sc); };
+      const small = Math.min((w * 0.22) / E.w, (h * 0.36) / E.h), big = Math.min((w * 0.46) / E.w, (h - 40) / E.h);
+      img(E.e2, 8, 22, small); img(E.e3, 8, 30 + E.h * small + 14, small);
+      text(c, 'eigen-image 2', 8, 16, COL.stem, 10); text(c, 'eigen-image 3', 8, 30 + E.h * small + 10, COL.stem, 10);
+      const mix = E.e2.map((v, i) => cs * v + sn * E.e3[i]); const bx = 16 + E.w * small; img(mix, bx, 22, big);
+      text(c, 'cos φ · image 2 + sin φ · image 3', bx, 16, COL.ink, 10);
+      const R = Math.min((w - (bx + E.w * big) - 30) / 2, h * 0.3), cx = bx + E.w * big + 14 + R, cy = h * 0.42;
+      if (R > 18) { c.strokeStyle = COL.blade; c.lineWidth = 2; c.fillStyle = 'rgba(76,195,255,0.10)'; c.beginPath(); c.arc(cx, cy, R, 0, 2 * Math.PI); c.fill(); c.stroke();
+        line(c, [[cx - R, cy], [cx + R, cy]], COL.rule, 1); line(c, [[cx, cy - R], [cx, cy + R]], COL.rule, 1); line(c, [[cx, cy], [cx + R * cs, cy - R * sn]], COL.warm, 2.6); dot(c, cx + R * cs, cy - R * sn, 4, COL.warm);
+        text(c, 'the pair plane: tail', cx, cy + R + 16, COL.blade, 10, 'center'); text(c, 'phase φ = ' + (Core.deg(phi) % 360).toFixed(0) + '°: tip', cx, cy + R + 30, COL.warm, 10, 'center'); }
+      text(c, 'odd/even, rank 3: single image 40.7°, pair-closing subspace 5.2°', 8, h - 20, COL.stem, 10); text(c, 'soliton swing 2.70 Hz in hold time (measured)', 8, h - 7, COL.stem, 10); } },
   perms: { name: 'Permutations: the card count', sec: 'Section 12.4',
     short: 'Two permutations with the same Hamming distance. Their graph subspaces have the same Σ sin²θ and different geodesic lengths.',
     long: 'The Hamming distance of a permutation is a squared chordal distance between its graph subspace and the graph of the identity: it reads Σ sin²θ over the principal angles. The intrinsic metric adds the geodesic length √Σθ². Equal counts can hide different arrangements: swaps put their angles at 90°, a long cycle spreads them in sine–cosine pairs. The bars are the displacement Gram spectrum, 2 sin²(πj/ℓ), whose equal pairs are the sine and cosine of one cyclic motion. The last pair in the list has identical spectra; there a fixed probe still tells them apart.',
@@ -192,8 +230,9 @@ const EYES = {
         bars.forEach((g, i) => { const hh = g.val / 2 * (h * 0.22); c.fillStyle = col; c.globalAlpha = 0.75; c.fillRect(bx + i * (bwid + 2), by - hh, bwid, hh); c.globalAlpha = 1; }); });
       if (S.pp === 3) text(c, 'same spectrum; probe (e0+e1)/√2 reads m_b = 1 vs 2/3', 14, 30, COL.vio, 10); } }
 };
-const ORDER = ['levels', 'grass', 'bloch', 'tiptail', 'corridor', 'strata', 'envelope', 'perms'];
+const ORDER = ['levels', 'grass', 'bloch', 'tiptail', 'vote', 'pair', 'corridor', 'strata', 'envelope', 'perms'];
 const BEC = JSON.parse(document.getElementById('bec-data').textContent);
+const EIG = JSON.parse(document.getElementById('eig-data').textContent);
 
 // ---------- build the page ----------
 const grid = $('grid'), list = $('eyelist'), panels = {};
@@ -209,7 +248,7 @@ $('mode-mix').onclick = () => setMode('mix'); $('mode-eye').onclick = () => setM
 
 const sliders = { inner: v => v.toFixed(3), outer: v => v.toFixed(2), s: v => v.toFixed(2), noise: v => v.toFixed(4), thr: v => v.toFixed(2), k: v => String(v), launch: v => v + '°', alpha: v => v + '°', mix: v => v.toFixed(2), cone: v => v + '°' };
 Object.entries(sliders).forEach(([id, f]) => { const el = $(id), out = $('o-' + id); const set = () => { S[id] = parseFloat(el.value); out.textContent = f(S[id]); }; set(); el.addEventListener('input', () => { set(); redraw(); }); });
-['fam', 'tt', 'pp'].forEach(id => { const el = $(id); const set = () => { S[id] = id === 'pp' ? parseInt(el.value) : el.value; $('o-' + id).textContent = ''; }; set(); el.addEventListener('change', () => { set(); redraw(); }); });
+['fam', 'tt', 'pp', 'envfam'].forEach(id => { const el = $(id); const set = () => { S[id] = id === 'pp' ? parseInt(el.value) : el.value; $('o-' + id).textContent = ''; }; set(); el.addEventListener('change', () => { set(); redraw(); }); });
 
 function readout() {
   const e = Core.eigh(Core.feedOp(F, S.inner, S.outer, S.s)), cl = Core.clusters(e.w, S.thr), sp = Core.speed(F, S.inner, S.outer, S.s, S.k);
@@ -218,7 +257,8 @@ function readout() {
     ['gap above rank k', fmt(e.w[S.k] - e.w[S.k - 1], 3)], ['speed / ceiling', fmt(sp.v, 3) + ' / ' + fmt(sp.ceil, 3)],
     ['tip angle, rank 2', fmt(tt[1].vec, 2) + '°'], ['tail angle, rank 3', fmt(tt[2].sub, 2) + '°'],
     ['turning point', G.pred === null ? 'none (crosses)' : fmt(G.ymin, 4) + ' vs ' + fmt(G.pred, 4)],
-    ['|Ω| of bound', fmt(env.ratio * 100, 1) + '%'], ['geodesic A / B', fmt(A.L, 3) + ' / ' + fmt(B.L, 3)] ];
+    ['Fisher / metric speed', fmt(Core.fisherSpeed(F, S.inner, S.outer, S.s, S.k).v, 3) + ' / ' + fmt(sp.v, 3)],
+    ['|Ω| of bound (partner)', fmt(env.ratio * 100, 1) + '%'], ['pair phase φ', ((S.s + 1.5) / 3 * 360).toFixed(0) + '°'], ['geodesic A / B', fmt(A.L, 3) + ' / ' + fmt(B.L, 3)] ];
   $('readout').innerHTML = rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join('');
 }
 function redraw(tsec) { ORDER.forEach(k => { if (!panels[k].hidden) EYES[k].draw(panels[k].querySelector('canvas'), tsec); }); readout(); }
@@ -229,6 +269,15 @@ let last = 0;
 function frame(ts) { if (!S.playing) return; const t = ts / 1000; if (t - last > 0.06) { last = t; S.s = Math.sin(t * 0.35) * 1.5; $('s').value = S.s; $('o-s').textContent = S.s.toFixed(2); redraw(t); } requestAnimationFrame(frame); }
 $('play').onclick = () => { S.playing = !S.playing; $('play').setAttribute('aria-pressed', S.playing); $('play').textContent = S.playing ? 'Pause sweep' : 'Run sweep'; if (S.playing) requestAnimationFrame(frame); };
 window.addEventListener('resize', () => redraw());
+// ---------- film order: each eye in turn, sweep running, for recording ----------
+let filmTimer = null;
+function filmStep(i) { S.focus = ORDER[i % ORDER.length]; setMode('eye'); filmTimer = setTimeout(() => filmStep(i + 1), 12000); }
+$('film').onclick = () => { S.film = !S.film; $('film').setAttribute('aria-pressed', S.film); $('film').textContent = S.film ? 'Stop film' : 'Run film';
+  if (S.film) { if (!S.playing) $('play').click(); filmStep(ORDER.indexOf(S.focus) < 0 ? 0 : ORDER.indexOf(S.focus)); } else { clearTimeout(filmTimer); if (S.playing) $('play').click(); } };
+// recording hook: show any eye at any sweep position, with optional settings, from the console or a capture script
+window.MIX = { eyes: ORDER.slice(), state: S, show(k) { S.focus = k; setMode('eye'); },
+  render(k, s, over) { if (over) Object.assign(S, over); if (s !== undefined) { S.s = s; $('s').value = s; $('o-s').textContent = (+s).toFixed(2); } S.focus = k; setMode('eye'); return true; },
+  mix() { setMode('mix'); } };
 setMode('mix');
 if (!reduce) { /* start still; the reader starts the sweep */ }
 })();

@@ -1,6 +1,6 @@
 <title>Grassmannian Mixer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Spectral:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Spectral:wght@500;600&display=swap">
 <style>
 /* Layout: an instrument bench. Controls on the left rail, the eyes on the right; Eye shows one large, Mix shows all at once.
    Single dark look by choice (the paper's own night field and electric-blue lettering). */
@@ -22,6 +22,7 @@
 html { background: var(--ground); }
 body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.5; margin: 0; }
 .wrap { padding-inline: 16px; padding-block: 18px 40px; max-width: 1400px; margin: 0 auto; }
+.advisory { width: 92px; height: auto; flex: none; }
 header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
 h1 { font-family: var(--display); font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2.1rem); color: var(--blade); margin: 0; letter-spacing: 0.01em; text-wrap: balance; }
 .byline { font-family: var(--mono); font-size: 0.78rem; color: var(--stem); letter-spacing: 0.04em; }
@@ -65,10 +66,12 @@ label.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--blade); }
     <h1>Grassmannian Mixer</h1>
     <div class="byline">Jeromie Beasley · Intrinsic Quantum Geometric Tensor on the Grassmannian · October 2026</div>
   </div>
+  <svg class="advisory" viewBox="0 0 300 190" role="img" aria-label="Reviewer advisory: created with AI" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="296" height="186" fill="#02040a" stroke="#b9dcff" stroke-width="4"/><text x="150" y="60" text-anchor="middle" font-family="Archivo Black, Arial Black, Impact, sans-serif" font-size="50" fill="#b9dcff" textLength="262" lengthAdjust="spacingAndGlyphs">REVIEWER</text><rect x="14" y="72" width="272" height="64" fill="#b9dcff"/><text x="150" y="124" text-anchor="middle" font-family="Archivo Black, Arial Black, Impact, sans-serif" font-size="54" fill="#02040a" textLength="252" lengthAdjust="spacingAndGlyphs">ADVISORY</text><text x="150" y="173" text-anchor="middle" font-family="Archivo Black, Arial Black, Impact, sans-serif" font-size="30" fill="#b9dcff" textLength="262" lengthAdjust="spacingAndGlyphs">CREATED WITH AI</text></svg>
   <div class="modes" role="group" aria-label="View">
     <button id="mode-mix" aria-pressed="true">Mix</button>
     <button id="mode-eye" aria-pressed="false">Eye</button>
     <button id="play" aria-pressed="false">Run sweep</button>
+    <button id="film" aria-pressed="false">Run film</button>
   </div>
 </header>
 <div class="bench">
@@ -98,12 +101,13 @@ label.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--blade); }
       <label class="sl"><span>Partner mixing</span><output id="o-mix"></output><input id="mix" type="range" min="0" max="1.5" step="0.01" value="0"></label>
       <label class="sl"><span>Tip/tail data</span><output id="o-tt"></output><select id="tt"><option value="live">live, from the feed</option><option value="odd vs even shots">condensate, odd vs even</option><option value="random split 1">condensate, random split 1</option><option value="random split 2">condensate, random split 2</option></select></label>
       <label class="sl"><span>Permutation pair</span><output id="o-pp"></output><select id="pp"><option value="0">five swaps vs one 10-cycle, n = 20</option><option value="1">three swaps vs one 6-cycle, n = 12</option><option value="2">two 3-cycles vs one 6-cycle, n = 12</option><option value="3">(01)(23) vs (02)(13), n = 4</option></select></label>
+      <label class="sl"><span>Bands in the curvature eye</span><output id="o-envfam"></output><select id="envfam"><option value="random">random pairs only</option><option value="two">two levels (the polariton case)</option><option value="spin1">spin 1, lowest band</option><option value="generic">generic three levels</option></select></label>
       <label class="sl"><span>Bloch loop opening θ</span><output id="o-cone"></output><input id="cone" type="range" min="5" max="175" step="1" value="60"></label>
     </fieldset>
   </aside>
   <main class="stage">
     <div class="grid" id="grid"></div>
-    <p class="foot">Every number on this page is computed live in your browser from the formulas of the paper, except the condensate tables, which are the measured values of the NIST dark-soliton analysis (odd/even and two random splits). The core was checked before publishing against the paper: turning points 0.32981248 and −1.0969, swap/cycle lengths 3.512 and 2.896, speed under its ceiling, curvature inside its envelope.</p>
+    <p class="foot">Every number on this page is computed live in your browser from the formulas of the paper, except the condensate tables and eigen-images 2 and 3, which are measured: the NIST dark-soliton analysis (odd/even and two random splits). The core was checked before publishing against the paper: turning points 0.32981248 and −1.0969, swap/cycle lengths 3.512 and 2.896, speed under its ceiling, curvature inside its envelope, the Fisher speed equal to the metric speed, two-level and spin-1 bands on the bound and generic three-level bands inside it.</p>
   </main>
 </div>
 </div>
