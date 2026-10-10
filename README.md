@@ -4,7 +4,7 @@
 
 [![Lean proof check](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml/badge.svg)](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml)
 ![Lean](https://img.shields.io/badge/Lean-v4.34.1-blue)
-![Theorems](https://img.shields.io/badge/theorems-73-2EA043)
+![Theorems](https://img.shields.io/badge/theorems-74-2EA043)
 ![sorry](https://img.shields.io/badge/sorry-0-2EA043)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)
 ![Text: CC BY 4.0](https://img.shields.io/badge/text-CC%20BY%204.0-lightgrey)
@@ -56,6 +56,7 @@ every finite dimension.
 | §12.4 | Chordal distance of projectors: `Tr((P−Q)²) = Tr P + Tr Q − 2 Tr(PQ)` for idempotents, i.e. `2k − 2Tr(PQ)` at equal rank | `Rebuild.hs_dist_proj` |
 | §12.4 | Cycle Gram eigenvalues pair up: `2 sin²(π(ℓ−j)/ℓ) = 2 sin²(πj/ℓ)` | `Rebuild.cycle_gram_pair` |
 | App. A | Second resolvent identity `a⁻¹ − b⁻¹ = a⁻¹(b − a)b⁻¹` (the minus sign of (A.2)) | `Rebuild.second_resolvent` |
+| §6, Theorem 6.1 in block form | For the cross-gap blocks `x, y` of two tangent vectors, `Ω² ≤ 4 (g_VV g_WW − g_VW²)`, straight from Cauchy–Schwarz in `EuclideanSpace ℂ ι` | `Rebuild.curvature_bound` |
 | §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |
 
 The paper itself, its numerical checks, figures, data and the Grassmannian Mixer are in
@@ -63,7 +64,33 @@ The paper itself, its numerical checks, figures, data and the Grassmannian Mixer
 
 Theorem 6.1 is bridge B1 of the Operator-First Atlas ("curvature cannot exceed what the metric
 affords"). The file is [`IqgtGrassmannian/Basic.lean`](IqgtGrassmannian/Basic.lean). What is not
-proved is in [`LIMITATIONS.md`](LIMITATIONS.md).
+proved is in [`LIMITATIONS.md`](LIMITATIONS.md). Which Lean object each statement uses, Mathlib's or the
+one already proved in upg-lean, and why, is in [`LEAN_NOTES.md`](LEAN_NOTES.md).
+
+## Figures
+
+All eighteen figures of the paper, as SVG in [`paper/figures/`](paper/figures/), with the scripts that draw them.
+
+| | |
+| :---: | :---: |
+| <img src="paper/figures/fig_tangent.svg" width="420" alt="Figure 1"> | <img src="paper/figures/fig_residue.svg" width="420" alt="Figure 2"> |
+| **Figure 1.** Change crosses the gap: every tangent vector is block off-diagonal. | **Figure 2.** Where the tangent vector comes from: only pairs straddling the gap contribute. |
+| <img src="paper/figures/fig_pullback.svg" width="420" alt="Figure 3"> | <img src="paper/figures/fig_band.svg" width="420" alt="Figure 4"> |
+| **Figure 3.** A family of operators is a map into the Grassmannian. | **Figure 4.** The zero-temperature friction band of Theorem 5.3. |
+| <img src="paper/figures/fig_friction.svg" width="420" alt="Figure 5"> | <img src="paper/figures/fig_envelope.svg" width="420" alt="Figure 6"> |
+| **Figure 5.** Friction on projector rotations, tested against exact slow-driving simulations. | **Figure 6.** The envelope of Theorem 6.1: curvature cannot exceed what the metric affords. |
+| <img src="paper/figures/fig_weights.svg" width="420" alt="Figure 7"> | <img src="paper/figures/fig_gapclosing.svg" width="420" alt="Figure 8"> |
+| **Figure 7.** One pair sum, many weights: metric, Berry connection polarizability, static response. | **Figure 8.** Closing the gap: metric, curvature, dipole and friction scaling. |
+| <img src="paper/figures/fig_reflection.svg" width="420" alt="Figure 9"> | <img src="paper/figures/fig_candidates.svg" width="420" alt="Figure 10"> |
+| **Figure 9.** Total internal reflection at a polar stratum. | **Figure 10.** Three candidate refractive indices along one geodesic. |
+| <img src="paper/figures/fig_narrow.svg" width="420" alt="Figure 11"> | <img src="paper/figures/fig_gaplaw.svg" width="420" alt="Figure 12"> |
+| **Figure 11.** Two ways the index can vary across an interface, one refraction law. | **Figure 12.** The tip and the tail: the first-order gap law against simulation and condensate data. |
+| <img src="paper/figures/fig_direction.svg" width="420" alt="Figure 13"> | <img src="paper/figures/fig_corridor.svg" width="420" alt="Figure 14"> |
+| **Figure 13.** A direction exists only where a gap exists (heat-engine readout). | **Figure 14.** One law at two grains: a vector inside a cluster turns while the cluster subspace holds. |
+| <img src="paper/figures/fig_cuts.svg" width="420" alt="Figure 15"> | <img src="paper/figures/fig_perm.svg" width="420" alt="Figure 16"> |
+| **Figure 15.** The condensate, every cut: single eigen-image against rank-k subspace. | **Figure 16.** The card count and the intrinsic length: permutations as principal angles. |
+| <img src="paper/figures/fig_saturation.svg" width="420" alt="Figure 17"> | <img src="paper/figures/fig_krylov.svg" width="420" alt="Figure 18"> |
+| **Figure 17.** Curvature against its bound: two-band and spin-1 bands saturate, generic three-band falls inside. | **Figure 18.** Krylov evaluation of the regularised metric and curvature, error ∝ η². |
 
 ## How it is checked
 

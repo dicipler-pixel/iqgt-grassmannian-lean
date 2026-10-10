@@ -27,4 +27,5 @@ Lean proves exactly the statements written, under exactly the hypotheses written
   `Tr((P−Q)²) = Tr P + Tr Q − 2 Tr(PQ)` is formalized (`hs_dist_proj`); reading `Tr(PQ)` as
   `Σ cos²θ` over principal angles, and hence `d_H = (2/n) Σ sin²θ`, and the geodesic length
   `√Σθ²`, are checked numerically (`paper/checks/sofic_bridge.py`), not in Lean.
-
+* Theorem 6.1 in block form (`curvature_bound`) is proved for vectors in `EuclideanSpace ℂ ι`; the
+  identification of a tangent vector with its cross-gap block is stated in words, not formalized.

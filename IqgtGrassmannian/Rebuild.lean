@@ -15,6 +15,8 @@ in Mathlib's language. Numbering follows the rebuilt paper. `Basic.lean` is unch
 * §3 Proposition 3.5: the Hilbert–Schmidt step of the gap bound.
 * §12.4 the sofic bridge: the chordal distance `Tr((P-Q)²) = Tr P + Tr Q - 2 Tr(PQ)`, the sandwich `Σ sin²θ ≤ Σ θ² ≤ (π/2)² Σ sin²θ` and the paired
   cycle Gram eigenvalues.
+* §6 Theorem 6.1 in block form: `Ω² ≤ 4 (g_VV g_WW − g_VW²)` for the cross-gap blocks, from
+  Cauchy–Schwarz in `EuclideanSpace ℂ ι`.
 -/
 import Mathlib
 
@@ -310,5 +312,22 @@ theorem cycle_gram_pair (l j : ℝ) (hl : l ≠ 0) :
   rw [h, Real.sin_pi_sub]
 
 end Bounds
+
+section Curvature
+variable {ι : Type*} [Fintype ι]
+
+/-- Theorem 6.1 in block form. For the cross-gap blocks `x, y` of two tangent vectors,
+`Q(V,W) = ⟪y, x⟫`, `g_VV = ‖x‖²`, `g_WW = ‖y‖²`, `g_VW = Re Q` and `Ω = −2 Im Q`. Then
+`Ω² ≤ 4 (g_VV g_WW − g_VW²)`, which is Cauchy–Schwarz for the blocks. -/
+theorem curvature_bound (x y : EuclideanSpace ℂ ι) :
+    (2 * (inner ℂ y x).im) ^ 2 ≤ 4 * (‖x‖ ^ 2 * ‖y‖ ^ 2 - (inner ℂ y x).re ^ 2) := by
+  have h1 : ‖inner ℂ y x‖ ≤ ‖y‖ * ‖x‖ := norm_inner_le_norm y x
+  have h2 : ‖inner ℂ y x‖ ^ 2 = (inner ℂ y x).re ^ 2 + (inner ℂ y x).im ^ 2 := by
+    rw [Complex.sq_norm, Complex.normSq_apply]; ring
+  have h3 : ‖inner ℂ y x‖ ^ 2 ≤ (‖y‖ * ‖x‖) ^ 2 :=
+    pow_le_pow_left₀ (norm_nonneg _) h1 2
+  nlinarith [h2, h3]
+
+end Curvature
 
 end IqgtGrassmannian.Rebuild
