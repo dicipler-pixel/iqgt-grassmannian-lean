@@ -1,0 +1,181 @@
+<title>Grassmannian Mixer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Spectral:wght@500;600&display=swap">
+<style>
+/* Layout: an instrument bench. Controls on the left rail, the eyes on the right; Eye shows one large, Mix shows all at once.
+   Single dark look by choice (the paper's own night field and electric-blue lettering). */
+:root {
+  --ground: #070a12;      /* night field */
+  --bed: #0c1220;         /* instrument bed */
+  --rule: #1a2740;        /* hairlines */
+  --ink: #b9dcff;         /* electric-blue text */
+  --blade: #4cc3ff;       /* headings, the subspace (tail) */
+  --stem: #7088a8;        /* quiet labels */
+  --warm: #e0b85c;        /* ceilings, bounds */
+  --vio: #a99bff;         /* pairs, curvature */
+  --rose: #ff7a85;        /* single vectors (tips) */
+  --display: 'Spectral', 'Newsreader', Georgia, serif;
+  --body: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'DejaVu Sans Mono', monospace;
+  color-scheme: dark;
+}
+html { background: var(--ground); }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.5; margin: 0; }
+.wrap { padding-inline: 16px; padding-block: 18px 40px; max-width: 1400px; margin: 0 auto; }
+.advisory { width: 92px; height: auto; flex: none; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+h1 { font-family: var(--display); font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2.1rem); color: var(--blade); margin: 0; letter-spacing: 0.01em; text-wrap: balance; }
+.byline { font-family: var(--mono); font-size: 0.78rem; color: var(--stem); letter-spacing: 0.04em; }
+.modes { display: flex; gap: 6px; }
+select { max-width: 100%; }
+button, select { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); background: var(--bed); border: 1px solid var(--rule); border-radius: 3px; padding: 6px 10px; cursor: pointer; }
+button[aria-pressed="true"] { border-color: var(--blade); color: var(--blade); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--blade); outline-offset: 2px; }
+.bench { display: grid; grid-template-columns: minmax(250px, 300px) minmax(0, 1fr); gap: 20px; margin-top: 16px; }
+@media (max-width: 860px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.rail { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+fieldset { border: 1px solid var(--rule); border-radius: 3px; padding: 10px 12px 12px; margin: 0; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+legend { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stem); padding: 0 4px; }
+label.sl { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; font-size: 0.9rem; }
+label.sl output { font-family: var(--mono); font-size: 0.78rem; color: var(--blade); font-variant-numeric: tabular-nums; }
+label.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--blade); }
+.eyes { display: flex; flex-wrap: wrap; gap: 6px; }
+.eyes button { flex: 1 1 calc(50% - 6px); text-align: left; }
+.readout { font-family: var(--mono); font-size: 0.76rem; color: var(--ink); display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; font-variant-numeric: tabular-nums; }
+.readout dt { color: var(--stem); }
+.readout dd { margin: 0; text-align: right; }
+.stage { min-width: 0; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
+.grid.single { grid-template-columns: minmax(0, 1fr); }
+[hidden] { display: none !important; }
+.panel { background: var(--bed); border: 1px solid var(--rule); border-radius: 3px; padding: 10px 12px 12px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.panel h2 { font-family: var(--display); font-weight: 500; font-size: 1.05rem; color: var(--blade); margin: 0; }
+.panel .sec { font-family: var(--mono); font-size: 0.7rem; color: var(--stem); letter-spacing: 0.06em; }
+.panel canvas { width: 100%; display: block; aspect-ratio: 16 / 10; max-width: 100%; }
+.grid.single .panel canvas { aspect-ratio: 16 / 8.5; }
+.panel p { margin: 0; font-size: 0.92rem; max-width: 70ch; color: var(--ink); }
+.grid:not(.single) .panel p.long { display: none; }
+.foot { margin-top: 22px; font-size: 0.85rem; color: var(--stem); max-width: 90ch; }
+.panel .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.panel .head button { font-size: 0.7rem; padding: 3px 8px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+
+/* The animated stage: the eyes of the Tip and Tail Mixer, kept in their own look (own namespace, tt-) */
+.ttstage { --tcyan:#5fd4ff; --tmag:#ff5fa8; --tamb:#ffc35a; --tdim:#7f93ad; --tbench:#0a111b; --trule:#17243a; --tink:#d8e4f4;
+  margin-top: 18px; display: grid; gap: 12px; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+.ttstage .tt-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.ttstage .tt-head h2 { font-family: 'Rajdhani', 'Arial Narrow', sans-serif; font-weight: 700; letter-spacing: .05em; font-size: clamp(1.3rem, 2.4vw, 1.8rem); color: var(--tink); margin: 0; }
+.ttstage .tt-head h2 span { color: var(--tcyan); }
+.ttstage .tt-head p { margin: 0; color: var(--tdim); font-size: .9rem; max-width: 70ch; }
+.ttstage .tt-bench { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; }
+@media (max-width: 980px) { .ttstage .tt-bench { grid-template-columns: minmax(0, 1fr); } }
+.ttstage .tt-stage { background: #000; border: 1px solid var(--trule); border-radius: 6px; overflow: hidden; min-width: 0; }
+.ttstage .tt-stage canvas { display: block; width: 100%; height: auto; aspect-ratio: 1220 / 834; max-width: 100%; }
+.ttstage .tt-side { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.ttstage .tt-card { background: var(--tbench); border: 1px solid var(--trule); border-radius: 6px; padding: 12px 14px; display: grid; gap: 10px; }
+.ttstage .tt-card h3 { font-family: 'Rajdhani', 'Arial Narrow', sans-serif; font-size: 1.15rem; letter-spacing: .06em; text-transform: uppercase; margin: 0; color: var(--tcyan); }
+.ttstage .tt-card p { margin: 0; color: var(--tdim); font-size: .88rem; }
+.ttstage .tt-ctl { display: grid; gap: 4px; }
+.ttstage .tt-ctl label { display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .8rem; color: var(--tink); }
+.ttstage .tt-ctl label output { color: var(--tamb); font-variant-numeric: tabular-nums; }
+.ttstage input[type=range] { width: 100%; accent-color: var(--tcyan); }
+.ttstage .tt-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ttstage .tt-rail { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+.ttstage .tt-eye { display: grid; gap: 2px; text-align: left; padding: 9px 11px; background: var(--tbench); border: 1px solid var(--trule); border-radius: 6px; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+.ttstage .tt-eye b { font-family: 'Rajdhani', 'Arial Narrow', sans-serif; font-size: 1.02rem; letter-spacing: .04em; font-weight: 600; color: var(--tink); }
+.ttstage .tt-eye small { color: var(--tdim); font-size: .76rem; line-height: 1.3; }
+.ttstage .tt-eye[aria-pressed=true] { border-color: var(--tcyan); box-shadow: 0 0 0 1px var(--tcyan) inset; }
+.ttstage .tt-card, .ttstage .tt-card > *, .ttstage .tt-ctl > * { min-width: 0; }
+.ttstage select { width: 100%; }
+.ttstage .tt-legend { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .74rem; color: var(--tdim); }
+.part-title { font-family: var(--display); color: var(--blade); font-size: 1.25rem; margin: 26px 0 0; font-weight: 600; }
+</style>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Grassmannian Mixer</h1>
+    <div class="byline">Jeromie Beasley · Intrinsic Quantum Geometric Tensor on the Grassmannian · October 2026</div>
+  </div>
+  <svg class="advisory" viewBox="0 0 300 190" role="img" aria-label="Reviewer advisory: created with AI" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="296" height="186" fill="#02040a" stroke="#b9dcff" stroke-width="4"/><text x="150" y="60" text-anchor="middle" font-family="Archivo Black, Arial Black, Impact, sans-serif" font-size="50" fill="#b9dcff" textLength="262" lengthAdjust="spacingAndGlyphs">REVIEWER</text><rect x="14" y="72" width="272" height="64" fill="#b9dcff"/><text x="150" y="124" text-anchor="middle" font-family="Archivo Black, Arial Black, Impact, sans-serif" font-size="54" fill="#02040a" textLength="252" lengthAdjust="spacingAndGlyphs">ADVISORY</text><text x="150" y="173" text-anchor="middle" font-family="Archivo Black, Arial Black, Impact, sans-serif" font-size="30" fill="#b9dcff" textLength="262" lengthAdjust="spacingAndGlyphs">CREATED WITH AI</text></svg>
+  <div class="modes" role="group" aria-label="View">
+    <button id="mode-mix" aria-pressed="true">Mix</button>
+    <button id="mode-eye" aria-pressed="false">Eye</button>
+    <button id="play" aria-pressed="false">Run sweep</button>
+    <button id="film" aria-pressed="false">Run film</button>
+  </div>
+</header>
+<section class="ttstage" aria-label="Animated stage">
+  <div class="tt-head"><h2>Animated <span>stage</span></h2><p>The eyes run on their own clock: tips swing, the tail holds, the corridor breathes, the stripes slide. Pick an eye below, or run them in film order.</p></div>
+  <div class="tt-bench">
+    <div class="tt-stage"><canvas id="tt-stage" width="1220" height="834" aria-label="Live eye"></canvas></div>
+    <div class="tt-side">
+      <div class="tt-card">
+        <h3 id="tt-eyeTitle">Eye</h3>
+        <p id="tt-eyeSub"></p>
+        <div id="tt-controls" class="tt-ctl" style="gap:10px"></div>
+      </div>
+      <div class="tt-card">
+        <h3>Mix</h3>
+        <p>One spectrum feeds the vote and the tip and tail.</p>
+        <div class="tt-ctl"><label for="tt-feed">Spectrum feeding the mix</label>
+          <select id="tt-feed">
+            <option value="bec">condensate, measured (12 eigen-images)</option>
+            <option value="levels">levels eye, live</option>
+          </select></div>
+        <div class="tt-row"><input type="checkbox" id="tt-feedTT"><label for="tt-feedTT" style="font-size:.85rem">Tip and tail takes its gaps from the feed</label></div>
+        <div class="tt-row">
+          <button id="tt-play" type="button">Pause</button>
+          <button id="tt-film" type="button">Run film order</button>
+          <span class="tt-legend" id="tt-clock">t = 0.0 s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tt-rail" id="tt-rail"></div>
+</section>
+<h2 class="part-title">Instrument bench</h2>
+<div class="bench">
+  <aside class="rail">
+    <fieldset>
+      <legend>Feed: one operator for every eye</legend>
+      <label class="sl"><span>Inner gap (inside the cluster)</span><output id="o-inner"></output><input id="inner" type="range" min="0.005" max="1" step="0.005" value="0.08"></label>
+      <label class="sl"><span>Outer gap (around the cluster)</span><output id="o-outer"></output><input id="outer" type="range" min="0.2" max="3" step="0.05" value="1.6"></label>
+      <label class="sl"><span>Sweep s</span><output id="o-s"></output><input id="s" type="range" min="-1.5" max="1.5" step="0.01" value="0"></label>
+      <label class="sl"><span>Noise between halves</span><output id="o-noise"></output><input id="noise" type="range" min="0.0005" max="0.05" step="0.0005" value="0.004"></label>
+      <label class="sl"><span>Fuse levels closer than (fraction of spread)</span><output id="o-thr"></output><input id="thr" type="range" min="0.01" max="0.3" step="0.01" value="0.06"></label>
+      <label class="sl"><span>Rank k of the moving subspace</span><output id="o-k"></output><input id="k" type="range" min="1" max="5" step="1" value="3"></label>
+    </fieldset>
+    <fieldset>
+      <legend>Eyes</legend>
+      <div class="eyes" id="eyelist"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Readout at s</legend>
+      <dl class="readout" id="readout"></dl>
+    </fieldset>
+    <fieldset>
+      <legend>Eye settings</legend>
+      <label class="sl"><span>Stratum</span><output id="o-fam"></output><select id="fam"><option value="polar">Subspace stops rotating</option><option value="narrow">Gap narrows</option><option value="fold">Fold</option></select></label>
+      <label class="sl"><span>Launch angle from the normal</span><output id="o-launch"></output><input id="launch" type="range" min="5" max="85" step="1" value="35"></label>
+      <label class="sl"><span>Partner turn α (curvature eye)</span><output id="o-alpha"></output><input id="alpha" type="range" min="0" max="180" step="1" value="90"></label>
+      <label class="sl"><span>Partner mixing</span><output id="o-mix"></output><input id="mix" type="range" min="0" max="1.5" step="0.01" value="0"></label>
+      <label class="sl"><span>Tip/tail data</span><output id="o-tt"></output><select id="tt"><option value="live">live, from the feed</option><option value="odd vs even shots">condensate, odd vs even</option><option value="random split 1">condensate, random split 1</option><option value="random split 2">condensate, random split 2</option></select></label>
+      <label class="sl"><span>Permutation pair</span><output id="o-pp"></output><select id="pp"><option value="0">five swaps vs one 10-cycle, n = 20</option><option value="1">three swaps vs one 6-cycle, n = 12</option><option value="2">two 3-cycles vs one 6-cycle, n = 12</option><option value="3">(01)(23) vs (02)(13), n = 4</option></select></label>
+      <label class="sl"><span>Bands in the curvature eye</span><output id="o-envfam"></output><select id="envfam"><option value="random">random pairs only</option><option value="two">two levels (the polariton case)</option><option value="spin1">spin 1, lowest band</option><option value="generic">generic three levels</option></select></label>
+      <label class="sl"><span>Bloch loop opening θ</span><output id="o-cone"></output><input id="cone" type="range" min="5" max="175" step="1" value="60"></label>
+    </fieldset>
+  </aside>
+  <main class="stage">
+    <div class="grid" id="grid"></div>
+    <p class="foot">Every number on this page is computed live in your browser from the formulas of the paper, except the condensate tables and eigen-images 2 and 3, which are measured: the NIST dark-soliton analysis (odd/even and two random splits). The core was checked before publishing against the paper: turning points 0.32981248 and −1.0969, swap/cycle lengths 3.512 and 2.896, speed under its ceiling, curvature inside its envelope, the Fisher speed equal to the metric speed, two-level and spin-1 bands on the bound and generic three-level bands inside it.</p>
+  </main>
+</div>
+</div>
+<script>
+/*CORE*/
+/*BEC*/
+/*APP*/
+</script>
+<script>
+/*STAGE*/
+</script>

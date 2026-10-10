@@ -1,1 +1,1 @@
-{"modules":[{"module":"IqgtGrassmannian.Basic","path":"IqgtGrassmannian/Basic.lean"}],"expected_theorems":11,"expected_false_controls":3,"root_imports":["IqgtGrassmannian.Basic"]}
+{"modules": [{"module": "IqgtGrassmannian.Basic", "path": "IqgtGrassmannian/Basic.lean"}, {"module": "IqgtGrassmannian.Core", "path": "IqgtGrassmannian/Core.lean"}, {"module": "IqgtGrassmannian.Rebuild", "path": "IqgtGrassmannian/Rebuild.lean"}], "expected_theorems": 74, "expected_false_controls": 5, "root_imports": ["IqgtGrassmannian.Basic", "IqgtGrassmannian.Core", "IqgtGrassmannian.Rebuild"]}

@@ -1,0 +1,60 @@
+<section id="s5">
+<h2><span class="num">5</span> Spectral Lower Bounds on Dissipation</h2>
+
+<p>One of the most direct physical applications of the intrinsic quantum metric is a lower bound on the cost of non-adiabatic driving. The metric measures how fast a spectral subspace is being moved; a bath charges for that motion. This section makes both halves precise. The first half is kinematic and needs nothing beyond Sections 2–4: the metric is the quantum Fisher information of the moving subspace, and the gap limits how quickly the subspace can be moved. The second half needs a declared bath, and there the metric reappears, reweighted pair by pair by the spectrum, as a lower bound on the excess work.</p>
+
+<p>Let \(\Sigma(a)\) be a family of self-adjoint operators driven along a smooth path \(a(t)\) over the time interval \([t_i,t_f]\), with the gap open throughout, and write \(\dot\Pi=\partial_t\Pi_k(a(t))\), so that \(g_\Pi(\dot\Pi,\dot\Pi)=\dot a^i\dot a^j g_{ij}(a)\).</p>
+
+<h3><span class="num">5.1</span> The quantum Fisher information of a moving subspace</h3>
+
+<p class="thm"><span class="lab">Lemma 5.1</span> <span class="tname">(Fisher information of the subspace).</span> Let \(\rho(t)=\Pi_k(t)/k\) be the normalised state supported on the moving subspace. Its symmetric logarithmic derivative is \(L=2\dot\Pi\), and its quantum Fisher information is</p>
+\[F_Q(t)=\mathrm{Tr}\big(\rho L^2\big)=\frac{4}{k}\,g_\Pi(\dot\Pi,\dot\Pi). \tag{5.1}\]
+<p class="thm">In particular, for \(k=1\), \(\tfrac14F_Q=g_\Pi(\dot\Pi,\dot\Pi)\).</p>
+<p class="proof"><span class="lab">Proof.</span> The symmetric logarithmic derivative is defined by \(\partial_t\rho=\tfrac12(L\rho+\rho L)\). Differentiating the projector identity \(\Pi_k^2=\Pi_k\) with respect to time gives the linearised relation \(\dot\Pi=\dot\Pi\,\Pi_k+\Pi_k\,\dot\Pi\), which is satisfied identically by the choice \(L=2\dot\Pi\). Substituting into the Fisher information gives \(F_Q=\tfrac4k\mathrm{Tr}(\Pi_k\dot\Pi^2)\). Because \(\dot\Pi\) is a tangent vector, it is strictly off-diagonal, \(\dot\Pi=\Pi_k\dot\Pi(I-\Pi_k)+(I-\Pi_k)\dot\Pi\,\Pi_k\); squaring isolates the two diagonal blocks, which contribute equally to the trace, so \(\mathrm{Tr}(\Pi_k\dot\Pi^2)=\tfrac12\mathrm{Tr}(\dot\Pi^2)=g_\Pi(\dot\Pi,\dot\Pi)\). <span class="qed">∎</span></p>
+
+<p>The intrinsic metric is therefore the information-geometric speed of the subspace: it measures how distinguishable the state becomes per unit time, and so how much the driving must change. It does not by itself measure dissipation. Moving \(\Pi_k\) unitarily leaves the spectrum of \(\rho\) fixed, so its von Neumann entropy is constant and no entropy is produced; the Fisher metric here is the symmetric-logarithmic-derivative metric, while near-equilibrium thermodynamic length uses the Kubo–Mori metric and a relaxation time that no purely geometric quantity supplies. Turning speed into cost requires a bath (Section 5.3).</p>
+
+<h3><span class="num">5.2</span> The gap limits the driving speed</h3>
+<p>Let \(\mathcal L=\int_{t_i}^{t_f}\sqrt{g_\Pi(\dot\Pi,\dot\Pi)}\,dt\) be the length of the path traced by \(\Pi_k(t)\) in the intrinsic metric, and let the gap satisfy \(\Delta(t)\ge\Delta_{\min}>0\).</p>
+<p class="thm"><span class="lab">Theorem 5.2</span> <span class="tname">(Minimum driving time).</span> \(\displaystyle t_f-t_i\ \ge\ \frac{\Delta_{\min}\,\mathcal L}{\sqrt k\,\sup_t\|\partial_t\Sigma(t)\|}.\)</p>
+<p class="proof"><span class="lab">Proof.</span> By (2.3), \(\sqrt{g_\Pi(\dot\Pi,\dot\Pi)}=\|\dot\Pi\|_{\mathrm{HS}}/\sqrt2\). Proposition 3.5 applied pointwise gives \(\|\dot\Pi\|_{\mathrm{HS}}\le\sqrt{2k}\,\|\partial_t\Sigma\|/\Delta(t)\), so the integrand is at most \(\sqrt k\,\|\partial_t\Sigma\|/\Delta_{\min}\). Integrating over \([t_i,t_f]\) and rearranging gives the claim. <span class="qed">∎</span></p>
+<p>Theorem 5.2 bounds the time needed to move a spectral subspace a given intrinsic distance, in terms of the available driving strength and the gap. It is a statement about kinematics, proved from the machinery of Sections 2–3 alone.</p>
+
+<h3><span class="num">5.3</span> Friction on projector rotations</h3>
+
+<p>Let the driven system, with instantaneous spectrum \(\Sigma=\sum_nE_n|n\rangle\langle n|\) (nondegenerate), be in contact with a bath at inverse temperature \(\beta\), with Gibbs state \(\omega=e^{-\beta\Sigma}/Z\) and populations \(p_n\). Declare the relaxation model</p>
+\[\dot\rho=-ik\,[\Sigma,\rho]+\frac{\omega(\Sigma(t))-\rho}{\tau},\qquad k\in\{0,1\},\]
+<p>pure relaxation to the instantaneous Gibbs state (\(k=0\)) or relaxation with coherent precession (\(k=1\)). Work is \(W=\int\mathrm{Tr}(\rho\,\dot\Sigma)\,dt\), and the excess work is \(W_{\rm ex}=W-\Delta F\).</p>
+
+<p><em>Derivation.</em> Write \(\rho=\omega+\delta\rho\). Because \([\Sigma,\omega]=0\), \(\tfrac{d}{dt}\delta\rho=-ik[\Sigma,\delta\rho]-\delta\rho/\tau-\dot\omega\). For slow driving \(\delta\rho=O(\dot a)\) and its time derivative is \(O(\dot a^2)\), so in the instantaneous eigenbasis</p>
+\[\delta\rho_{mn}=-\frac{\tau\,\dot\omega_{mn}}{1+ik\tau(E_m-E_n)}+O(\dot a^2).\]
+<p>The Gibbs state changes on the diagonal as \(\dot\omega_{nn}=-\beta p_n(\dot\Sigma_{nn}-\langle\dot\Sigma\rangle)\), because \(\dot E_n=\dot\Sigma_{nn}\), and off the diagonal as \(\dot\omega_{mn}=\dot\Sigma_{mn}(p_n-p_m)/(E_n-E_m)\), because \(\langle m|\dot n\rangle=\dot\Sigma_{mn}/(E_n-E_m)\). Since \(\dot F=\mathrm{Tr}(\omega\dot\Sigma)\), the excess power is \(\mathrm{Tr}(\delta\rho\,\dot\Sigma)\); pairing the terms \((m,n)\) and \((n,m)\), whose denominators are complex conjugates, gives \(\dot W_{\rm ex}=\zeta\) with</p>
+\[\zeta=\tau\beta\,\mathrm{Var}_p(\dot\Sigma_{\rm diag})+\sum_{m\ne n}c_{mn}\,|\dot\Sigma_{mn}|^2\,\frac{p_m-p_n}{E_n-E_m},\qquad c_{mn}=\frac{\tau}{1+k^2\tau^2(E_m-E_n)^2}. \tag{5.2}\]
+<p>Every term is nonnegative, since \(p\) decreases as \(E\) increases. For \(k=0\), \(\zeta\) is the friction tensor of Sivak and Crooks for a single relaxation time, in the quantum Kubo–Mori form of Scandi and Perarnau-Llobet [Sivak–Crooks 2012; Scandi–Perarnau-Llobet 2019].</p>
+
+<p><em>The metric inside the friction.</em> For the spectral projector of a cluster \(\mathcal I\), Theorem 3.6 gives \(g=\sum_{m\in\mathcal I,\,n\notin\mathcal I}g_{mn}\) with \(g_{mn}=|\dot\Sigma_{mn}|^2/(E_n-E_m)^2\). The friction of the same pair, counted in both orders, is therefore</p>
+\[\zeta_{mn}=2c_{mn}\,(p_m-p_n)(E_n-E_m)\,g_{mn}. \tag{5.3}\]
+<p>Define \(\zeta_{\rm rot}=\sum_{m\in\mathcal I,\,n\notin\mathcal I}\zeta_{mn}\), the part of \(\zeta\) carried by the pairs that move \(\Pi\). It is the intrinsic metric reweighted pair by pair, the weight being twice the population difference times the gap times the relaxation factor. The rest of \(\zeta\) — the diagonal term and the pairs inside \(\mathcal I\) or inside its complement — moves the Gibbs state without moving \(\Pi\), so \(\zeta\ge\zeta_{\rm rot}\).</p>
+
+<p class="thm"><span class="lab">Theorem 5.3</span> <span class="tname">(Spectral lower bound on dissipation).</span> Under the declared model, to first order in the driving rate:</p>
+<p class="thm">(i) <em>Two levels.</em> With gap \(\Delta\), \(\zeta_{\rm rot}=2c(\Delta)\,\Delta\tanh(\beta\Delta/2)\;g_\Pi(\dot\Pi,\dot\Pi)\).</p>
+<p class="thm">(ii) <em>Zero temperature.</em> For a nondegenerate ground state and \(\mathcal I=\{0\}\), with \(\Delta_n=E_n-E_0\),</p>
+\[\min_n 2c(\Delta_n)\Delta_n\;g_\Pi(\dot\Pi,\dot\Pi)\ \le\ \zeta_{\rm rot}\ \le\ \max_n 2c(\Delta_n)\Delta_n\;g_\Pi(\dot\Pi,\dot\Pi), \tag{5.4}\]
+<p class="thm">and consequently, for a protocol of duration \(T\) whose path has intrinsic length \(\mathcal L\),</p>
+\[W_{\rm ex}\ \ge\ \Big(\min_{t,n}2c(\Delta_n)\Delta_n\Big)\int_{t_i}^{t_f}g_\Pi(\dot\Pi,\dot\Pi)\,dt\ \ge\ \Big(\min_{t,n}2c(\Delta_n)\Delta_n\Big)\frac{\mathcal L^2}{T}. \tag{5.5}\]
+<p class="proof"><span class="lab">Proof.</span> (i) For two levels \(p_--p_+=\tanh(\beta\Delta/2)\) in (5.3). (ii) At zero temperature pairs of excited levels carry no population difference, so \(\zeta_{\rm rot}=\sum_n2c(\Delta_n)\Delta_n\,g_{0n}\), a convex combination of the weights \(2c(\Delta_n)\Delta_n\) times \(g=\sum_ng_{0n}\); this is (5.4). Integrating \(W_{\rm ex}=\int\zeta\,dt\ge\int\zeta_{\rm rot}\,dt\) gives the first inequality of (5.5), and Cauchy–Schwarz, \(\mathcal L^2=(\int\sqrt g\,dt)^2\le T\int g\,dt\), gives the second. <span class="qed">∎</span></p>
+
+{{FIG:band}}
+
+<p>The bound (5.5) is the thermodynamic-length form of the statement that finite-rate motion of a spectral subspace costs work: the cost is at least the squared intrinsic length divided by the time allowed, with a prefactor set by the spectrum and the bath. The two metrics, \(\zeta_{\rm rot}\) and \(g\), agree up to one constant exactly when the drive couples the retained projector only to levels sharing one value of \(c(\Delta)\Delta\), for instance a single gap; otherwise they are different metrics on the same tangent space, each bounding the other.</p>
+
+<p><em>Work and entropy.</em> For a process that starts in the Gibbs state, the entropy production \(\Sigma_{\rm irr}=\Delta S-\beta Q\) satisfies \(\beta W_{\rm ex}=\Sigma_{\rm irr}+D(\rho_f\,\|\,\omega_f)\), because \(\beta(W-\Delta F)\) differs from \(\Sigma_{\rm irr}\) exactly by the relative entropy of the final state to the final Gibbs state. That term is second order in the driving rate and vanishes once the system re-equilibrates, so to leading order \(\Sigma_{\rm irr}=\beta\int\zeta\,dt\ge\beta\int\zeta_{\rm rot}\,dt\). At zero temperature the statement stays a bound on work. For two levels the friction splits with no cross term into a scale part and a rotation part,</p>
+\[\zeta=\tau\beta\,\mathrm{sech}^2(\beta\Delta/2)\,\dot r^2+2c(\Delta)\,\Delta\tanh(\beta\Delta/2)\,g_\Pi(\dot\Pi,\dot\Pi),\]
+<p>the two blocks of \(|\dot{\mathbf d}|^2=\dot r^2+\Delta^2g\) for \(\Sigma=\mathbf d\cdot\boldsymbol\sigma\), \(r=|\mathbf d|\), \(\Delta=2r\), with thermodynamic weights. As \(T\to0\) the scale block freezes and all slow-driving dissipation is projector rotation.</p>
+
+<p><em>A second bath.</em> The same structure holds for a detailed-balance (Davies) bath, with each pair's own coherence lifetime in place of \(\tau\): \(c_{mn}=\Gamma_{mn}/(\Gamma_{mn}^2+\Delta_{mn}^2)\), and the zero-temperature band (5.4) with \(c_n=\Gamma_{0n}/(\Gamma_{0n}^2+\Delta_n^2)\).</p>
+
+{{FIG:friction}}
+
+<p>None of this is universal: the weight depends on the bath model, the gaps and the populations. What is universal is the shape — the intrinsic metric of the moving subspace, multiplied by a spectral weight that the bath supplies. In both baths the prediction \(\int\zeta\,dt\) matches exact simulation of slow driving to within \(10^{-3}\) relative (Figure 5), the zero-temperature band holds in all 2,000 random draws for each bath, and the integrated entropy production approaches \(\beta W_{\rm ex}\) at the slowest runs.</p>
+</section>

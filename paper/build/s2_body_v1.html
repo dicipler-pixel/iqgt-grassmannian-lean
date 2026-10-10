@@ -1,0 +1,47 @@
+<section id="s2">
+<h2><span class="num">2</span> Mathematical Framework and Intrinsic Geometric Structures</h2>
+
+<p>Let \(\mathcal H\) be a separable complex Hilbert space and let \(\mathrm{Gr}(k,\mathcal H)\) denote the Grassmannian manifold of rank-\(k\) orthogonal projectors on \(\mathcal H\); it is a real-analytic Banach manifold. An element \(\Pi\in\mathrm{Gr}(k,\mathcal H)\) is a bounded self-adjoint operator satisfying</p>
+\[\Pi^\dagger=\Pi=\Pi^2,\qquad \mathrm{Tr}\,\Pi=k,\]
+<p>with \(k<\infty\) throughout.</p>
+
+<h3><span class="num">2.1</span> The tangent space</h3>
+
+<p>The tangent space \(T_\Pi\mathrm{Gr}(k,\mathcal H)\) at a point \(\Pi\) consists of the self-adjoint operators \(V\in\mathcal B(\mathcal H)\) satisfying the linearised constraint obtained by differentiating the projector identity \(\Pi^2=\Pi\). This yields the relation</p>
+\[V=\Pi V+V\Pi .\]
+<p>Multiplying on both sides by \(\Pi\) immediately gives \(\Pi V\Pi=0\). The same operation with the complementary projector forces \((I-\Pi)V(I-\Pi)=0\). Consequently, every tangent vector is strictly off-diagonal with respect to the orthogonal decomposition \(\mathcal H=\mathrm{Ran}(\Pi)\oplus\mathrm{Ran}(I-\Pi)\):</p>
+\[V=\Pi V(I-\Pi)+(I-\Pi)V\Pi=\begin{pmatrix}0&X\\ X^{*}&0\end{pmatrix},\qquad X=\Pi V(I-\Pi). \tag{2.1}\]
+<p>This structural constraint is fundamental: all geometric features of the tangent space arise exclusively from mixing between the occupied spectral subspace and its complement. There are no intra-subspace contributions to the geometry.</p>
+
+{{FIG:tangent}}
+
+<p class="thm"><span class="lab">Lemma 2.1</span> <span class="tname">(Exact characterisation of the tangent space).</span> Let \(\Pi\in\mathrm{Gr}(k,\mathcal H)\) and let \(V\) be bounded, self-adjoint and of the form (2.1) for some bounded \(X:\mathrm{Ran}(I-\Pi)\to\mathrm{Ran}(\Pi)\). Then \(V\) is the velocity at \(t=0\) of a curve in \(\mathrm{Gr}(k,\mathcal H)\) through \(\Pi\). Consequently \(T_\Pi\mathrm{Gr}(k,\mathcal H)\) is exactly the set of bounded self-adjoint operators of the form (2.1).</p>
+<p class="proof"><span class="lab">Proof.</span> Set</p>
+\[A=\begin{pmatrix}0&iX\\ -iX^{*}&0\end{pmatrix},\]
+<p class="proof">which is bounded and self-adjoint, and let \(\Pi(t)=e^{itA}\,\Pi\,e^{-itA}\). Each \(\Pi(t)\) is a rank-\(k\) orthogonal projector, and \(\dot\Pi(0)=i[A,\Pi]=V\). In finite dimensions the dimension count agrees: an arbitrary complex \(X\) of size \(k\times(n-k)\) has real dimension \(2k(n-k)=\dim_{\mathbb R}\mathrm{Gr}(k,\mathbb C^n)\). <span class="qed">∎</span></p>
+
+<p class="rem"><span class="lab">Remark 2.2</span> <span class="tname">(Convergence is automatic).</span> \(X=\Pi V(I-\Pi)\) factors through \(\mathrm{Ran}(\Pi)\) and therefore has rank at most \(k\). A bounded finite-rank operator is trace class, so every trace appearing below converges for any bounded \(V\), with no additional hypothesis. This is the only place finiteness of \(k\) is used.</p>
+
+<h3><span class="num">2.2</span> The Intrinsic Quantum Geometric Tensor</h3>
+
+<p>The tangent space is a real vector space: if \(V\) is self-adjoint, \(iV\) is not. We therefore define the intrinsic Quantum Geometric Tensor, the canonical Hermitian form on the Grassmannian, on the complexification \(T^{\mathbb C}_\Pi=\{A+iB:\ A,B\in T_\Pi\mathrm{Gr}(k,\mathcal H)\}\):</p>
+\[Q_\Pi(A,B):=\mathrm{Tr}\big(\Pi A^{\dagger}B\big). \tag{2.2}\]
+<p>This form is sesquilinear, reduces to \(\mathrm{Tr}(\Pi VW)\) on self-adjoint arguments, and is positive semi-definite:</p>
+\[Q_\Pi(A,A)=\mathrm{Tr}\big(\Pi A^{\dagger}A\,\Pi\big)=\|A\Pi\|_{\mathrm{HS}}^{2}\ \ge 0 .\]
+<p>On the real tangent space it is definite, since there the two off-diagonal blocks are adjoint to one another; on the complexification it is only semi-definite, because a complex tangent vector carrying only its upper block has \(A\Pi=0\).</p>
+
+<p>For \(V,W\in T_\Pi\mathrm{Gr}(k,\mathcal H)\) with blocks \(X,Y\) one computes \(VW=\mathrm{diag}(XY^{*},X^{*}Y)\), hence \(Q_\Pi(V,W)=\mathrm{Tr}(XY^{*})\). This complex-valued form decomposes uniquely into a symmetric real part and a skew-symmetric imaginary part,</p>
+\[Q_\Pi(V,W)=g_\Pi(V,W)-\tfrac{i}{2}\,\Omega_\Pi(V,W), \tag{2.3}\]
+\[g_\Pi(V,W)=\tfrac12\,\mathrm{Tr}(VW)=\mathrm{Re}\,\mathrm{Tr}(XY^{*}),\qquad \Omega_\Pi(V,W)=i\,\mathrm{Tr}\big(\Pi[V,W]\big)=-2\,\mathrm{Im}\,\mathrm{Tr}(XY^{*}),\]
+<p>where \(g_\Pi\) is the intrinsic Hilbert–Schmidt Riemannian metric and \(\Omega_\Pi\) is the intrinsic Berry curvature 2-form. These are the signs of the standard parametric convention \(Q=g-\tfrac{i}{2}F\): pulled back along a family of projectors, \(\Omega_\Pi\) is the ordinary Berry curvature \(F=dA\), \(A=i\langle u|du\rangle\), for \(k=1\), and the trace of the non-abelian curvature for \(k>1\). The metric \(g_\Pi\) quantifies the infinitesimal distinguishability between nearby projectors, while the curvature \(\Omega_\Pi\) encodes the geometric phase accumulated along closed paths in the Grassmannian. Both quantities derive from the same underlying form and are therefore linked through the off-diagonal structure of the tangent space.</p>
+
+<p class="rem"><span class="lab">Remark 2.3</span> <span class="tname">(Where the \(\Pi\)-dependence lives).</span> The metric \(g_\Pi(V,W)=\tfrac12\mathrm{Tr}(VW)\) appears to have forgotten \(\Pi\). It has not. The identity \(\mathrm{Tr}(\Pi VW)+\mathrm{Tr}(\Pi WV)=\mathrm{Tr}(VW)\) is false for general operators; it holds precisely because \(V\) and \(W\) are off-diagonal with respect to this \(\Pi\). The dependence has migrated from the formula into its domain.</p>
+
+<p class="rem"><span class="lab">Remark 2.4</span> <span class="tname">(The factor \(\tfrac12\) is forced).</span> On the Bloch sphere, \(\Pi_-=\tfrac12(I-\hat n\cdot\boldsymbol\sigma)\) gives \(\tfrac12\mathrm{Tr}(V^2)=\tfrac14|\delta\hat n|^2\), hence \(g_{\theta\theta}=1/4\): the Fubini–Study value. The alternative normalisation \(\mathrm{Tr}(VW)\) would give \(1/2\) and disagree with the parametric literature. The factor is fixed by that agreement, not chosen.</p>
+
+<h3><span class="num">2.3</span> Riesz–Kato Spectral Projectors</h3>
+
+<p>Let \(\Sigma\) be a self-adjoint operator (bounded or unbounded) possessing an isolated spectral subspace of dimension \(k\) separated from the remainder of the spectrum by a positive gap \(\Delta>0\). Let \(\Gamma_k\) be a simple closed contour lying in the resolvent set that encloses precisely the eigenvalues associated with this subspace. Write \(\mathcal I\) for the set of spectral indices inside \(\Gamma_k\) and \(\mathcal I^{c}\) for those outside. The corresponding spectral projector is given by the Riesz integral</p>
+\[\Pi_k=\frac{1}{2\pi i}\oint_{\Gamma_k}(zI-\Sigma)^{-1}\,dz. \tag{2.4}\]
+<p>This projector is independent of the particular choice of contour within the gap and depends analytically on \(\Sigma\) as long as the gap remains open; a contour that crosses the gap encloses a different spectral subspace and returns a different projector. Appendix A treats the unbounded case. All subsequent geometric constructions are formulated directly in terms of \(\Pi_k\) and its tangent variations.</p>
+</section>

@@ -1,0 +1,54 @@
+<section id="s7">
+<h2><span class="num">7</span> Geometric Transport Tensors as Pullbacks</h2>
+
+<p>Quantities such as the quantum metric dipole, the nonlinear Hall conductivity and the orbital magnetisation are usually computed in a band basis on a chosen parameter space. In the present framework each of them is read off the same cross-gap data that define \(Q_\Pi\): the pairs \(\langle m|\partial\Sigma|n\rangle\) with \(m\in\mathcal I,\ n\in\mathcal I^c\), weighted by powers of their gaps, together — at second order — with the rotation of the eigenvectors inside each sector. This section makes that statement exact for each tensor.</p>
+
+<h3><span class="num">7.1</span> The quantum metric dipole</h3>
+<p>The quantum metric dipole measures the variation of the quantum metric across the parameter manifold, \(G_{ij,k}(a)\equiv\partial_{a^k}g_{ij}(a)\). Differentiating the pullback \(g_{ij}=\tfrac12\mathrm{Tr}(\partial_i\Pi_k\,\partial_j\Pi_k)\) gives (4.5),</p>
+\[G_{ij,k}=\tfrac12\,\mathrm{Tr}\big[(\partial_k\partial_i\Pi_k)\,\partial_j\Pi_k+\partial_i\Pi_k\,(\partial_k\partial_j\Pi_k)\big], \tag{7.1}\]
+<p>and differentiating the constraint \(V_i=\Pi_kV_i+V_i\Pi_k\) gives the second-order response equation \(\partial_kV_i=V_kV_i+\Pi_k(\partial_kV_i)+(\partial_kV_i)\Pi_k+V_iV_k\). With the exact second variation (4.6), (7.1) is the complete dipole. To resolve it in the eigenbasis, write \(A^i=\partial_i\Sigma\) in the instantaneous eigenbasis and \(\Delta_{mn}=\lambda_n-\lambda_m\). Holding the eigenvectors fixed and differentiating only the operator and the gaps gives the two-index form</p>
+\[\begin{aligned}G^{(2)}_{ij,k}=\sum_{m\in\mathcal I}\sum_{n\in\mathcal I^c}\Bigg[&\frac{\mathrm{Re}\big(\langle m|\partial_k\partial_i\Sigma|n\rangle A^j_{nm}+A^i_{mn}\langle n|\partial_k\partial_j\Sigma|m\rangle\big)}{\Delta_{mn}^2}\\&-2\,\frac{\mathrm{Re}\big(A^i_{mn}A^j_{nm}\big)\,\partial_k\Delta_{mn}}{\Delta_{mn}^3}\Bigg],\end{aligned} \tag{7.2}\]
+<p>with \(\partial_k\Delta_{mn}=A^k_{nn}-A^k_{mm}\) by Hellmann–Feynman. The eigenvectors also turn: \(\partial_k\langle m|\partial_i\Sigma|n\rangle\) contains, besides \(\langle m|\partial_k\partial_i\Sigma|n\rangle\), the rotation terms</p>
+\[\mathcal R^{ik}_{mn}=\sum_{l\ne m}\frac{A^k_{ml}A^i_{ln}}{\lambda_m-\lambda_l}+\sum_{l\ne n}\frac{A^i_{ml}A^k_{ln}}{\lambda_n-\lambda_l},\]
+<p>and for a spectrum that is nondegenerate within each sector the dipole is exactly</p>
+\[G_{ij,k}=G^{(2)}_{ij,k}+\sum_{m\in\mathcal I}\sum_{n\in\mathcal I^c}\frac{\mathrm{Re}\big(\mathcal R^{ik}_{mn}A^j_{nm}+A^i_{mn}\mathcal R^{jk}_{nm}\big)}{\Delta_{mn}^2}. \tag{7.3}\]
+<p>The rotation sum runs over every level \(l\), including those in the same sector as \(m\) or \(n\): these are the three-state terms, and they live in exactly the off-diagonal block that survives the trace in (7.1). On forty random families (7.3) reproduces the contour value of (7.1) to \(4\times10^{-12}\), while the two-index form (7.2) alone can be off by more than a factor of a hundred where its terms cancel. The dipole is therefore controlled by the cross-gap channels, the gap variations and the rotation of the eigenvectors within each sector — the last being the second-order content that Proposition 4.3 isolates.</p>
+
+<h3><span class="num">7.2</span> One pair sum, many weights</h3>
+<p>Take a nondegenerate ground state \(|0\rangle\), gaps \(\Delta_n=E_n-E_0\), and for each excited level the pair metric and pair curvature</p>
+\[g_n=\frac{|\langle0|\partial_x\Sigma|n\rangle|^2}{\Delta_n^2},\qquad \Omega_n=-\frac{2\,\mathrm{Im}\big(\langle0|\partial_x\Sigma|n\rangle\langle n|\partial_y\Sigma|0\rangle\big)}{\Delta_n^2},\]
+<p>so that \(g=\sum_ng_n\) and \(\Omega=\sum_n\Omega_n\) by Theorem 3.6. The responses of transport theory are the same pair sums with different weights in the gap:</p>
+<table class="ledger">
+<tr><th>Quantity</th><th>Pair sum</th><th>Weight</th><th>Checked against</th></tr>
+<tr><td>quantum metric</td><td>\(\sum_ng_n\)</td><td>\(1\)</td><td>Theorem 3.6</td></tr>
+<tr><td>static response \(-\partial_x^2E_0\)</td><td>\(\sum_n2\Delta_n g_n\)</td><td>\(2\Delta\)</td><td>finite differences of \(E_0\), \(7\times10^{-6}\)</td></tr>
+<tr><td>Berry connection polarizability \(G_{xx}\)</td><td>\(-\sum_n2g_n/\Delta_n\)</td><td>\(-2/\Delta\)</td><td>interband Berry connections, \(2\times10^{-7}\)</td></tr>
+<tr><td>zero-temperature rotation friction</td><td>\(\sum_n2c(\Delta_n)\Delta_n g_n\)</td><td>\(2c\Delta\)</td><td>Theorem 5.3</td></tr>
+<tr><td>Berry curvature</td><td>\(\sum_n\Omega_n\)</td><td>\(1\)</td><td>Theorem 3.6</td></tr>
+<tr><td>orbital-moment kernel \(\mathrm{Im}\langle\partial_xu_0|(\Sigma-E_0)|\partial_yu_0\rangle\)</td><td>\(-\tfrac12\sum_n\Delta_n\Omega_n\)</td><td>\(\Delta\)</td><td>gauge-fixed finite differences, \(4\times10^{-8}\)</td></tr>
+</table>
+
+{{FIG:weights}}
+
+<p>The metric family and the curvature family each run through the powers of the gap. The nonlinear Hall input sits one power below the metric, the static response one power above, and the orbital moment one power above the curvature. Which power a measurement selects tells which part of the cross-gap geometry it reads, and fixes how it behaves at a closing gap (Section 7.5). With \(\alpha(x)=\sum_n2\Delta_n^3g_n/(\Delta_n^2-x^2)\), the static response function, the friction of Section 5 is read directly from it: \(\zeta_{\rm rot}=\tau\,\alpha(0)\) for pure relaxation and \(\zeta_{\rm rot}=\tau\big[\alpha(0)-\alpha(i/\tau)\big]\) with precession (to \(10^{-13}\) on 200 random systems) — the familiar statement that a friction coefficient is a response function evaluated at the bath's rate, written in the spectral weights of this paper.</p>
+
+<h3><span class="num">7.3</span> Nonlinear Hall conductivity</h3>
+<p>The second-order current \(j_a=\sigma^{ab;c}E_bE_c\) generated in the absence of a magnetic field has an intrinsic, scattering-time-independent part fixed by quantum geometry. Its input is not the quantum metric itself but the Berry connection polarizability, the band-normalised metric</p>
+\[G_n^{ab}=2\,\mathrm{Re}\sum_{m\ne n}\frac{\mathcal A^a_{nm}\mathcal A^b_{mn}}{\varepsilon_n-\varepsilon_m},\qquad \mathcal A^a_{nm}=i\langle u_n|\partial_au_m\rangle,\]
+<p>which for an isolated band is the pair sum with weight \(-2/\Delta\) of the table above. The intrinsic conductivity is built from its dipoles [Gao–Yang–Niu 2014; Kaplan–Holder–Yan 2024]:</p>
+\[\sigma^{ab;c}_{\rm int}=-\frac{e^3}{\hbar}\sum_n\int_{\mathbf k}f_n\Big[2\,\partial_{k_c}G_n^{ab}-\tfrac12\big(\partial_{k_a}G_n^{bc}+\partial_{k_b}G_n^{ac}\big)\Big]. \tag{7.4}\]
+<p>In the language of this paper, (7.4) is the dipole of a pullback: the same cross-gap pairs as \(g\), weighted one power of the gap lower, differentiated along the Brillouin zone. The second-order machinery of Section 7.1 — the exact second variation and the rotation terms — is what its spectral evaluation requires; a form that differentiates only the operator and the gaps misses the same three-state terms as (7.2).</p>
+
+<h3><span class="num">7.4</span> Orbital magnetisation</h3>
+<p>The orbital moment of a Bloch state is the curvature-family pair sum weighted by one power of the gap, \(m_n\propto\mathrm{Im}\langle\partial u_n|\times(\Sigma-\varepsilon_n)|\partial u_n\rangle=-\tfrac12\sum_m\Delta_{nm}\Omega_{nm}\) (table above), so orbital magnetism belongs to the antisymmetric half of the cross-gap geometry. A nonlinear orbital response \(M_i=\alpha_{ijk}E_jE_k\) is the field derivative of that kernel; its full second-order expression, which needs the second-order machinery of Section 7.1 applied to the curvature family, is not derived here.</p>
+
+<h3><span class="num">7.5</span> Singular nodes and regularisation</h3>
+<p>When the gap closes the denominators diverge, each tensor at the rate set by its weight. Following each quantity toward the charge-neutral point with everything else fixed (Figure 8), the metric and the curvature diverge as \(\Delta^{-2}\), the dipole one power faster as \(\Delta^{-3}\), the zero-temperature rotation friction as \(\Delta^{-1}\), and the finite-temperature friction not at all, since the population difference \(\tanh(\beta\Delta/2)\) closes with the gap. The measured slopes are \(-2.000,-2.000,-2.997,-0.996,+0.001\).</p>
+
+{{FIG:gapclosing}}
+
+<p>A finite quasiparticle lifetime enters through a complex regularisation \(i\eta\), \(\eta>0\), in the interband denominators,</p>
+\[\langle m|V_\eta|n\rangle=\frac{\langle m|\delta\Sigma|n\rangle}{\lambda_m-\lambda_n+i\eta}, \tag{7.5}\]
+<p>which replaces the poles by Lorentzian profiles. \(V_\eta\) is not self-adjoint — \(\langle n|V_\eta|m\rangle\) carries \(\lambda_n-\lambda_m-i\eta\) where \(\langle m|V_\eta|n\rangle\) carries \(\lambda_m-\lambda_n+i\eta\) — so it is not a tangent vector, and the metric, Gram positivity and real angles of Sections 2–6 do not apply to it. What the prescription defines is a retarded response, and the modulus-squared weight \(\big((\lambda_n-\lambda_m)^2+\eta^2\big)^{-1}\) that follows from it is the correct regularised weight for response calculations. The regularised pair sum \(\sum|\langle m|\delta\Sigma|n\rangle|^2/(\Delta_{mn}^2+\eta^2)\) stays below \(\sum|\langle m|\delta\Sigma|n\rangle|^2/\eta^2\) even at a closed gap and returns the metric as \(\eta\to0\) on an open one. Applied to the two-index form (7.2), the regularisation gives</p>
+<p>whose gap-derivative term vanishes with the gap, the \(1/\Delta^3\) singularity becoming a peak bounded by \(1/\eta^2\) times the coupling; the rotation terms of (7.3) are regularised the same way. Lifetimes near nodes proper require a non-Hermitian or Lindblad formulation, which is a different theory.</p>
+</section>

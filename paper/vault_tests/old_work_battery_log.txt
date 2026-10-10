@@ -1,0 +1,23 @@
+PASS A1 shape map X->W has rank 5 (9 -> 5) | rank=5 | kill: rank != 5
+FAIL A2 kernel = scale + so(3): 9 -1 (sphere S^8) -3 (rotations) = 5 | |J.kernel|max=9.3e-01 | kill: scale or rotation moves W
+FAIL A3 opposite: X->XR does move W (so the quotient is by LEFT rotations only) | 0.000 | kill: right action also invisible
+PASS A4 Gell-Mann split: 5 real-symmetric (= T_W shape space) + 3 imaginary (= i so(3), rotations) | 5+3 | kill: split not 5+3
+PASS A5 collinear stratum: W is a rank-1 projector (W^2=W) | 5.0e-17 | kill: W not idempotent
+PASS B1 derivations of the octonions: dim = 14 (G2) | dim=14, alternativity residual 5.1e-15 | kill: dim != 14
+PASS B2 G2 elements fixing one imaginary unit: dim = 8 (SU(3)) | dim=8 | kill: dim != 8
+PASS B3 G2/SU(3) = S^6: 14 - 8 = 6 | 6 | kill: 
+PASS B4 SU(3) elements fixing a line in C^3: dim = 4 (U(2)); quotient = Gr(1,C^3), real dim 4 | stabiliser dim=4, Gr dim=4 | kill: dim != 4
+FAIL C1.1 spin-1 metric g_Pi1 for |d|=1,|dd_perp|=1 (June claim 9/16) | measured 0.500000 | kill: value != 9/16
+FAIL C1.2 spin-1 metric g_Pi2 for |d|=1,|dd_perp|=1 (June claim 9/16) | measured 0.500000 | kill: value != 9/16
+PASS C2 duality g_Pi1 = g_Pi2 (here, k=1 vs k=2) | 0.500000 vs 0.500000 | kill: unequal
+PASS C3 opposite: tilt the middle band (b=0.4) -> duality between k=1 and k=2 should BREAK | 1.388889 vs 0.255102 | kill: still equal
+PASS C4 complement identity g_Pi = g_(I-Pi) holds for ANY Pi (no flat band needed) | exact | kill: 
+PASS D1 figure-eight A(L,M) at M=i has the double root L=1 | roots [1.+1.e-08j 1.-1.e-08j] | kill: not a double root at 1
+PASS D2 same at M=-i | [1.+1.e-08j 1.-1.e-08j] | kill: 
+PASS D3 opposite: generic M gives two distinct L | |L1-L2|=2.136 | kill: 
+    block-diagonal direction g(v,v)= 0.000e+00
+    generic direction g(v,v)= 2.224e+00
+PASS E1 g(v,v)=0 exactly when the direction has no cross-gap block (silent direction) | block-diagonal direction gives g=0; generic does not (printed above) | kill: 
+PASS E2 a Hessian kernel is NOT a metric kernel in general (no theorem without an extra hypothesis) | H0 e1=0 yet the family H0+x1*B1 moves Pi_1 (g>0, generic line above) | kill: 
+
+SUMMARY 15 pass of 19

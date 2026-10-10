@@ -1,0 +1,6 @@
+S1 PASS 6.661338147750939e-16
+S2 PASS 5.652640819671579e-10
+S3 PASS (np.float64(0.5), np.float64(0.5), np.float64(5.0), np.float64(5.0), np.float64(3.512407), np.float64(2.896405))
+S4 PASS 0
+S5 PASS 8.881784197001252e-16
+S6 PASS (np.float64(-0.391663), np.float64(0.391663), np.float64(-0.391663))

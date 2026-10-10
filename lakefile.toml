@@ -9,4 +9,4 @@ rev = "v4.34.1"
 
 [[lean_lib]]
 name = "IqgtGrassmannian"
-roots = ["IqgtGrassmannian.Basic"]
+roots = ["IqgtGrassmannian.Basic", "IqgtGrassmannian.Core", "IqgtGrassmannian.Rebuild"]
