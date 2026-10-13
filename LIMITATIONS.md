@@ -29,3 +29,18 @@ Lean proves exactly the statements written, under exactly the hypotheses written
   `√Σθ²`, are checked numerically (`paper/checks/sofic_bridge.py`), not in Lean.
 * Theorem 6.1 in block form (`curvature_bound`) is proved for vectors in `EuclideanSpace ℂ ι`; the
   identification of a tangent vector with its cross-gap block is stated in words, not formalized.
+* Section 6.3 (equality cases, paper v7): only the scalar and algebraic cores are formalized: the
+  termwise equality of the Hilbert–Schmidt step (`gap_bound_hs_step_eq_iff`), the constant-speed
+  equality of the finite-sum length form (`constant_speed_iff`), equality in Cauchy–Schwarz over `ℂ`
+  (`saturation_iff_complex_line`, a restatement of Mathlib's `norm_inner_eq_norm_iff`) and the
+  two-number arithmetic–geometric mean step of the trace condition (`am_gm_eq_iff`). The singular-value
+  step of the gap bound, the equality case of the minimum driving time, the deficit identity (6.3)
+  as an identity of tangent vectors, and the pullback of the trace condition are checked numerically
+  (`paper/checks/rigidity_checks.py`), not in Lean.
+* Section 8.5: Lemma 8.5 is formalized as "a differentiable curve with zero derivative is constant"
+  and Proposition 8.6 as a ring identity (`silent_second_order`), taking the twice-differentiated
+  idempotence `Π″ = Π″Π + 2Π′Π′ + ΠΠ″` as a hypothesis; the differentiation itself, the Taylor
+  estimate (8.3), the Christoffel divergence and the three-body fold are checked numerically.
+* Section 12.4: the sandwich's equality case is formalized for real angles and for unit eigenvalues
+  (`sandwich_upper_eq_iff`, `half_phase_right_iff`, `involution_eigenvalue`); the passage from a
+  permutation matrix to its principal angles is not.

@@ -4,7 +4,7 @@
 
 [![Lean proof check](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml/badge.svg)](https://github.com/dicipler-pixel/iqgt-grassmannian-lean/actions/workflows/build.yml)
 ![Lean](https://img.shields.io/badge/Lean-v4.34.1-blue)
-![Theorems](https://img.shields.io/badge/theorems-74-2EA043)
+![Theorems](https://img.shields.io/badge/theorems-90-2EA043)
 ![sorry](https://img.shields.io/badge/sorry-0-2EA043)
 ![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)
 ![Text: CC BY 4.0](https://img.shields.io/badge/text-CC%20BY%204.0-lightgrey)
@@ -57,6 +57,15 @@ every finite dimension.
 | §12.4 | Cycle Gram eigenvalues pair up: `2 sin²(π(ℓ−j)/ℓ) = 2 sin²(πj/ℓ)` | `Rebuild.cycle_gram_pair` |
 | App. A | Second resolvent identity `a⁻¹ − b⁻¹ = a⁻¹(b − a)b⁻¹` (the minus sign of (A.2)) | `Rebuild.second_resolvent` |
 | §6, Theorem 6.1 in block form | For the cross-gap blocks `x, y` of two tangent vectors, `Ω² ≤ 4 (g_VV g_WW − g_VW²)`, straight from Cauchy–Schwarz in `EuclideanSpace ℂ ι` | `Rebuild.curvature_bound` |
+| §6.3 (i) | Equality in the gap bound: `Σ aᵢ²/dᵢ² = (Σ aᵢ²)/Δ²` exactly when every coupled pair sits at gap exactly `Δ` | `Rebuild.gap_term_eq_iff`, `gap_bound_hs_step_eq_iff` |
+| §6.3 (iii) | Constant speed: `N Σ xᵢ² − (Σ xᵢ)²` is half the sum of squared differences, so the length form is tight exactly at constant speed | `Rebuild.length_gap_identity`, `constant_speed_iff` |
+| §6.3 (iv) | The curvature bound is met exactly on the complex line of `V` (equality in Cauchy–Schwarz over `ℂ`) | `Rebuild.saturation_iff_complex_line` |
+| §6.3, Prop. 6.4 | `(a+b)² = 4ab ⇔ a = b`: the trace condition is tight exactly when `g` is conformal | `Rebuild.am_gm_eq_iff` |
+| §8.5, Lemma 8.5 | A curve whose derivative vanishes everywhere is constant: a stratum with `g∥ ≡ 0` is one projector | `Rebuild.constant_of_silent` |
+| §8.5, Prop. 8.6 | Along a silent direction (`Π′ = 0`), `Π″` is block off-diagonal: `ΠΠ″Π = 0`, `(1−Π)Π″(1−Π) = 0` | `Rebuild.silent_second_order` |
+| §8.5, Example 8.8 | A triangle and its mirror image have the same distances | `Rebuild.mirror_same_distance` |
+| §12.4, Prop. 12.2 | `sin²θ = θ²` only at `0`; Jordan's bound is tight only at `0` and `π/2`; so the sandwich's upper bound is tight exactly when every angle is `0` or `π/2`, i.e. eigenphase `π`, i.e. eigenvalue `±1` (an involution) | `Rebuild.sin_sq_eq_angle_sq_iff`, `jordan_eq_iff`, `sandwich_upper_eq_iff`, `half_phase_right_iff`, `involution_eigenvalue` |
+| §12.4, Example 12.3 | Doubling on `ℤ/9ℤ` keeps `gcd(r, 9)`, so `{1,2,4,5,7,8}`, `{3,6}`, `{0}` never mix; six doublings return every residue (three do not: false control) | `Rebuild.doubling_keeps_gcd`, `doubling_six_returns` |
 | §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |
 
 The paper itself, its numerical checks, figures, data and the Grassmannian Mixer are in
@@ -79,29 +88,33 @@ All eighteen figures of the paper, as SVG in [`paper/figures/`](paper/figures/),
 | **Figure 3.** A family of operators is a map into the Grassmannian. | **Figure 4.** The zero-temperature friction band of Theorem 5.3. |
 | <img src="paper/figures/fig_friction.svg" width="420" alt="Figure 5"> | <img src="paper/figures/fig_envelope.svg" width="420" alt="Figure 6"> |
 | **Figure 5.** Friction on projector rotations, tested against exact slow-driving simulations. | **Figure 6.** The envelope of Theorem 6.1: curvature cannot exceed what the metric affords. |
-| <img src="paper/figures/fig_weights.svg" width="420" alt="Figure 7"> | <img src="paper/figures/fig_gapclosing.svg" width="420" alt="Figure 8"> |
-| **Figure 7.** One pair sum, many weights: metric, Berry connection polarizability, static response. | **Figure 8.** Closing the gap: metric, curvature, dipole and friction scaling. |
-| <img src="paper/figures/fig_reflection.svg" width="420" alt="Figure 9"> | <img src="paper/figures/fig_candidates.svg" width="420" alt="Figure 10"> |
-| **Figure 9.** Total internal reflection at a polar stratum. | **Figure 10.** Three candidate refractive indices along one geodesic. |
-| <img src="paper/figures/fig_narrow.svg" width="420" alt="Figure 11"> | <img src="paper/figures/fig_gaplaw.svg" width="420" alt="Figure 12"> |
-| **Figure 11.** Two ways the index can vary across an interface, one refraction law. | **Figure 12.** The tip and the tail: the first-order gap law against simulation and condensate data. |
-| <img src="paper/figures/fig_direction.svg" width="420" alt="Figure 13"> | <img src="paper/figures/fig_corridor.svg" width="420" alt="Figure 14"> |
-| **Figure 13.** A direction exists only where a gap exists (heat-engine readout). | **Figure 14.** One law at two grains: a vector inside a cluster turns while the cluster subspace holds. |
-| <img src="paper/figures/fig_cuts.svg" width="420" alt="Figure 15"> | <img src="paper/figures/fig_perm.svg" width="420" alt="Figure 16"> |
-| **Figure 15.** The condensate, every cut: single eigen-image against rank-k subspace. | **Figure 16.** The card count and the intrinsic length: permutations as principal angles. |
-| <img src="paper/figures/fig_saturation.svg" width="420" alt="Figure 17"> | <img src="paper/figures/fig_krylov.svg" width="420" alt="Figure 18"> |
-| **Figure 17.** Curvature against its bound: two-band and spin-1 bands saturate, generic three-band falls inside. | **Figure 18.** Krylov evaluation of the regularised metric and curvature, error ∝ η². |
+| <img src="paper/figures/fig_rigidity.svg" width="420" alt="Figure 7"> | <img src="paper/figures/fig_weights.svg" width="420" alt="Figure 8"> |
+| **Figure 7.** When the bounds are met: one gap and one strength, the complex line, a rigid rotation. | **Figure 8.** One pair sum, many weights: metric, Berry connection polarizability, static response. |
+| <img src="paper/figures/fig_gapclosing.svg" width="420" alt="Figure 9"> | <img src="paper/figures/fig_reflection.svg" width="420" alt="Figure 10"> |
+| **Figure 9.** Closing the gap: metric, curvature, dipole and friction scaling. | **Figure 10.** Total internal reflection at a polar stratum. |
+| <img src="paper/figures/fig_candidates.svg" width="420" alt="Figure 11"> | <img src="paper/figures/fig_orders.svg" width="420" alt="Figure 12"> |
+| **Figure 11.** Three candidate refractive indices along one geodesic. | **Figure 12.** Silent directions by order: ε for a moving direction, ε² across a fold, nothing along a polar stratum. |
+| <img src="paper/figures/fig_shape.svg" width="420" alt="Figure 13"> | <img src="paper/figures/fig_narrow.svg" width="420" alt="Figure 14"> |
+| **Figure 13.** Three bodies seen through their distances: the collinear circle of the shape sphere is a fold. | **Figure 14.** Two ways the index can vary across an interface, one refraction law. |
+| <img src="paper/figures/fig_gaplaw.svg" width="420" alt="Figure 15"> | <img src="paper/figures/fig_direction.svg" width="420" alt="Figure 16"> |
+| **Figure 15.** The tip and the tail: the first-order gap law against simulation and condensate data. | **Figure 16.** A direction exists only where a gap exists (heat-engine readout). |
+| <img src="paper/figures/fig_corridor.svg" width="420" alt="Figure 17"> | <img src="paper/figures/fig_cuts.svg" width="420" alt="Figure 18"> |
+| **Figure 17.** One law at two grains: a vector inside a cluster turns while the cluster subspace holds. | **Figure 18.** The condensate, every cut: single eigen-image against rank-k subspace. |
+| <img src="paper/figures/fig_perm7.svg" width="420" alt="Figure 19"> | <img src="paper/figures/fig_saturation.svg" width="420" alt="Figure 20"> |
+| **Figure 19.** The card count and the intrinsic length; the upper bound is met by involutions only. Doubling on ℤ/9ℤ. | **Figure 20.** Curvature against its bound: two-band and spin-1 bands saturate, generic three-band falls inside. |
+| <img src="paper/figures/fig_krylov.svg" width="420" alt="Figure 21"> |  |
+| **Figure 21.** Krylov evaluation of the regularised metric and curvature, error ∝ η². |  |
 
 ## How it is checked
 
 Every push runs [the proof check](.github/workflows/build.yml): build against Lean v4.34.1 and
 Mathlib v4.34.1, independent replay in Lean's kernel checker, an axiom audit (only `propext`,
-`Classical.choice`, `Quot.sound`), and five deliberately false statements that must fail.
+`Classical.choice`, `Quot.sound`), and six deliberately false statements that must fail.
 
 ## The paper
 
 *Intrinsic Quantum Geometric Tensor on the Grassmannian and Spectral Lower Bounds on Dissipation*, Jeromie Beasley. DOI
-[10.5281/zenodo.20768258](https://doi.org/10.5281/zenodo.20768258) (always opens the newest version).
+[10.5281/zenodo.20768258](https://doi.org/10.5281/zenodo.20768258) (always opens the newest version). The current version is v7: [`paper/iqgt_grassmannian_v7.html`](paper/iqgt_grassmannian_v7.html), [`paper/iqgt_grassmannian_v7.pdf`](paper/iqgt_grassmannian_v7.pdf).
 
 ## Licence
 

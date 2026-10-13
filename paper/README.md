@@ -2,7 +2,7 @@
 
 Jeromie Beasley
 
-The paper (`iqgt_grassmannian_v6.html`, `iqgt_grassmannian_v6.pdf`), the Grassmannian Mixer
+The paper (`iqgt_grassmannian_v7.html`, `iqgt_grassmannian_v7.pdf`), the Grassmannian Mixer
 (`grassmannian_mixer_v3.html`, open it in any browser), and the code, checks and data behind them.
 The Lean proofs are at the top of this repository.
 
@@ -12,7 +12,7 @@ The Lean proofs are at the top of this repository.
 | :--- | :--- |
 | `checks/` | One numerical check script per section of the paper, each with its pass/fail conditions written at the top before it was run, and the log of its run. |
 | `vault_tests/` | Tests of older ideas that were tried and recorded rather than discarded, including those that failed. `test_vault.html` lists every one with its result. |
-| `figures/` | The figure scripts and the 18 figures as SVG. |
+| `figures/` | The figure scripts and the 21 figures as SVG. |
 | `mixer/` | Source of the Grassmannian Mixer v3: maths core `core_v2.js`, its test `core_v2_test.js`, the bench script `app_v2.js`, the animated stage `stage.js` (seven eyes from the Tip and Tail Mixer), the page shell `shell_v3.html` and the condensate table `bec.json`. |
 | `data/` | The condensate numbers used in Sections 10 and 12 (`bec_numbers.json`, `bec_cuts_by_split.json`) and the measured eigen-images 2 and 3 shown in the mixer (`bec_eigenimages_2_3.json`, 104 × 84; overlap 0.012, stripes offset 90.6°). |
 | `build/` | The section sources of the paper and the scripts that assemble the HTML and print the PDF. |
@@ -43,6 +43,7 @@ Expected results:
 | `s10_swap_check_v2.py` | §10 edge balance | 2 / 2 |
 | `s12_checks.py` | §12 corridor and cuts | 4 / 4 |
 | `sofic_bridge.py` | §12.4 permutations and principal angles | 6 / 6 |
+| `rigidity_checks.py` | §6.3 equality cases (gap bound, speed limit, constant speed, curvature deficit (6.3), trace condition), §8.4–8.5 (metric dipole, Christoffel divergence, silent second order, three-body fold), §12 (sandwich equality, Kuramoto threshold), Example 6.5 (holonomy) | 12 / 12 |
 | `app_checks_v2.py` | Appendices A–D | 13 / 13 |
 | `spin1_kahler_check.py` | Appendix C, why the spin-1 band meets the bound: coherent-state (Veronese) form, saturation, generic three-band control | 3 / 3 |
 | `polariton_check.py` | Appendix B, the polariton measurement: a two-angle extraction forces 4 det g = Bz² on any field | equality to 10⁻¹⁶, as stated |
@@ -79,10 +80,10 @@ speed. The published mixer page is these files inlined into `shell_v3.html`.
 ```
 cd build
 npm i mathjax-full@3.2.2
-node assemble_rebuild.js iqgt_paper.html s1_body_v4.html s2_body_v1.html s3_body_v2.html s4_body_v2.html s5_body_v2.html s6_body_v2.html s7_body_v1.html s8_body_v3.html s9_body_v2.html s10_body_v5.html s11_body_v4.html s12_body_v5.html s13_body_v1.html app_body_v4.html refs_body_v4.html
+node assemble_rebuild.js iqgt_paper.html s1_body_v5.html s2_body_v1.html s3_body_v2.html s4_body_v2.html s5_body_v3.html s6_body_v3.html s7_body_v2.html s8_body_v4.html s9_body_v2.html s10_body_v6.html s11_body_v5.html s12_body_v6.html s13_body_v2.html app_body_v5.html refs_body_v5.html
 ```
 
-This reproduces the published HTML byte for byte. For the PDF, install
+This reproduces the published HTML byte for byte (the cover image `cover_v7.jpg` is read from the same folder). For the PDF, install
 `@fontsource/newsreader@5.1.0 @fontsource/spectral@5.1.0 @fontsource/jetbrains-mono@5.1.0 @fontsource/archivo-black@5.1.0` and
 Playwright, then run `node make_pdf.js iqgt_paper.html iqgt_paper.pdf`.
 

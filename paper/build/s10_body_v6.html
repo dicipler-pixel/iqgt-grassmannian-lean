@@ -33,7 +33,7 @@
 
 <p>One further condition decides whether a Level 1 angle exists at all. A direction extracted as the leading eigenvector of an estimated operator is defined only as sharply as its eigenvalue is separated from the next. For a two-dimensional covariance with eigenvalues \(\lambda_1>\lambda_2\) estimated from \(N\) samples, the leading direction scatters by</p>
 \[\delta\theta\ \approx\ \frac{\sqrt{\lambda_1\lambda_2}}{(\lambda_1-\lambda_2)\sqrt N}\tag{10.3}\]
-<p>radians. At \(N=9{,}949\) this predicts \(0.38^\circ\), \(3.15^\circ\) and \(29^\circ\) for eigenvalue ratios 4, 1.2 and 1.02; direct simulation gives \(0.38^\circ\), \(3.13^\circ\) and \(30.8^\circ\). As the ratio approaches one the direction becomes uniformly random and carries no information (Figure 12, left). A direction is reported only where its gap is resolved.</p>
+<p>radians. At \(N=9{,}949\) this predicts \(0.38^\circ\), \(3.15^\circ\) and \(29^\circ\) for eigenvalue ratios 4, 1.2 and 1.02; direct simulation gives \(0.38^\circ\), \(3.13^\circ\) and \(30.8^\circ\). As the ratio approaches one the direction becomes uniformly random and carries no information (Figure {{REF:gaplaw}}, left). A direction is reported only where its gap is resolved.</p>
 
 <h3><span class="num">10.2</span> The tip and the tail: why the subspace is the observable</h3>
 
@@ -80,7 +80,7 @@
 <li><b>Angle between the two axes.</b> In the data it is \(75.4^\circ\). In the synthetic clouds it ranges from \(0^\circ\) to \(87^\circ\) (median \(17.8^\circ\), 99.9th percentile \(86.8^\circ\)). The angle is therefore not a Level 1 quantity: the core has no direction to compare against.</li>
 <li><b>Elongation of the tail.</b> In the synthetic clouds it never exceeds 1.27. The measured 2.22 lies far outside that band.</li>
 </ul>
-<p>The tail has a shape that the noise does not have (Figure 13). That shape is a property of the data. Its direction is still read in the readout frame, so it remains Level 0 until a frame-free version is built.</p>
+<p>The tail has a shape that the noise does not have (Figure {{REF:direction}}). That shape is a property of the data. Its direction is still read in the readout frame, so it remains Level 0 until a frame-free version is built.</p>
 
 <p><b>What the tail is made of, and how it moves with the cycle.</b> The same core/tail split applied to the engine shots, about the centre of all shots at one drive setting, separates the populations sharply. Early in the first stroke, while \(f\) is high, the inner 90% of shots read as \(f\) 0.722, \(g\) 0.218, \(e\) 0.059; the outer 10% read almost entirely as \(e\) 0.623 and \(h\) 0.369, with \(f\) only 0.006. Late in the same stroke, as \(f\) drains, the core moves to \(f\) 0.569, \(g\) 0.251, \(e\) 0.173, and the tail's balance reverses to \(e\) 0.387, \(h\) 0.602. With about a thousand tail shots at each point, the shift of the \(e\) share is close to eleven standard errors. The tail therefore tracks the engine: it is where the \(e\) and leakage populations live, and its make-up changes as the stroke proceeds. Reading these shots as ones caught mid-transition is a Level 2 interpretation and is not tested here.</p>
 
@@ -114,7 +114,7 @@
   </ul></li>
 </ul>
 
-<p><b>Locked pairs.</b> The spectrum carries near-degenerate pairs \((2,3)\), \((7,8)\) and \((10,11)\) in every split. At the cut that closes each pair, the single vectors are loose while the subspace holds (Table 10.2; Figure 12, right).</p>
+<p><b>Locked pairs.</b> The spectrum carries near-degenerate pairs \((2,3)\), \((7,8)\) and \((10,11)\) in every split. At the cut that closes each pair, the single vectors are loose while the subspace holds (Table 10.2; Figure {{REF:gaplaw}}, right).</p>
 
 <table class="tbl">
 <caption><span class="lab">Table 10.2.</span> Angle between independent halves at the cut closing each pair (range over three splits).</caption>
