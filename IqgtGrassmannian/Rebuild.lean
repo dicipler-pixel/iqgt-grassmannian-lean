@@ -329,5 +329,220 @@ theorem curvature_bound (x y : EuclideanSpace ℂ ι) :
   nlinarith [h2, h3]
 
 end Curvature
+/-! ### Equality and rigidity (paper v7, §6.3, §8.5, §12.4)
+
+Every bound above is sharp, and in each case equality pins down the configuration. -/
+section Rigidity
+variable {ι : Type*}
+
+/-- §6.3 (i), one term of the gap bound: dividing by a gap at least `Δ` loses nothing exactly when
+the entry vanishes or its gap is exactly `Δ`. -/
+theorem gap_term_eq_iff (a d Δ : ℝ) (hΔ : 0 < Δ) (hd : Δ ≤ |d|) :
+    a ^ 2 / d ^ 2 = a ^ 2 / Δ ^ 2 ↔ a = 0 ∨ |d| = Δ := by
+  have hd0 : d ≠ 0 := by
+    intro h
+    rw [h, abs_zero] at hd
+    linarith
+  have hdsq : d ^ 2 = |d| ^ 2 := (sq_abs d).symm
+  constructor
+  · intro h
+    by_cases ha : a = 0
+    · exact Or.inl ha
+    · right
+      have ha2 : a ^ 2 ≠ 0 := pow_ne_zero 2 ha
+      have hd2 : d ^ 2 ≠ 0 := pow_ne_zero 2 hd0
+      have hΔ2 : Δ ^ 2 ≠ 0 := pow_ne_zero 2 hΔ.ne'
+      rw [div_eq_div_iff hd2 hΔ2] at h
+      have hsq : Δ ^ 2 = d ^ 2 := mul_left_cancel₀ ha2 h
+      rw [hdsq] at hsq
+      have habs : 0 ≤ |d| := abs_nonneg d
+      nlinarith
+  · rintro (h | h)
+    · rw [h]; simp
+    · rw [hdsq, h]
+
+/-- §6.3 (i): equality in the Hilbert–Schmidt step of the gap bound holds exactly when every
+coupled pair sits at gap exactly `Δ`. -/
+theorem gap_bound_hs_step_eq_iff (s : Finset ι) (a d : ι → ℝ) (Δ : ℝ) (hΔ : 0 < Δ)
+    (hd : ∀ i ∈ s, Δ ≤ |d i|) :
+    ∑ i ∈ s, a i ^ 2 / d i ^ 2 = (∑ i ∈ s, a i ^ 2) / Δ ^ 2 ↔
+      ∀ i ∈ s, a i = 0 ∨ |d i| = Δ := by
+  rw [Finset.sum_div]
+  have hle : ∀ i ∈ s, a i ^ 2 / d i ^ 2 ≤ a i ^ 2 / Δ ^ 2 := by
+    intro i hi
+    have h := gap_bound_hs_step {i} a d Δ hΔ (by simpa using hd i hi)
+    simpa using h
+  rw [Finset.sum_eq_sum_iff_of_le hle]
+  exact forall₂_congr fun i hi => gap_term_eq_iff (a i) (d i) Δ hΔ (hd i hi)
+
+/-- §6.3 (iii) and (v), the two-number arithmetic–geometric mean step: `(a+b)² = 4ab` exactly
+when `a = b` (the metric is conformal to the reference metric). -/
+theorem am_gm_eq_iff (a b : ℝ) : (a + b) ^ 2 = 4 * a * b ↔ a = b := by
+  constructor
+  · intro h
+    have h2 : (a - b) ^ 2 = 0 := by nlinarith
+    have h3 : a - b = 0 := by
+      first
+      | exact pow_eq_zero_iff (two_ne_zero) |>.mp h2
+      | exact pow_eq_zero_iff (n := 2) (by norm_num) |>.mp h2
+      | nlinarith [sq_nonneg (a - b)]
+    linarith
+  · intro h; rw [h]; ring
+
+/-- §6.3 (iii), constant speed: for the discrete length form `(Σ xᵢ)² ≤ N Σ xᵢ²`, the gap
+`N Σ xᵢ² - (Σ xᵢ)²` is half the sum of all squared differences. -/
+theorem length_gap_identity (s : Finset ι) (x : ι → ℝ) :
+    ∑ i ∈ s, ∑ j ∈ s, (x i - x j) ^ 2 =
+      2 * ((s.card : ℝ) * ∑ i ∈ s, x i ^ 2 - (∑ i ∈ s, x i) ^ 2) := by
+  have e : ∀ i j, (x i - x j) ^ 2 = x i ^ 2 + x j ^ 2 - 2 * (x i * x j) := fun i j => by ring
+  simp only [e, Finset.sum_sub_distrib, Finset.sum_add_distrib, Finset.sum_const,
+    nsmul_eq_mul, ← Finset.mul_sum, ← Finset.sum_mul, sq]
+  ring
+
+/-- §6.3 (iii): the length form `(Σ xᵢ)² ≤ N Σ xᵢ²` is an equality exactly when the speed is
+constant. -/
+theorem constant_speed_iff (s : Finset ι) (x : ι → ℝ) :
+    (∑ i ∈ s, x i) ^ 2 = (s.card : ℝ) * ∑ i ∈ s, x i ^ 2 ↔
+      ∀ i ∈ s, ∀ j ∈ s, x i = x j := by
+  have hid := length_gap_identity s x
+  have hnn : ∀ i ∈ s, 0 ≤ ∑ j ∈ s, (x i - x j) ^ 2 :=
+    fun i _ => Finset.sum_nonneg fun j _ => sq_nonneg _
+  constructor
+  · intro h i hi j hj
+    have h0 : ∑ i ∈ s, ∑ j ∈ s, (x i - x j) ^ 2 = 0 := by rw [hid, h]; ring
+    have hi0 := (Finset.sum_eq_zero_iff_of_nonneg hnn).mp h0 i hi
+    have hij := (Finset.sum_eq_zero_iff_of_nonneg fun j _ => sq_nonneg (x i - x j)).mp hi0 j hj
+    have : x i - x j = 0 := by
+      first
+      | exact pow_eq_zero_iff (two_ne_zero) |>.mp hij
+      | nlinarith [sq_nonneg (x i - x j)]
+    linarith
+  · intro h
+    have h0 : ∑ i ∈ s, ∑ j ∈ s, (x i - x j) ^ 2 = 0 :=
+      Finset.sum_eq_zero fun i hi => Finset.sum_eq_zero fun j hj => by rw [h i hi j hj]; ring
+    rw [hid] at h0
+    linarith
+
+/-- §6.3 (iv), Corollary 6.2: the curvature bound is met exactly on the complex line of `V`.
+This is equality in Cauchy–Schwarz over `ℂ` (Mathlib's `norm_inner_eq_norm_iff`), restated. -/
+theorem saturation_iff_complex_line {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
+    {x y : E} (hx : x ≠ 0) (hy : y ≠ 0) :
+    ‖inner ℂ x y‖ = ‖x‖ * ‖y‖ ↔ ∃ r : ℂ, r ≠ 0 ∧ y = r • x :=
+  norm_inner_eq_norm_iff hx hy
+
+/-- §8.5, Lemma 8.5: a curve of projectors whose derivative vanishes everywhere is constant
+(on a connected parameter line the whole stratum is one projector). -/
+theorem constant_of_silent {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {f : ℝ → E}
+    (hf : Differentiable ℝ f) (h0 : ∀ t, deriv f t = 0) : ∀ s t, f s = f t :=
+  is_const_of_deriv_eq_zero hf h0
+
+/-- §8.5, Proposition 8.6: along a silent direction (`Π' = 0`) the second derivative of the
+projector is itself block off-diagonal. Here `A = Π''` and `B = Π'`, and
+`Π'' = Π''Π + 2Π'Π' + ΠΠ''` is `Π² = Π` differentiated twice. -/
+theorem silent_second_order {R : Type*} [Ring R] {P A B : R} (hP : P * P = P)
+    (h : A = A * P + 2 * (B * B) + P * A) (hB : B = 0) :
+    P * A * P = 0 ∧ (1 - P) * A * (1 - P) = 0 := by
+  have h' : A = A * P + P * A := by rw [hB] at h; simpa using h
+  have e1 : P * A * P = P * A * P + P * A * P := by
+    calc P * A * P = P * (A * P + P * A) * P := by rw [← h']
+      _ = P * A * (P * P) + (P * P) * A * P := by noncomm_ring
+      _ = P * A * P + P * A * P := by rw [hP]
+  refine ⟨?_, ?_⟩
+  · first
+    | exact self_eq_add_right.mp e1
+    | exact left_eq_add.mp e1
+    | (have e2 := congrArg (fun z => z - P * A * P) e1; simpa using e2.symm)
+  · calc (1 - P) * A * (1 - P) = (1 - P) * (A * P + P * A) * (1 - P) := by rw [← h']
+      _ = (1 - P) * A * (P - P * P) + (P - P * P) * A * (1 - P) := by noncomm_ring
+      _ = 0 := by rw [hP]; simp
+
+/-- §8.5, Example 8.8: a triangle and its mirror image have the same mutual distances. -/
+theorem mirror_same_distance (z w : ℂ) :
+    ‖(starRingEnd ℂ) z - (starRingEnd ℂ) w‖ = ‖z - w‖ := by
+  rw [← map_sub]
+  first
+  | exact Complex.norm_conj (z - w)
+  | exact RCLike.norm_conj (z - w)
+  | simp
+
+/-- §12.4, Proposition 12.1, one angle: `sin² θ = θ²` on `[0, π/2]` only at `θ = 0`. -/
+theorem sin_sq_eq_angle_sq_iff (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
+    Real.sin x ^ 2 = x ^ 2 ↔ x = 0 := by
+  constructor
+  · intro h
+    by_contra hx
+    have hpos : 0 < x := lt_of_le_of_ne h0 (Ne.symm hx)
+    have hs : Real.sin x < x := Real.sin_lt hpos
+    have hsn : 0 ≤ Real.sin x :=
+      Real.sin_nonneg_of_nonneg_of_le_pi h0 (by linarith [Real.pi_pos])
+    nlinarith
+  · intro h; rw [h]; simp
+
+/-- §12.4, Proposition 12.1, one angle: Jordan's inequality `θ² ≤ (π/2)² sin² θ` is an equality
+on `[0, π/2]` only at the two ends. -/
+theorem jordan_eq_iff (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
+    x ^ 2 = (Real.pi / 2) ^ 2 * Real.sin x ^ 2 ↔ x = 0 ∨ x = Real.pi / 2 := by
+  have hpi : 0 < Real.pi := Real.pi_pos
+  constructor
+  · intro h
+    by_contra hx
+    push_neg at hx
+    have hpos : 0 < x := lt_of_le_of_ne h0 (Ne.symm hx.1)
+    have hlt : x < Real.pi / 2 := lt_of_le_of_ne h1 hx.2
+    have hj : 2 / Real.pi * x < Real.sin x := Real.mul_lt_sin hpos hlt
+    have he : Real.pi / 2 * (2 / Real.pi * x) = x := by
+      first
+      | (field_simp; done)
+      | (field_simp; ring)
+    have hx2 : x < Real.pi / 2 * Real.sin x := by
+      calc x = Real.pi / 2 * (2 / Real.pi * x) := he.symm
+        _ < Real.pi / 2 * Real.sin x := mul_lt_mul_of_pos_left hj (by positivity)
+    have : x ^ 2 < (Real.pi / 2) ^ 2 * Real.sin x ^ 2 := by
+      calc x ^ 2 = x * x := sq x
+        _ < (Real.pi / 2 * Real.sin x) * (Real.pi / 2 * Real.sin x) :=
+            mul_self_lt_mul_self h0 hx2
+        _ = (Real.pi / 2) ^ 2 * Real.sin x ^ 2 := by ring
+    linarith
+  · rintro (h | h)
+    · rw [h]; simp
+    · rw [h, Real.sin_pi_div_two]; ring
+
+/-- §12.4, Proposition 12.1: the upper half of the sandwich is an equality exactly when every
+principal angle is `0` or `π/2`. -/
+theorem sandwich_upper_eq_iff (s : Finset ι) (θ : ι → ℝ) (h0 : ∀ i ∈ s, 0 ≤ θ i)
+    (h1 : ∀ i ∈ s, θ i ≤ Real.pi / 2) :
+    ∑ i ∈ s, θ i ^ 2 = (Real.pi / 2) ^ 2 * ∑ i ∈ s, Real.sin (θ i) ^ 2 ↔
+      ∀ i ∈ s, θ i = 0 ∨ θ i = Real.pi / 2 := by
+  rw [Finset.mul_sum]
+  rw [Finset.sum_eq_sum_iff_of_le fun i hi => angle_sq_le_jordan _ (h0 i hi) (h1 i hi)]
+  exact forall₂_congr fun i hi => jordan_eq_iff _ (h0 i hi) (h1 i hi)
+
+/-- §12.4, Proposition 12.1: a principal angle `|φ|/2` with `φ ∈ (-π, π]` is a right angle
+exactly when the eigenphase is `π`. -/
+theorem half_phase_right_iff (φ : ℝ) (h1 : -Real.pi < φ) (h2 : φ ≤ Real.pi) :
+    |φ| / 2 = Real.pi / 2 ↔ φ = Real.pi := by
+  constructor
+  · intro h
+    have ha : |φ| = Real.pi := by linarith
+    rcases abs_cases φ with ⟨hc, _⟩ | ⟨hc, _⟩
+    · linarith
+    · linarith
+  · intro h; rw [h, abs_of_pos Real.pi_pos]
+
+/-- §12.4, Proposition 12.1: an eigenvalue of an involution is `±1`. -/
+theorem involution_eigenvalue (z : ℂ) : z ^ 2 = 1 ↔ z = 1 ∨ z = -1 := by
+  rw [sq]
+  exact mul_self_eq_one_iff
+
+/-- §12.4, Example 12.2: multiplication by `2` on `ℤ/9ℤ` keeps `gcd(r, 9)`, so the families
+`{1,2,4,5,7,8}`, `{3,6}`, `{0}` never mix. -/
+theorem doubling_keeps_gcd (r : ℕ) : Nat.gcd (2 * r) 9 = Nat.gcd r 9 :=
+  Nat.Coprime.gcd_mul_left_cancel r (by norm_num)
+
+/-- §12.4, Example 12.2: doubling six times returns every residue mod 9 (`2⁶ = 64 ≡ 1`), so its
+longest cycle has length six. -/
+theorem doubling_six_returns : ∀ r : Fin 9, (64 * r.val) % 9 = r.val % 9 := by decide
+
+end Rigidity
 
 end IqgtGrassmannian.Rebuild
