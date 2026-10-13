@@ -1,0 +1,11 @@
+PASS D1 exact dipole = two-index form (17) + eigenvector-rotation remainder (40 random families): 3.705e-12 (kill if >= 0.0001) 
+PASS D2 opposite: (17) alone is NOT exact (kill if within 1e-3): 7.234e-06 (kill if >= 1) worst rel error of (17) alone = 138.24
+PASS P1 static response: alpha(0)=sum 2 D g_n equals -E0 (finite differences): 7.092e-06 (kill if >= 1e-05) 
+PASS P2 orbital-moment kernel Im<dx u|(H-E0)|dy u> = -1/2 sum D_n Omega_n: 4.346e-08 (kill if >= 1e-06) 
+PASS P3 Berry connection polarizability G_xx (Berry connections) = -sum 2 g_n/D_n: 1.691e-07 (kill if >= 1e-06) 
+PASS P4 friction = tau[alpha(0)-alpha(i/tau)] (precession bath): 1.161e-13 (kill if >= 1e-10) 
+     slopes (g, Omega, dipole, zeta_T0, zeta_T>0): [-2.000e+00 -2.000e+00 -2.997e+00 -9.960e-01  1.000e-03]
+PASS X1 gap-closing exponents -2,-2,-3,-1,0: 3.591e-03 (kill if >= 0.05) 
+PASS E1 at a closed gap the regularized metric stays below sum|A|^2/eta^2 (eta=0.1): 0.000e+00 (kill if >= 1e-12) g_eta=9.010 bound=13.000
+PASS E2 eta -> 0 recovers the metric on an open gap: 4.545e-16 (kill if >= 1e-12) 
+SUMMARY 9 / 9

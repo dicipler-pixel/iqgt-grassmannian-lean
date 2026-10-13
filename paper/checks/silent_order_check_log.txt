@@ -1,0 +1,5 @@
+m=2: diag blocks 1.4e-16; d/(eps^m/m! sqrt g) 0.999983, 1.000000; |Pi(+e)-Pi(-e)|/|Pi(e)-Pi(0)| 0.000e+00 -> two sheets meet (fold) OK
+m=3: diag blocks 1.4e-16; d/(eps^m/m! sqrt g) 1.000000, 1.000000; |Pi(+e)-Pi(-e)|/|Pi(e)-Pi(0)| 2.000e+00 -> passes through (removable) OK
+m=4: diag blocks 1.4e-16; d/(eps^m/m! sqrt g) 1.000000, 1.000000; |Pi(+e)-Pi(-e)|/|Pi(e)-Pi(0)| 0.000e+00 -> two sheets meet (fold) OK
+m=5: diag blocks 1.4e-16; d/(eps^m/m! sqrt g) 1.000000, 1.000000; |Pi(+e)-Pi(-e)|/|Pi(e)-Pi(0)| 2.000e+00 -> passes through (removable) OK
+RESULT PASS

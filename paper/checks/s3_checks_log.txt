@@ -1,0 +1,13 @@
+PASS T1 Lemma 3.1 entries <m|V|n> = <m|dS|n>/(l_in - l_out), zero otherwise: 2.711e-10 (kill if >= 1e-07) 
+PASS T2 first-order resolvent integral = dPi: 1.505e-10 (kill if >= 1e-07) 
+PASS T3 degenerate occupied pair: V independent of eigenbasis choice: 3.896e-16 (kill if >= 1e-12) 
+PASS T3b and equals the true derivative at the degenerate point: 2.315e-10 (kill if >= 1e-07) 
+PASS T4 V self-adjoint: 5.551e-12 (kill if >= 1e-09) 
+PASS T5 Prop 3.6 gap bound, worst ratio over 3000 trials (must stay <= 1): 6.821e-01 (kill if >= 1) ratio=0.6821
+PASS T5b opposite: two-level off-diagonal push saturates the bound (ratio 1): 2.000e-12 (kill if >= 1e-06) 
+PASS T6 metric sum (general V,W) = 1/2 Tr(VW): 6.788e-11 (kill if >= 1e-07) 
+PASS T7 curvature sum = Omega with Omega = i Tr(Pi[V,W]): 9.856e-11 (kill if >= 1e-07) 
+     with the opposite sign definition the sum would be off by 0.09251388688580939 (sign check)
+PASS T8 weighted and unweighted numerators differ (kill if equal): 2.456e-04 (kill if >= 1) 
+PASS T9 Remark 3.10: dS_mn=(l_m-l_n)X_mn produces exactly V(X): 7.384e-09 (kill if >= 1e-07) 
+SUMMARY 11 / 11
