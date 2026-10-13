@@ -1,0 +1,12 @@
+j=0.5: trace gap max 3.9e-16, curvature deficit max 1.7e-16, g_tt=0.250000 (j/2=0.25), |Omega|/sin=0.500000, Chern 0.9999 OK
+j=1: trace gap max 8.9e-16, curvature deficit max 1.9e-15, g_tt=0.500000 (j/2=0.5), |Omega|/sin=1.000000, Chern 1.9999 OK
+   with 0.8 Sz^2: trace condition lifted, min 0.0328 OK
+j=1.5: trace gap max 1.3e-15, curvature deficit max 4.4e-15, g_tt=0.750000 (j/2=0.75), |Omega|/sin=1.500000, Chern 2.9998 OK
+   with 0.8 Sz^2: trace condition lifted, min 0.0664 OK
+j=2: trace gap max 1.6e-15, curvature deficit max 5.8e-15, g_tt=1.000000 (j/2=1.0), |Omega|/sin=2.000000, Chern 3.9998 OK
+   with 0.8 Sz^2: trace condition lifted, min 0.1096 OK
+j=3: trace gap max 4.0e-15, curvature deficit max 2.0e-14, g_tt=1.500000 (j/2=1.5), |Omega|/sin=3.000000, Chern 5.9997 OK
+   with 0.8 Sz^2: trace condition lifted, min 0.1910 OK
+j=4: trace gap max 4.0e-15, curvature deficit max 3.0e-14, g_tt=2.000000 (j/2=2.0), |Omega|/sin=4.000000, Chern 7.9995 OK
+   with 0.8 Sz^2: trace condition lifted, min 0.2693 OK
+RESULT PASS

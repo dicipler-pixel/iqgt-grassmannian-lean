@@ -2,7 +2,7 @@
 
 Jeromie Beasley
 
-The paper (`iqgt_grassmannian_v7_1.html`, `iqgt_grassmannian_v7_1.pdf`), the Grassmannian Mixer
+The paper (`iqgt_grassmannian_v7_2.html`, `iqgt_grassmannian_v7_2.pdf`), the Grassmannian Mixer
 (`grassmannian_mixer_v3.html`, open it in any browser), and the code, checks and data behind them.
 The Lean proofs are at the top of this repository.
 
@@ -44,6 +44,8 @@ Expected results:
 | `s12_checks.py` | §12 corridor and cuts | 4 / 4 |
 | `sofic_bridge.py` | §12.4 permutations and principal angles | 6 / 6 |
 | `rigidity_checks.py` | §6.3 equality cases (gap bound, speed limit, constant speed, curvature deficit (6.3), trace condition), §8.4–8.5 (metric dipole, Christoffel divergence, silent second order, three-body fold), §12 (sandwich equality, Kuramoto threshold), Example 6.5 (holonomy) | 12 / 12 |
+| `spinj_check.py` | Appendix C, Proposition 6.4: the lowest spin-j band (j = 1/2 … 4) meets the curvature bound and the trace condition with equality, Chern number 2j; broken control lifted | 6 / 6 spins + 5 controls |
+| `silent_order_check.py` | Proposition 8.6: first nonvanishing order m = 2 … 5 is tangent, distance ε^m/m!, even m folds, odd m passes through | 4 / 4 |
 | `app_checks_v2.py` | Appendices A–D | 13 / 13 |
 | `spin1_kahler_check.py` | Appendix C, why the spin-1 band meets the bound: coherent-state (Veronese) form, saturation, generic three-band control | 3 / 3 |
 | `polariton_check.py` | Appendix B, the polariton measurement: a two-angle extraction forces 4 det g = Bz² on any field | equality to 10⁻¹⁶, as stated |
@@ -80,7 +82,7 @@ speed. The published mixer page is these files inlined into `shell_v3.html`.
 ```
 cd build
 npm i mathjax-full@3.2.2
-node assemble_rebuild.js iqgt_paper.html s1_body_v6.html s2_body_v1.html s3_body_v2.html s4_body_v2.html s5_body_v3.html s6_body_v3.html s7_body_v2.html s8_body_v4.html s9_body_v2.html s10_body_v6.html s11_body_v5.html s12_body_v6.html s13_body_v2.html app_body_v5.html refs_body_v5.html
+node assemble_rebuild.js iqgt_paper.html s1_body_v6.html s2_body_v1.html s3_body_v3.html s4_body_v2.html s5_body_v3.html s6_body_v4.html s7_body_v2.html s8_body_v5.html s9_body_v2.html s10_body_v6.html s11_body_v6.html s12_body_v7.html s13_body_v2.html app_body_v6.html refs_body_v6.html
 ```
 
 This reproduces the published HTML byte for byte (the cover image `cover_v7.jpg` is read from the same folder). For the PDF, install

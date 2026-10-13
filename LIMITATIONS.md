@@ -44,3 +44,7 @@ Lean proves exactly the statements written, under exactly the hypotheses written
 * Section 12.4: the sandwich's equality case is formalized for real angles and for unit eigenvalues
   (`sandwich_upper_eq_iff`, `half_phase_right_iff`, `involution_eigenvalue`); the passage from a
   permutation matrix to its principal angles is not.
+* Paper v7.2: Proposition 8.6 is stated for the first nonvanishing order m; Lean has the case m = 2
+  (`silent_second_order`). The general-m ring identity, the parity statement (even m folds, odd m
+  passes through) and the spin-j family of Appendix C are checked numerically
+  (`paper/checks/silent_order_check.py`, `paper/checks/spinj_check.py`), not in Lean.

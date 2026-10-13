@@ -114,7 +114,7 @@ Mathlib v4.34.1, independent replay in Lean's kernel checker, an axiom audit (on
 ## The paper
 
 *Intrinsic Quantum Geometric Tensor on the Grassmannian and Spectral Lower Bounds on Dissipation*, Jeromie Beasley. DOI
-[10.5281/zenodo.20768258](https://doi.org/10.5281/zenodo.20768258) (always opens the newest version). The current version is v7.1: [`paper/iqgt_grassmannian_v7_1.html`](paper/iqgt_grassmannian_v7.html), [`paper/iqgt_grassmannian_v7_1.pdf`](paper/iqgt_grassmannian_v7.pdf).
+[10.5281/zenodo.20768258](https://doi.org/10.5281/zenodo.20768258) (always opens the newest version). The current version is v7.2: [`paper/iqgt_grassmannian_v7_2.html`](paper/iqgt_grassmannian_v7.html), [`paper/iqgt_grassmannian_v7_2.pdf`](paper/iqgt_grassmannian_v7.pdf).
 
 ## Licence
 
