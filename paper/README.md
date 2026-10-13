@@ -2,7 +2,7 @@
 
 Jeromie Beasley
 
-The paper (`iqgt_grassmannian_v7.html`, `iqgt_grassmannian_v7.pdf`), the Grassmannian Mixer
+The paper (`iqgt_grassmannian_v7_1.html`, `iqgt_grassmannian_v7_1.pdf`), the Grassmannian Mixer
 (`grassmannian_mixer_v3.html`, open it in any browser), and the code, checks and data behind them.
 The Lean proofs are at the top of this repository.
 
@@ -80,7 +80,7 @@ speed. The published mixer page is these files inlined into `shell_v3.html`.
 ```
 cd build
 npm i mathjax-full@3.2.2
-node assemble_rebuild.js iqgt_paper.html s1_body_v5.html s2_body_v1.html s3_body_v2.html s4_body_v2.html s5_body_v3.html s6_body_v3.html s7_body_v2.html s8_body_v4.html s9_body_v2.html s10_body_v6.html s11_body_v5.html s12_body_v6.html s13_body_v2.html app_body_v5.html refs_body_v5.html
+node assemble_rebuild.js iqgt_paper.html s1_body_v6.html s2_body_v1.html s3_body_v2.html s4_body_v2.html s5_body_v3.html s6_body_v3.html s7_body_v2.html s8_body_v4.html s9_body_v2.html s10_body_v6.html s11_body_v5.html s12_body_v6.html s13_body_v2.html app_body_v5.html refs_body_v5.html
 ```
 
 This reproduces the published HTML byte for byte (the cover image `cover_v7.jpg` is read from the same folder). For the PDF, install
