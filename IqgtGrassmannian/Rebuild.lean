@@ -465,7 +465,7 @@ theorem mirror_same_distance (z w : ℂ) :
   | exact RCLike.norm_conj (z - w)
   | simp
 
-/-- §12.4, Proposition 12.1, one angle: `sin² θ = θ²` on `[0, π/2]` only at `θ = 0`. -/
+/-- §12.4, Proposition 12.3, one angle: `sin² θ = θ²` on `[0, π/2]` only at `θ = 0`. -/
 theorem sin_sq_eq_angle_sq_iff (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
     Real.sin x ^ 2 = x ^ 2 ↔ x = 0 := by
   constructor
@@ -478,7 +478,7 @@ theorem sin_sq_eq_angle_sq_iff (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2)
     nlinarith
   · intro h; rw [h]; simp
 
-/-- §12.4, Proposition 12.1, one angle: Jordan's inequality `θ² ≤ (π/2)² sin² θ` is an equality
+/-- §12.4, Proposition 12.3, one angle: Jordan's inequality `θ² ≤ (π/2)² sin² θ` is an equality
 on `[0, π/2]` only at the two ends. -/
 theorem jordan_eq_iff (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
     x ^ 2 = (Real.pi / 2) ^ 2 * Real.sin x ^ 2 ↔ x = 0 ∨ x = Real.pi / 2 := by
@@ -507,7 +507,7 @@ theorem jordan_eq_iff (x : ℝ) (h0 : 0 ≤ x) (h1 : x ≤ Real.pi / 2) :
     · rw [h]; simp
     · rw [h, Real.sin_pi_div_two]; ring
 
-/-- §12.4, Proposition 12.1: the upper half of the sandwich is an equality exactly when every
+/-- §12.4, Proposition 12.3: the upper half of the sandwich is an equality exactly when every
 principal angle is `0` or `π/2`. -/
 theorem sandwich_upper_eq_iff (s : Finset ι) (θ : ι → ℝ) (h0 : ∀ i ∈ s, 0 ≤ θ i)
     (h1 : ∀ i ∈ s, θ i ≤ Real.pi / 2) :
@@ -517,7 +517,7 @@ theorem sandwich_upper_eq_iff (s : Finset ι) (θ : ι → ℝ) (h0 : ∀ i ∈ 
   rw [Finset.sum_eq_sum_iff_of_le fun i hi => angle_sq_le_jordan _ (h0 i hi) (h1 i hi)]
   exact forall₂_congr fun i hi => jordan_eq_iff _ (h0 i hi) (h1 i hi)
 
-/-- §12.4, Proposition 12.1: a principal angle `|φ|/2` with `φ ∈ (-π, π]` is a right angle
+/-- §12.4, Proposition 12.3: a principal angle `|φ|/2` with `φ ∈ (-π, π]` is a right angle
 exactly when the eigenphase is `π`. -/
 theorem half_phase_right_iff (φ : ℝ) (h1 : -Real.pi < φ) (h2 : φ ≤ Real.pi) :
     |φ| / 2 = Real.pi / 2 ↔ φ = Real.pi := by
@@ -529,17 +529,17 @@ theorem half_phase_right_iff (φ : ℝ) (h1 : -Real.pi < φ) (h2 : φ ≤ Real.p
     · linarith
   · intro h; rw [h, abs_of_pos Real.pi_pos]
 
-/-- §12.4, Proposition 12.1: an eigenvalue of an involution is `±1`. -/
+/-- §12.4, Proposition 12.3: an eigenvalue of an involution is `±1`. -/
 theorem involution_eigenvalue (z : ℂ) : z ^ 2 = 1 ↔ z = 1 ∨ z = -1 := by
   rw [sq]
   exact mul_self_eq_one_iff
 
-/-- §12.4, Example 12.2: multiplication by `2` on `ℤ/9ℤ` keeps `gcd(r, 9)`, so the families
+/-- §12.4, Example 12.4: multiplication by `2` on `ℤ/9ℤ` keeps `gcd(r, 9)`, so the families
 `{1,2,4,5,7,8}`, `{3,6}`, `{0}` never mix. -/
 theorem doubling_keeps_gcd (r : ℕ) : Nat.gcd (2 * r) 9 = Nat.gcd r 9 :=
   Nat.Coprime.gcd_mul_left_cancel r (by norm_num)
 
-/-- §12.4, Example 12.2: doubling six times returns every residue mod 9 (`2⁶ = 64 ≡ 1`), so its
+/-- §12.4, Example 12.4: doubling six times returns every residue mod 9 (`2⁶ = 64 ≡ 1`), so its
 longest cycle has length six. -/
 theorem doubling_six_returns : ∀ r : Fin 9, (64 * r.val) % 9 = r.val % 9 := by decide
 

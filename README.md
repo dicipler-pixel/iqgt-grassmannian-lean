@@ -64,8 +64,8 @@ every finite dimension.
 | §8.5, Lemma 8.5 | A curve whose derivative vanishes everywhere is constant: a stratum with `g∥ ≡ 0` is one projector | `Rebuild.constant_of_silent` |
 | §8.5, Prop. 8.6 | Along a silent direction (`Π′ = 0`), `Π″` is block off-diagonal: `ΠΠ″Π = 0`, `(1−Π)Π″(1−Π) = 0` | `Rebuild.silent_second_order` |
 | §8.5, Example 8.8 | A triangle and its mirror image have the same distances | `Rebuild.mirror_same_distance` |
-| §12.4, Prop. 12.2 | `sin²θ = θ²` only at `0`; Jordan's bound is tight only at `0` and `π/2`; so the sandwich's upper bound is tight exactly when every angle is `0` or `π/2`, i.e. eigenphase `π`, i.e. eigenvalue `±1` (an involution) | `Rebuild.sin_sq_eq_angle_sq_iff`, `jordan_eq_iff`, `sandwich_upper_eq_iff`, `half_phase_right_iff`, `involution_eigenvalue` |
-| §12.4, Example 12.3 | Doubling on `ℤ/9ℤ` keeps `gcd(r, 9)`, so `{1,2,4,5,7,8}`, `{3,6}`, `{0}` never mix; six doublings return every residue (three do not: false control) | `Rebuild.doubling_keeps_gcd`, `doubling_six_returns` |
+| §12.4, Prop. 12.3 | `sin²θ = θ²` only at `0`; Jordan's bound is tight only at `0` and `π/2`; so the sandwich's upper bound is tight exactly when every angle is `0` or `π/2`, i.e. eigenphase `π`, i.e. eigenvalue `±1` (an involution) | `Rebuild.sin_sq_eq_angle_sq_iff`, `jordan_eq_iff`, `sandwich_upper_eq_iff`, `half_phase_right_iff`, `involution_eigenvalue` |
+| §12.4, Example 12.4 | Doubling on `ℤ/9ℤ` keeps `gcd(r, 9)`, so `{1,2,4,5,7,8}`, `{3,6}`, `{0}` never mix; six doublings return every residue (three do not: false control) | `Rebuild.doubling_keeps_gcd`, `doubling_six_returns` |
 | §2, §4.4, §5 | The same ring identities in core Lean with no library at all, against a minimal ring declared in the file | `IqgtGrassmannian/Core.lean` |
 
 The paper itself, its numerical checks, figures, data and the Grassmannian Mixer are in
@@ -98,12 +98,12 @@ All eighteen figures of the paper, as SVG in [`paper/figures/`](paper/figures/),
 | **Figure 13.** Three bodies seen through their distances: the collinear circle of the shape sphere is a fold. | **Figure 14.** Two ways the index can vary across an interface, one refraction law. |
 | <img src="paper/figures/fig_gaplaw.svg" width="420" alt="Figure 15"> | <img src="paper/figures/fig_direction.svg" width="420" alt="Figure 16"> |
 | **Figure 15.** The tip and the tail: the first-order gap law against simulation and condensate data. | **Figure 16.** A direction exists only where a gap exists (heat-engine readout). |
-| <img src="paper/figures/fig_corridor.svg" width="420" alt="Figure 17"> | <img src="paper/figures/fig_cuts.svg" width="420" alt="Figure 18"> |
-| **Figure 17.** One law at two grains: a vector inside a cluster turns while the cluster subspace holds. | **Figure 18.** The condensate, every cut: single eigen-image against rank-k subspace. |
-| <img src="paper/figures/fig_perm7.svg" width="420" alt="Figure 19"> | <img src="paper/figures/fig_saturation.svg" width="420" alt="Figure 20"> |
-| **Figure 19.** The card count and the intrinsic length; the upper bound is met by involutions only. Doubling on ℤ/9ℤ. | **Figure 20.** Curvature against its bound: two-band and spin-1 bands saturate, generic three-band falls inside. |
-| <img src="paper/figures/fig_krylov.svg" width="420" alt="Figure 21"> |  |
-| **Figure 21.** Krylov evaluation of the regularised metric and curvature, error ∝ η². |  |
+| <img src="paper/figures/fig_corridor.svg" width="420" alt="Figure 17"> | <img src="paper/figures/fig_ring.svg" width="420" alt="Figure 18"> |
+| **Figure 17.** One law at two grains: a vector inside a cluster turns while the cluster subspace holds. | **Figure 18.** Light going both ways round a ring: the tips swing until rotation separates them; the pair holds. |
+| <img src="paper/figures/fig_cuts.svg" width="420" alt="Figure 19"> | <img src="paper/figures/fig_perm7.svg" width="420" alt="Figure 20"> |
+| **Figure 19.** The condensate, every cut: single eigen-image against rank-k subspace. | **Figure 20.** The card count and the intrinsic length; the upper bound is met by involutions only. Doubling on ℤ/9ℤ. |
+| <img src="paper/figures/fig_saturation.svg" width="420" alt="Figure 21"> | <img src="paper/figures/fig_krylov.svg" width="420" alt="Figure 22"> |
+| **Figure 21.** Curvature against its bound: two-band and spin-1 bands saturate, generic three-band falls inside. | **Figure 22.** Krylov evaluation of the regularised metric and curvature, error ∝ η². |
 
 ## How it is checked
 
@@ -114,7 +114,7 @@ Mathlib v4.34.1, independent replay in Lean's kernel checker, an axiom audit (on
 ## The paper
 
 *Intrinsic Quantum Geometric Tensor on the Grassmannian and Spectral Lower Bounds on Dissipation*, Jeromie Beasley. DOI
-[10.5281/zenodo.20768258](https://doi.org/10.5281/zenodo.20768258) (always opens the newest version). The current version is v7.2: [`paper/iqgt_grassmannian_v7_2.html`](paper/iqgt_grassmannian_v7.html), [`paper/iqgt_grassmannian_v7_2.pdf`](paper/iqgt_grassmannian_v7.pdf).
+[10.5281/zenodo.20768258](https://doi.org/10.5281/zenodo.20768258) (always opens the newest version). The current version is v7.3: [`paper/iqgt_grassmannian_v7_3.html`](paper/iqgt_grassmannian_v7.html), [`paper/iqgt_grassmannian_v7_3.pdf`](paper/iqgt_grassmannian_v7.pdf).
 
 ## Licence
 

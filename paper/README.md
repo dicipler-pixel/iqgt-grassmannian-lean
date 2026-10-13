@@ -2,7 +2,7 @@
 
 Jeromie Beasley
 
-The paper (`iqgt_grassmannian_v7_2.html`, `iqgt_grassmannian_v7_2.pdf`), the Grassmannian Mixer
+The paper (`iqgt_grassmannian_v7_3.html`, `iqgt_grassmannian_v7_3.pdf`), the Grassmannian Mixer
 (`grassmannian_mixer_v5.html`, open it in any browser), and the code, checks and data behind them.
 The Lean proofs are at the top of this repository.
 
@@ -12,7 +12,7 @@ The Lean proofs are at the top of this repository.
 | :--- | :--- |
 | `checks/` | One numerical check script per section of the paper, each with its pass/fail conditions written at the top before it was run, and the log of its run. |
 | `vault_tests/` | Tests of older ideas that were tried and recorded rather than discarded, including those that failed. `test_vault.html` lists every one with its result. |
-| `figures/` | The figure scripts and the 21 figures as SVG. |
+| `figures/` | The figure scripts and the 22 figures as SVG. |
 | `mixer/` | Source of the Grassmannian Mixer v3: maths core `core_v2.js`, its test `core_v2_test.js`, the bench script `app_v2.js`, the animated stage `stage.js` (seven eyes from the Tip and Tail Mixer), the page shell `shell_v4.html` and the condensate table `bec.json`. |
 | `data/` | The condensate numbers used in Sections 10 and 12 (`bec_numbers.json`, `bec_cuts_by_split.json`) and the measured eigen-images 2 and 3 shown in the mixer (`bec_eigenimages_2_3.json`, 104 × 84; overlap 0.012, stripes offset 90.6°). |
 | `build/` | The section sources of the paper and the scripts that assemble the HTML and print the PDF. |
@@ -46,6 +46,8 @@ Expected results:
 | `rigidity_checks.py` | §6.3 equality cases (gap bound, speed limit, constant speed, curvature deficit (6.3), trace condition), §8.4–8.5 (metric dipole, Christoffel divergence, silent second order, three-body fold), §12 (sandwich equality, Kuramoto threshold), Example 6.5 (holonomy) | 12 / 12 |
 | `spinj_check.py` | Appendix C, Proposition 6.4: the lowest spin-j band (j = 1/2 … 4) meets the curvature bound and the trace condition with equality, Chern number 2j; broken control lifted | 6 / 6 spins + 5 controls |
 | `silent_order_check.py` | Proposition 8.6: first nonvanishing order m = 2 … 5 is tangent, distance ε^m/m!, even m folds, odd m passes through | 4 / 4 |
+| `eta_dipole_check.py` | §7.5: the regularised dipole weight vanishes at a closed gap, is the derivative of 1/(Δ²+η²), peaks at Δ = η/√3 with height (3√3/8)/η³, and returns 2/Δ³ as η → 0 | PASS |
+| `ring_tiptail_check.py` | §12.1, Example 12.2: light both ways round a ring; tail under its Davis–Kahan bound, tip as 1/δ, mixing angle 22.5° at Ω = 2κ, Adler lock-in threshold | PASS |
 | `app_checks_v2.py` | Appendices A–D | 13 / 13 |
 | `spin1_kahler_check.py` | Appendix C, why the spin-1 band meets the bound: coherent-state (Veronese) form, saturation, generic three-band control | 3 / 3 |
 | `polariton_check.py` | Appendix B, the polariton measurement: a two-angle extraction forces 4 det g = Bz² on any field | equality to 10⁻¹⁶, as stated |
@@ -82,7 +84,7 @@ speed. The published mixer page is these files inlined into `shell_v4.html`.
 ```
 cd build
 npm i mathjax-full@3.2.2
-node assemble_rebuild.js iqgt_paper.html s1_body_v6.html s2_body_v1.html s3_body_v3.html s4_body_v2.html s5_body_v3.html s6_body_v4.html s7_body_v2.html s8_body_v5.html s9_body_v2.html s10_body_v6.html s11_body_v6.html s12_body_v7.html s13_body_v2.html app_body_v6.html refs_body_v6.html
+node assemble_rebuild.js iqgt_paper.html s1_body_v7.html s2_body_v1.html s3_body_v4.html s4_body_v2.html s5_body_v4.html s6_body_v4.html s7_body_v3.html s8_body_v5.html s9_body_v2.html s10_body_v7.html s11_body_v6.html s12_body_v8.html s13_body_v2.html app_body_v6.html refs_body_v7.html
 ```
 
 This reproduces the published HTML byte for byte (the cover image `cover_v7.jpg` is read from the same folder). For the PDF, install

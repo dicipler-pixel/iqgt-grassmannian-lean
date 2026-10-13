@@ -1,0 +1,16 @@
+Om= 0.0100  delta=0.1005  tip median   0.2509 deg  tail median 0.00630 deg (bound 0.01158)
+Om= 0.0168  delta=0.1014  tip median   0.2103 deg  tail median 0.00656 deg (bound 0.01158)
+Om= 0.0282  delta=0.1039  tip median   0.1937 deg  tail median 0.00628 deg (bound 0.01158)
+Om= 0.0474  delta=0.1107  tip median   0.2480 deg  tail median 0.00633 deg (bound 0.01159)
+Om= 0.0796  delta=0.1278  tip median   0.1831 deg  tail median 0.00676 deg (bound 0.01161)
+Om= 0.1336  delta=0.1669  tip median   0.1179 deg  tail median 0.00632 deg (bound 0.01165)
+Om= 0.2245  delta=0.2457  tip median   0.1087 deg  tail median 0.00620 deg (bound 0.01175)
+Om= 0.3770  delta=0.3900  tip median   0.0596 deg  tail median 0.00657 deg (bound 0.01192)
+Om= 0.6332  delta=0.6411  tip median   0.0299 deg  tail median 0.00611 deg (bound 0.01224)
+Om= 1.0635  delta=1.0682  tip median   0.0289 deg  tail median 0.00596 deg (bound 0.01283)
+Om= 1.7862  delta=1.7890  tip median   0.0166 deg  tail median 0.00602 deg (bound 0.01396)
+Om= 3.0000  delta=3.0017  tip median   0.0096 deg  tail median 0.00677 deg (bound 0.01637)
+tip slope vs delta -0.928
+mixing angle at Om=2kap 22.5
+Adler: 0.995 locks True  1.005 locks False
+RESULT PASS

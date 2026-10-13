@@ -23,14 +23,14 @@
 <h3><span class="num">5.3</span> Friction on projector rotations</h3>
 
 <p>Let the driven system, with instantaneous spectrum \(\Sigma=\sum_nE_n|n\rangle\langle n|\) (nondegenerate), be in contact with a bath at inverse temperature \(\beta\), with Gibbs state \(\omega=e^{-\beta\Sigma}/Z\) and populations \(p_n\). Declare the relaxation model</p>
-\[\dot\rho=-ik\,[\Sigma,\rho]+\frac{\omega(\Sigma(t))-\rho}{\tau},\qquad k\in\{0,1\},\]
-<p>pure relaxation to the instantaneous Gibbs state (\(k=0\)) or relaxation with coherent precession (\(k=1\)). Work is \(W=\int\mathrm{Tr}(\rho\,\dot\Sigma)\,dt\), and the excess work is \(W_{\rm ex}=W-\Delta F\).</p>
+\[\dot\rho=-i\chi\,[\Sigma,\rho]+\frac{\omega(\Sigma(t))-\rho}{\tau},\qquad \chi\in\{0,1\},\]
+<p>pure relaxation to the instantaneous Gibbs state (\(\chi=0\)) or relaxation with coherent precession (\(\chi=1\)). Work is \(W=\int\mathrm{Tr}(\rho\,\dot\Sigma)\,dt\), and the excess work is \(W_{\rm ex}=W-\Delta F\).</p>
 
-<p><em>Derivation.</em> Write \(\rho=\omega+\delta\rho\). Because \([\Sigma,\omega]=0\), \(\tfrac{d}{dt}\delta\rho=-ik[\Sigma,\delta\rho]-\delta\rho/\tau-\dot\omega\). For slow driving \(\delta\rho=O(\dot a)\) and its time derivative is \(O(\dot a^2)\), so in the instantaneous eigenbasis</p>
-\[\delta\rho_{mn}=-\frac{\tau\,\dot\omega_{mn}}{1+ik\tau(E_m-E_n)}+O(\dot a^2).\]
+<p><em>Derivation.</em> Write \(\rho=\omega+\delta\rho\). Because \([\Sigma,\omega]=0\), \(\tfrac{d}{dt}\delta\rho=-i\chi[\Sigma,\delta\rho]-\delta\rho/\tau-\dot\omega\). For slow driving \(\delta\rho=O(\dot a)\) and its time derivative is \(O(\dot a^2)\), so in the instantaneous eigenbasis</p>
+\[\delta\rho_{mn}=-\frac{\tau\,\dot\omega_{mn}}{1+i\chi\tau(E_m-E_n)}+O(\dot a^2).\]
 <p>The Gibbs state changes on the diagonal as \(\dot\omega_{nn}=-\beta p_n(\dot\Sigma_{nn}-\langle\dot\Sigma\rangle)\), because \(\dot E_n=\dot\Sigma_{nn}\), and off the diagonal as \(\dot\omega_{mn}=\dot\Sigma_{mn}(p_n-p_m)/(E_n-E_m)\), because \(\langle m|\dot n\rangle=\dot\Sigma_{mn}/(E_n-E_m)\). Since \(\dot F=\mathrm{Tr}(\omega\dot\Sigma)\), the excess power is \(\mathrm{Tr}(\delta\rho\,\dot\Sigma)\); pairing the terms \((m,n)\) and \((n,m)\), whose denominators are complex conjugates, gives \(\dot W_{\rm ex}=\zeta\) with</p>
-\[\zeta=\tau\beta\,\mathrm{Var}_p(\dot\Sigma_{\rm diag})+\sum_{m\ne n}c_{mn}\,|\dot\Sigma_{mn}|^2\,\frac{p_m-p_n}{E_n-E_m},\qquad c_{mn}=\frac{\tau}{1+k^2\tau^2(E_m-E_n)^2}. \tag{5.2}\]
-<p>Every term is nonnegative, since \(p\) decreases as \(E\) increases. For \(k=0\), \(\zeta\) is the friction tensor of Sivak and Crooks for a single relaxation time, in the quantum Kubo–Mori form of Scandi and Perarnau-Llobet [Sivak–Crooks 2012; Scandi–Perarnau-Llobet 2019].</p>
+\[\zeta=\tau\beta\,\mathrm{Var}_p(\dot\Sigma_{\rm diag})+\sum_{m\ne n}c_{mn}\,|\dot\Sigma_{mn}|^2\,\frac{p_m-p_n}{E_n-E_m},\qquad c_{mn}=\frac{\tau}{1+\chi^2\tau^2(E_m-E_n)^2}. \tag{5.2}\]
+<p>Every term is nonnegative, since \(p\) decreases as \(E\) increases. For \(\chi=0\), \(\zeta\) is the friction tensor of Sivak and Crooks for a single relaxation time, in the quantum Kubo–Mori form of Scandi and Perarnau-Llobet [Sivak–Crooks 2012; Scandi–Perarnau-Llobet 2019].</p>
 
 <p><em>The metric inside the friction.</em> For the spectral projector of a cluster \(\mathcal I\), Theorem 3.6 gives \(g=\sum_{m\in\mathcal I,\,n\notin\mathcal I}g_{mn}\) with \(g_{mn}=|\dot\Sigma_{mn}|^2/(E_n-E_m)^2\). The friction of the same pair, counted in both orders, is therefore</p>
 \[\zeta_{mn}=2c_{mn}\,(p_m-p_n)(E_n-E_m)\,g_{mn}. \tag{5.3}\]

@@ -19,6 +19,7 @@
 <line x1="580" y1="138" x2="630" y2="121" stroke="#b9dcff" stroke-width="2"/>
 <text x="548" y="92" fill="#b9dcff" font-size="12">γ*Q = g − (i/2)Ω</text>
 <circle cx="680" cy="140" r="5" fill="#e0b85c"/>
-<text x="606" y="290" fill="#e0b85c" font-size="11">image folds back: γ not an</text>
-<text x="606" y="305" fill="#e0b85c" font-size="11">immersion, g degenerate, gap open</text>
+<text x="752" y="275" fill="#e0b85c" font-size="11" text-anchor="end">image folds back:</text>
+<text x="752" y="290" fill="#e0b85c" font-size="11" text-anchor="end">γ not an immersion,</text>
+<text x="752" y="305" fill="#e0b85c" font-size="11" text-anchor="end">g degenerate, gap open</text>
 </svg>
