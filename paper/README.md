@@ -3,7 +3,7 @@
 Jeromie Beasley
 
 The paper (`iqgt_grassmannian_v7_3.html`, `iqgt_grassmannian_v7_3.pdf`), the Grassmannian Mixer
-(`grassmannian_mixer_v6.html`, open it in any browser), and the code, checks and data behind them.
+(`grassmannian_mixer_v7.html`, open it in any browser), and the code, checks and data behind them.
 The Lean proofs are at the top of this repository.
 
 ## What is in this archive
