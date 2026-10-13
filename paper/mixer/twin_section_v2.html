@@ -1,0 +1,122 @@
+<section class="twin" aria-label="Two mirrors, two tips: coupled tip and tail">
+<style>
+.twin { margin-top: 30px; }
+.twin .tw-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; }
+.twin h2 { font-family: var(--cover); font-weight: 500; font-size: clamp(1.6rem, 3vw, 2.3rem); color: var(--cream); margin: 0; }
+.twin h2 span { color: var(--blade); }
+.twin .tw-head p { margin: 0; max-width: 62ch; color: #b8c3d9; font-size: 0.95rem; }
+.twin .tw-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 320px); gap: 22px; margin-top: 14px; }
+@media (max-width: 900px) { .twin .tw-bench { grid-template-columns: minmax(0, 1fr); } }
+.twin .tw-stage { background: var(--bed); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; min-width: 0; }
+.twin canvas { display: block; width: 100%; height: auto; aspect-ratio: 1220 / 820; max-width: 100%; }
+.twin .tw-side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.twin .tw-read { font-family: var(--mono); font-size: 0.78rem; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-variant-numeric: tabular-nums; }
+.twin .tw-read dt { color: var(--stem); } .twin .tw-read dd { margin: 0; text-align: right; color: var(--ink); }
+.twin .tw-note { font-size: 0.9rem; color: #b8c3d9; max-width: 80ch; margin: 12px 0 0; }
+</style>
+<div class="tw-head"><h2>Two mirrors, <span>two tips</span></h2><p>Two tip-and-tail systems face each other. Each surface is a tail: the plane of its two lower levels, held by its outer gap. Each tip is the single lowest direction, held only by the small inner gap. A's tip lands on B's surface and pushes B's levels; B's tip lands on A's and pushes back.</p></div>
+<div class="tw-bench">
+  <div class="tw-stage"><canvas id="tw-canvas" width="1220" height="820" aria-label="Two coupled tip-and-tail mirrors"></canvas></div>
+  <div class="tw-side">
+    <fieldset><legend>Mirrors</legend>
+      <label class="sl">Coupling between the mirrors<output id="tw-k-o">0.30</output><input id="tw-k" type="range" min="0" max="1" step="0.01" value="0.3"></label>
+      <label class="sl">Inner gap (holds each tip)<output id="tw-i-o">0.05</output><input id="tw-i" type="range" min="0.01" max="1" step="0.01" value="0.05"></label>
+      <label class="sl">Outer gap (holds each surface)<output id="tw-o-o">3.0</output><input id="tw-o" type="range" min="0.5" max="6" step="0.1" value="3"></label>
+      <label class="sl">Push on mirror A<output id="tw-p-o">0.10</output><input id="tw-p" type="range" min="0" max="0.5" step="0.01" value="0.1"></label>
+      <label class="sl">Both surfaces moving (drift)<output id="tw-d-o">0.40</output><input id="tw-d" type="range" min="0" max="1" step="0.01" value="0.4"></label>
+    </fieldset>
+    <fieldset><legend>Readout</legend>
+      <dl class="tw-read">
+        <dt>A: tip turned</dt><dd id="tw-ta"></dd>
+        <dt>A: tail tilted</dt><dd id="tw-sa"></dd>
+        <dt>B: tip turned</dt><dd id="tw-tb"></dd>
+        <dt>B: tail tilted</dt><dd id="tw-sb"></dd>
+        <dt>separation</dt><dd id="tw-sep"></dd>
+        <dt>coupling felt</dt><dd id="tw-kf"></dd>
+      </dl>
+    </fieldset>
+  </div>
+</div>
+<p class="tw-note">Only A is pushed. With the coupling at zero, B's tip stays still. Raise it and B's tip starts answering A's through the light line, and A's tip feels B's answer. The two surfaces barely move either way: the outer gaps hold the tails while the tips trade motion. Narrow the outer gap and the surfaces start to tilt as well.</p>
+</section>
+<script>
+(function(){
+const cv=document.getElementById('tw-canvas'),ctx=cv.getContext('2d');
+const W=1220,H=820,DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));cv.width=W*DPR;cv.height=H*DPR;
+const C={g:'#05080d',ink:'#d8e4f4',dim:'#7f93ad',rule:'#1a2a42',cyan:'#5fd4ff',mag:'#ff5fa8',amb:'#ffc35a',grn:'#6ef0a8',vio:'#a98bff'};const GLOW=0.25;
+const $=id=>document.getElementById(id);
+const S={k:0.3,i:0.05,o:3,p:0.1,d:0.4,t:0};
+for(const [id,key,fmt] of [['tw-k','k',v=>v.toFixed(2)],['tw-i','i',v=>v.toFixed(2)],['tw-o','o',v=>v.toFixed(1)],['tw-p','p',v=>v.toFixed(2)],['tw-d','d',v=>v.toFixed(2)]]){const el=$(id),o=$(id+'-o');const f=()=>{S[key]=parseFloat(el.value);o.textContent=fmt(S[key])};el.addEventListener('input',f);f()}
+// ---- model (unchanged from v1)
+function eig3(A){let a=A.map(r=>r.slice()),V=[[1,0,0],[0,1,0],[0,0,1]];for(let sw=0;sw<30;sw++){let off=0;for(let p=0;p<3;p++)for(let q=p+1;q<3;q++)off+=a[p][q]*a[p][q];if(off<1e-22)break;for(let p=0;p<3;p++)for(let q=p+1;q<3;q++){if(Math.abs(a[p][q])<1e-15)continue;const th=(a[q][q]-a[p][p])/(2*a[p][q]);const t=Math.sign(th||1)/(Math.abs(th)+Math.sqrt(th*th+1));const c=1/Math.sqrt(t*t+1),s=t*c;for(let k=0;k<3;k++){const akp=a[k][p],akq=a[k][q];a[k][p]=c*akp-s*akq;a[k][q]=s*akp+c*akq}for(let k=0;k<3;k++){const apk=a[p][k],aqk=a[q][k];a[p][k]=c*apk-s*aqk;a[q][k]=s*apk+c*aqk}for(let k=0;k<3;k++){const vkp=V[k][p],vkq=V[k][q];V[k][p]=c*vkp-s*vkq;V[k][q]=s*vkp+c*vkq}}}
+ const w=[a[0][0],a[1][1],a[2][2]];const idx=[0,1,2].sort((x,y)=>w[x]-w[y]);return {w:idx.map(j=>w[j]),v:idx.map(j=>[V[0][j],V[1][j],V[2][j]])}}
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+function base(i,o){return [[0,0,0],[0,i,0],[0,0,o]]}
+function addOuter(M,v,c){for(let r=0;r<3;r++)for(let s=0;s<3;s++)M[r][s]+=c*v[r]*v[s]}
+const mirror=v=>[v[0],v[1],-v[2]];
+function opNorm(M,B){const E=M.map((r,i)=>r.map((x,j)=>x-B[i][j]));const w=eig3(E).w;return Math.max(Math.abs(w[0]),Math.abs(w[2]))}
+let tipA=[1,0,0],tipB=[1,0,0],pA=[0,1,0],pB=[0,1,0],nA=[0,0,1],nB=[0,0,1];
+function angDeg(u,v){return Math.acos(Math.min(1,Math.abs(dot(u,v))))*180/Math.PI}
+// ---- drawing helpers in the stage style
+function glowLine(pts,col,w=2,blur=14,alpha=1,dash){if(pts.length<2)return;ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=col;ctx.lineWidth=w;ctx.lineJoin='round';ctx.lineCap='round';ctx.shadowColor=col;ctx.shadowBlur=blur*GLOW;if(dash){ctx.setLineDash(dash[0]);ctx.lineDashOffset=dash[1]}ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(const p of pts.slice(1))ctx.lineTo(p[0],p[1]);ctx.stroke();ctx.restore()}
+function dotG(x,y,r,col){ctx.save();ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=18*GLOW;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.restore()}
+function txt(s,x,y,o={}){ctx.save();ctx.font=(o.w||500)+' '+(o.size||18)+'px '+(o.font||"'IBM Plex Sans', system-ui, sans-serif");ctx.fillStyle=o.col||C.ink;ctx.textAlign=o.align||'left';ctx.fillText(s,x,y);ctx.restore()}
+function mono(s,x,y,col=C.dim,size=16,align='left'){txt(s,x,y,{font:"'IBM Plex Mono', monospace",size,col,align})}
+function arrow(x0,y0,x1,y1,col,w=3){glowLine([[x0,y0],[x1,y1]],col,w,16);const a=Math.atan2(y1-y0,x1-x0),h=12;glowLine([[x1-h*Math.cos(a-.4),y1-h*Math.sin(a-.4)],[x1,y1],[x1-h*Math.cos(a+.4),y1-h*Math.sin(a+.4)]],col,w,16)}
+function cam(yaw,pitch,cx,cy,sc){const cy_=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);return p=>{const x=cy_*p[0]+sy*p[1],y=-sy*p[0]+cy_*p[1],z=p[2];const yy=cp*y-sp*z,zz=sp*y+cp*z;const d=1/(1+0.12*yy);return[cx+sc*x*d,cy-sc*zz*d,yy]}}
+function ringPts(P,u,v,R){const pts=[];for(let i=0;i<=72;i++){const a=i/72*2*Math.PI;pts.push(P([R*(Math.cos(a)*u[0]+Math.sin(a)*v[0]),R*(Math.cos(a)*u[1]+Math.sin(a)*v[1]),R*(Math.cos(a)*u[2]+Math.sin(a)*v[2])]))}return pts}
+function disk(P,u,v,R,col,alpha){const pts=ringPts(P,u,v,R);ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=30*GLOW;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.fill();ctx.restore();glowLine(pts,col,1.6,14,Math.min(1,alpha*3))}
+const norm=a=>{const L=Math.hypot(...a);return a.map(x=>x/L)};
+function gauge(x,y,r,deg,maxDeg,col,label,val){ctx.save();ctx.strokeStyle=C.rule;ctx.lineWidth=7;ctx.beginPath();ctx.arc(x,y,r,Math.PI,2*Math.PI);ctx.stroke();ctx.restore();
+  const f=Math.min(1,deg/maxDeg);const pts=[];for(let i=0;i<=40;i++){const a=Math.PI+f*Math.PI*i/40;pts.push([x+r*Math.cos(a),y+r*Math.sin(a)])}glowLine(pts,col,7,16);
+  txt(val,x,y-6,{font:"'Rajdhani', sans-serif",w:700,size:26,col,align:'center'});mono(label,x,y+18,C.dim,13,'center')}
+// one tip-and-tail scene, drawn exactly like the stage
+function scene(P,u,v,n,boundDeg){const o=P([0,0,0]);
+  disk(P,[1,0,0],[0,1,0],1.25,C.dim,.05);
+  const al=boundDeg*Math.PI/180;const ring=Array.from({length:73},(_,i)=>{const a=i/72*6.283;return P([Math.sin(al)*Math.cos(a)*1.1,Math.sin(al)*Math.sin(a)*1.1,Math.cos(al)*1.1]).slice(0,2)});
+  ctx.save();ctx.globalAlpha=.22;ctx.fillStyle=C.grn;ctx.beginPath();ring.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.fill();ctx.restore();glowLine(ring,C.grn,2,16);
+  for(const k of[0,24,48]){const a=k/72*6.283;const p=P([Math.sin(al)*Math.cos(a)*1.1,Math.sin(al)*Math.sin(a)*1.1,Math.cos(al)*1.1]);glowLine([[o[0],o[1]],[p[0],p[1]]],C.grn,1,8,.5)}
+  disk(P,u,v,1.2,C.cyan,.2);
+  const nz=n[2]<0?n.map(x=>-x):n;const pn=P(nz.map(x=>x*1.1));arrow(o[0],o[1],pn[0],pn[1],C.grn,2.4);
+  const pu=P(u.map(x=>x*1.15)),pv=P(v.map(x=>x*1.15));arrow(o[0],o[1],pu[0],pu[1],C.amb,4);arrow(o[0],o[1],pv[0],pv[1],C.mag,4);
+  return {tip:pu,origin:o}}
+// where a tip lands on the other tail: its mirrored direction projected into that tail plane
+function landing(dir,u,v){const m=mirror(dir);const a=dot(m,u),b=dot(m,v);const L=Math.hypot(a,b)||1;return [0,1,2].map(j=>(a*u[j]+b*v[j])/L*1.2)}
+let last=performance.now();
+function frame(now){const dt=Math.min(0.05,(now-last)/1000);last=now;S.t+=dt;
+ const sep=3.2+1.4*S.d*Math.sin(S.t*0.6), kf=S.k*Math.pow(3.2/sep,2);
+ const ph=S.t*0.9, pv=[0,Math.cos(ph),0.35*Math.sin(ph)];let MA,MB;
+ for(let it=0;it<2;it++){
+  MA=base(S.i,S.o);MA[0][1]+=S.p*pv[1];MA[1][0]+=S.p*pv[1];MA[0][2]+=S.p*pv[2]*3;MA[2][0]+=S.p*pv[2]*3;addOuter(MA,mirror(tipB),-kf*0.25);
+  const ea=eig3(MA);let ta=ea.v[0];if(dot(ta,tipA)<0)ta=ta.map(x=>-x);tipA=ta;let qa=ea.v[1];if(dot(qa,pA)<0)qa=qa.map(x=>-x);pA=qa;let na=ea.v[2];if(dot(na,nA)<0)na=na.map(x=>-x);nA=na;
+  MB=base(S.i,S.o);addOuter(MB,mirror(tipA),-kf*0.25);
+  const eb=eig3(MB);let tb=eb.v[0];if(dot(tb,tipB)<0)tb=tb.map(x=>-x);tipB=tb;let qb=eb.v[1];if(dot(qb,pB)<0)qb=qb.map(x=>-x);pB=qb;let nb=eb.v[2];if(dot(nb,nB)<0)nb=nb.map(x=>-x);nB=nb}
+ const gapT=S.o-S.i;
+ const eA=opNorm(MA,base(S.i,S.o)),eB=opNorm(MB,base(S.i,S.o));
+ const bA=Math.asin(Math.min(1,eA/Math.max(gapT-eA,1e-9)))*180/Math.PI,bB=Math.asin(Math.min(1,eB/Math.max(gapT-eB,1e-9)))*180/Math.PI;
+ const aTip=angDeg(tipA,[1,0,0]),aSurf=angDeg(nA,[0,0,1]),bTip=angDeg(tipB,[1,0,0]),bSurf=angDeg(nB,[0,0,1]);
+ ctx.setTransform(DPR,0,0,DPR,0,0);
+ const g=ctx.createRadialGradient(W*.5,H*.42,40,W*.5,H*.42,W*.75);g.addColorStop(0,'#0b1626');g.addColorStop(1,C.g);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ txt('Two mirrors, two tips',34,52,{font:"'Rajdhani', sans-serif",w:700,size:34});txt('two mirrors face each other: each tip lands on the other’s tail; only A is pushed',36,82,{size:17,col:C.dim});
+ const off=230+60*(sep-3.2);
+ const yaw=0.42*Math.sin(S.t*0.22), pit=0.28+0.10*Math.sin(S.t*0.17);const cA=cam(yaw,pit,W/2-off,370,165), cB=cam(yaw,pit,W/2+off,370,165);
+ const PA=p=>cA([p[2],p[1],p[0]]), PB=p=>cB([-p[2],p[1],p[0]]);
+ const sa=scene(PA,tipA,pA,nA,bA), sb=scene(PB,tipB,pB,nB,bB);
+ // light lines: tip of one onto the tail of the other
+ const hB=PB(landing(tipA,tipB,pB)), hA=PA(landing(tipB,tipA,pA));
+ glowLine([[sa.tip[0],sa.tip[1]],[hB[0],hB[1]]],C.amb,2,12,0.35+0.6*Math.min(1,kf*2),[[10,7],-S.t*40]);dotG(hB[0],hB[1],6,C.amb);
+ glowLine([[sb.tip[0],sb.tip[1]],[hA[0],hA[1]]],C.vio,2,12,0.35+0.6*Math.min(1,kf*2),[[10,7],S.t*40]);dotG(hA[0],hA[1],6,C.vio);
+ txt('mirror A',W/2-off,610,{font:"'Rajdhani', sans-serif",w:700,size:24,align:'center'});txt('mirror B',W/2+off,610,{font:"'Rajdhani', sans-serif",w:700,size:24,align:'center'});
+ mono('A’s tip → B’s tail',W/2,120,C.amb,15,'center');mono('B’s tip → A’s tail',W/2,142,C.vio,15,'center');
+ glowLine([[40,630],[W-40,630]],C.rule,1,0,1,[[4,8],0]);
+ const gx=[150,320,490];for(const[k,[cx0,tip,tail,bd]]of[[0,[0,aTip,aSurf,bA]],[1,[610,bTip,bSurf,bB]]]){
+  gauge(cx0+gx[0],720,58,tip,90,C.amb,'tip turned',tip.toFixed(1)+'°');
+  gauge(cx0+gx[1],720,58,tail,90,C.cyan,'tail tilted',tail.toFixed(tail<1?3:2)+'°');
+  gauge(cx0+gx[2],720,58,bd,90,C.grn,'corridor (bound)',bd.toFixed(2)+'°')}
+ mono('separation '+sep.toFixed(2)+'   coupling felt '+kf.toFixed(3),40,800,C.ink,15);
+ $('tw-ta').textContent=aTip.toFixed(2)+'°';$('tw-sa').textContent=aSurf.toFixed(3)+'°';$('tw-tb').textContent=bTip.toFixed(2)+'°';$('tw-sb').textContent=bSurf.toFixed(3)+'°';$('tw-sep').textContent=sep.toFixed(2);$('tw-kf').textContent=kf.toFixed(3);
+ window.__tw={aTip,aSurf,bTip,bSurf,bA,bB};
+ requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+})();
+</script>
