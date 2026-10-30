@@ -20,12 +20,28 @@ The Lean proofs are at the top of this repository.
 
 ## Running the checks
 
-Python 3 with NumPy and SciPy (Matplotlib for the figures).
+Everything the checks and the figures need is in `../requirements.txt`, used with Python 3.12
+(tested with 3.12.14):
 
 ```
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r ../requirements.txt
 cd checks
 python3 s2_checks_v2.py
 ```
+
+The first three entries of `requirements.txt` (NumPy, SciPy, Matplotlib) cover every script but
+one. The last three (`xarray`, `netCDF4`, `scikit-learn`) are used only by
+`qhe_crossing_split_v1.py`, which also needs the heat-engine data described below; without that
+data it stops with the message `could not find the two .nc files …` rather than an import error.
+
+The Lean audit (`../scripts/verify.py`) imports nothing outside the Python standard library, so it
+runs with a bare Python 3.
+
+One script writes into the folder it is run from: `ring_tiptail_check.py` saves `ring_rows.npy`,
+the ring rows that `figures/fig_v7_3.py` reads. That file is a cache of the run, not an input, and
+re-running the check will show it modified.
 
 Expected results:
 
@@ -51,11 +67,11 @@ Expected results:
 | `app_checks_v2.py` | Appendices A–D | 13 / 13 |
 | `spin1_kahler_check.py` | Appendix C, why the spin-1 band meets the bound: coherent-state (Veronese) form, saturation, generic three-band control | 3 / 3 |
 | `polariton_check.py` | Appendix B, the polariton measurement: a two-angle extraction forces 4 det g = Bz² on any field | equality to 10⁻¹⁶, as stated |
-| `qhe_crossing_split_v1.py` | §10 crossing test | needs the heat-engine data (below) |
+| `qhe_crossing_split_v1.py` | §10 crossing test | needs the heat-engine data and three extra packages (below) |
 
 `qhe_crossing_split_v1.py` reads the single-shot data of Uusnäkki et al., Zenodo
-doi:10.5281/zenodo.20023151. Download the record's data files and run the script in the
-same folder.
+doi:10.5281/zenodo.20023151. Download the record's data files, install the last three packages of
+`../requirements.txt`, and run the script in the same folder as the two `.nc` files.
 
 ## The Lean proofs
 
