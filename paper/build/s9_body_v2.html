@@ -1,0 +1,23 @@
+<section id="s9">
+<h2><span class="num">9</span> Operator Foundations for Mixed-State Manifolds</h2>
+
+<p>To extend this coordinate-free framework from pure states to mixed states, we pass from the Grassmannian \(\mathrm{Gr}(k,\mathcal H)\) to the space \(\mathcal S(\mathcal H)\) of positive-semidefinite density operators. Mixed states break the projection constraint, \(\rho^2\neq\rho\), so tangent variations are defined through the symmetric logarithmic derivative \(L_V\), given implicitly by</p>
+\[V=\tfrac12\big(L_V\rho+\rho L_V\big). \tag{9.1}\]
+<p>The intrinsic tensor on \(\mathcal S(\mathcal H)\) takes the coordinate-free form</p>
+\[Q_\rho(V,W):=\tfrac14\,\mathrm{Tr}\big(\rho\,L_VL_W\big), \tag{9.2}\]
+<p>whose real and imaginary parts are</p>
+\[g_\rho(V,W)=\tfrac18\,\mathrm{Tr}\big(\rho\{L_V,L_W\}\big),\qquad \Omega_\rho(V,W)=\tfrac i4\,\mathrm{Tr}\big(\rho[L_V,L_W]\big), \tag{9.3}\]
+<p>so that \(Q_\rho=g_\rho-\tfrac i2\Omega_\rho\), the same form as (2.3). Here \(g_\rho\) is the Bures metric [Braunstein–Caves 1994] — one quarter of the quantum Fisher information, \(g_\rho(V,V)=\tfrac14F_Q\), and equal to the leading term of the squared Bures distance between neighbouring states (to \(4\times10^{-6}\) on a random full-rank state) — and \(\Omega_\rho\) is the mean Uhlmann curvature. The geometric response is thereby carried on the bundle of purifications over \(\mathcal S(\mathcal H)\), preserving the operator-algebraic architecture of the framework in open systems.</p>
+
+<p class="thm"><span class="lab">Proposition 9.1</span> <span class="tname">(Exact reduction to the pure case).</span> Let \(k=1\) and \(\rho=\Pi\), so that \(L_V=2V\) solves (9.1) by the tangent constraint. Then \(Q_\rho=Q_\Pi\), \(g_\rho=g_\Pi\) and \(\Omega_\rho=\Omega_\Pi\).</p>
+<p class="proof"><span class="lab">Proof.</span> \(Q_\rho=\tfrac14\mathrm{Tr}(\Pi\cdot2V\cdot2W)=\mathrm{Tr}(\Pi VW)=Q_\Pi\); \(g_\rho=\tfrac18\mathrm{Tr}(\Pi\{2V,2W\})=\tfrac12\big(\mathrm{Tr}(\Pi VW)+\mathrm{Tr}(\Pi WV)\big)=g_\Pi\) by Remark 2.3; \(\Omega_\rho=\tfrac i4\mathrm{Tr}(\Pi[2V,2W])=i\,\mathrm{Tr}(\Pi[V,W])=\Omega_\Pi\). <span class="qed">∎</span></p>
+
+<p>The factor \(\tfrac14\) in (9.2) is what makes the reduction exact; without it \(\mathrm{Tr}(\rho L_VL_W)=4Q_\Pi\). For \(k>1\) the normalised state on the subspace is \(\rho=\Pi/k\), and the reduction carries a factor \(1/k\) throughout, as in Lemma 5.1. The same factor is the reason that any statement obtained by substituting the unnormalised \(\Pi\) for a density operator is off by \(k\).</p>
+
+<p class="rem"><span class="lab">Remark 9.2</span> <span class="tname">(Why the symmetric logarithmic derivative exists here).</span> For a projector, and more generally for any singular \(\rho\), equation (9.1) is solvable precisely because the variation has no component in the kernel–kernel block, \((I-\Pi)\,\delta\Pi\,(I-\Pi)=0\). Corollary 3.4 is therefore the existence condition for (9.1), not merely a property quoted here: adding a kernel–kernel block makes (9.1) unsolvable. \(L_V\) is not unique on that block, but \(\mathrm{Tr}(\rho L_VL_W)\) is.</p>
+
+<h3><span class="num">9.1</span> Computing the symmetric logarithmic derivative</h3>
+<p>Numerically, (9.1) is a Sylvester equation. With column-stacking vectorisation, \(\mathrm{vec}(\rho Y)=(I\otimes\rho)\,\mathrm{vec}\,Y\) and \(\mathrm{vec}(Y\rho)=(\rho^{\mathsf T}\otimes I)\,\mathrm{vec}\,Y\), so the regularised equation \(\tfrac12(\rho Y+Y\rho)+\gamma Y=X\) becomes the linear system</p>
+\[\Big[\tfrac12\big(I\otimes\rho+\rho^{\mathsf T}\otimes I\big)+\gamma\,I\otimes I\Big]\,\mathrm{vec}\,Y=\mathrm{vec}\,X, \tag{9.4}\]
+<p>which is invertible for every \(\gamma>0\), including singular \(\rho\), and returns the symmetric logarithmic derivative in the limit \(\gamma\to0\) whenever Remark 9.2's condition holds. Differentiating (9.3) along a third parameter gives the Uhlmann curvature dipole, \(\partial_k\Omega_\rho=\tfrac i4\mathrm{Tr}\big(\partial_k\rho\,[L_i,L_j]+\rho[\partial_kL_i,L_j]+\rho[L_i,\partial_kL_j]\big)\), with \(\partial_kL_i\) obtained from (9.4) applied to the differentiated (9.1); its systematic evaluation is not carried out here.</p>
+</section>

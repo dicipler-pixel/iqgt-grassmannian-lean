@@ -1,0 +1,21 @@
+# Python dependencies for the numerical checks (paper/checks) and the figures
+# (paper/figures). Versions are the ones the checks were last run with, on
+# Python 3.12.14.
+#
+#   python3 -m venv .venv
+#   . .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# The Lean audit (scripts/verify.py) needs none of this: it imports only the
+# standard library.
+
+# Every check and every figure.
+numpy==2.5.4
+scipy==1.18.1
+matplotlib==3.11.2
+
+# Only paper/checks/qhe_crossing_split_v1.py, which also needs the heat-engine
+# NetCDF data of doi:10.5281/zenodo.20023151 (see paper/README.md).
+xarray==2026.9.0
+netCDF4==1.7.5.1.post1
+scikit-learn==1.9.1

@@ -1,0 +1,3 @@
+XX^T: rank 5 | physical rotation X->RX moves it by 9.30e-01 | Jacobi relabel X->XR moves it by 2.73e-11 | scale 2.6e-11
+X^T X: rank 5 | physical rotation X->RX moves it by 3.12e-11 | Jacobi relabel X->XR moves it by 8.69e-01 | scale 8.4e-11
+same spectrum: True

@@ -1,0 +1,18 @@
+R1 k=1: equal 1.00000000  gap broken 0.6667  strengths broken 1.0000
+R1 k=2: equal 1.00000000  gap broken 0.8498  strengths broken 0.7906
+R1 k=3: equal 1.00000000  gap broken 0.9027  strengths broken 0.8660
+R2 pointwise rigid ratio 1.00000000..1.00000000; theorem ratio rigid 1.000000, breathing gap 0.6667
+R3 const: int g dt / (L^2/T) = 1.00000000
+R3 var: int g dt / (L^2/T) = 1.18654377
+R4 deficit identity failures 0 /300
+R5 tr_h g - |Omega|/sqrt(det h): two-level [-2.22e-16,2.22e-16] spin-1 [-5.55e-16,4.44e-16] broken [0.0372,0.4573]
+R6 upper-ratio: five swaps 1.00000000  ten-cycle 0.6800  doubling mod 9 0.7778  involution on 9 1.00000000
+   doubling angles (deg): [90. 90. 60. 60. 30. 30.  0.  0.  0.]  sum sin^2 4.0  length 2.7706
+R7 |dPi/dx|=0.00e+00  diagonal blocks of Pi''=4.52e-17  quartic ratio [0.999999 1.       1.      ]  polar drift 9.71e-16
+R8 mirror distance diff 0.0e+00; mirror Bloch vectors [ 0.049  -0.2422  0.969 ] [ 0.049  -0.2422 -0.969 ]
+   collinear circle: s2/s1 max 0.0e+00, kernel latitude-component min 1.000000, |dPi along| min 0.707; off-equator s2/s1 0.244
+R9 Gamma_(xx,y) from the projector dipole -1.108630916  exact -1/2 d_y g_par -1.108630946
+R11 polar Gamma^x_xy * tan y [1. 1.]; fold Gamma^x_xx * x [1. 1.]
+R12 dw/2K=0.995 locks True; 1.005 locks False; mixing angle at threshold 22.5000 deg
+R10 projector returns (|dPi|=1.5e-16); Berry phase -1.570797 vs -solid/2 -1.570796 (mod 2pi)
+RESULTS {'R1': True, 'R2': np.True_, 'R3': np.True_, 'R4': np.True_, 'R5': np.True_, 'R6': np.True_, 'R7': np.True_, 'R8': np.True_, 'R9': np.True_, 'R11': np.True_, 'R12': np.True_, 'R10': np.True_} PASS

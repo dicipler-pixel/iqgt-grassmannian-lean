@@ -1,0 +1,99 @@
+<section class="ring2" aria-label="Double tip and tail: light both ways round a ring">
+<style>
+.ring2 { margin-top: 30px; }
+.ring2 .r2-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; }
+.ring2 h2 { font-family: var(--cover); font-weight: 500; font-size: clamp(1.6rem, 3vw, 2.3rem); color: var(--cream); margin: 0; }
+.ring2 h2 span { color: var(--blade); }
+.ring2 .r2-head p { margin: 0; max-width: 62ch; color: #b8c3d9; font-size: 0.95rem; }
+.ring2 .r2-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 320px); gap: 22px; margin-top: 14px; }
+@media (max-width: 900px) { .ring2 .r2-bench { grid-template-columns: minmax(0, 1fr); } }
+.ring2 .r2-stage { background: var(--bed); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; min-width: 0; }
+.ring2 canvas { display: block; width: 100%; height: auto; aspect-ratio: 1220 / 640; max-width: 100%; }
+.ring2 .r2-side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.ring2 .r2-read { font-family: var(--mono); font-size: 0.78rem; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-variant-numeric: tabular-nums; }
+.ring2 .r2-read dt { color: var(--stem); } .ring2 .r2-read dd { margin: 0; text-align: right; color: var(--ink); }
+.ring2 .r2-state { font-family: var(--cover); font-size: 1.35rem; color: var(--gold); }
+.ring2 .r2-note { font-size: 0.9rem; color: #b8c3d9; max-width: 80ch; margin: 12px 0 0; }
+</style>
+<div class="r2-head"><h2>Double <span>tip and tail</span></h2><p>Light going both ways round a ring (paper, Example 12.2). The forward and backward beams span one pair: the pair is the tail, the mode inside it is the tip. Rotation splits the two directions; scattering couples them.</p></div>
+<div class="r2-bench">
+  <div class="r2-stage"><canvas id="r2-canvas" width="1220" height="640" aria-label="Ring with counter-running beams and the pair"></canvas></div>
+  <div class="r2-side">
+    <fieldset><legend>Ring</legend>
+      <label class="sl">Rotation against scattering, Ω / 2κ<output id="r2-om-o">0.50</output><input id="r2-om" type="range" min="-3" max="3" step="0.01" value="-0.69"></label>
+      <label class="sl">Scattering κ<output id="r2-k-o">0.050</output><input id="r2-k" type="range" min="0.01" max="0.2" step="0.005" value="0.05"></label>
+      <label class="sl">Both mirrors drifting together<output id="r2-d-o">0.30</output><input id="r2-d" type="range" min="0" max="1.5" step="0.01" value="0.3"></label>
+      <label class="sl">Perturbation size ‖E‖<output id="r2-e-o">0.0020</output><input id="r2-e" type="range" min="0" max="0.02" step="0.0005" value="0.002"></label>
+      <label class="sl">Auto program (1 = on)<output id="r2-a-o">1</output><input id="r2-a" type="range" min="0" max="1" step="1" value="1"></label>
+    </fieldset>
+    <fieldset><legend>Readout</legend>
+      <div class="r2-state" id="r2-state">locked</div>
+      <dl class="r2-read">
+        <dt>inner gap δ = √(Ω²+4κ²)</dt><dd id="r2-delta"></dd>
+        <dt>outer gap (free spectral range)</dt><dd>10.000</dd>
+        <dt>mixing angle in the pair</dt><dd id="r2-mix"></dd>
+        <dt>tip turned (one mode)</dt><dd id="r2-tip"></dd>
+        <dt>tail tilted (the pair)</dt><dd id="r2-tail"></dd>
+        <dt>tail bound ‖E‖/F</dt><dd id="r2-bound"></dd>
+        <dt>beat between the beams</dt><dd id="r2-beat"></dd>
+      </dl>
+    </fieldset>
+  </div>
+</div>
+<p class="r2-note">Below lock-in the two directions act as one: the pattern stands still and only the pair can be read. Above it the beams run at different frequencies, the pattern slides at the beat, and each direction is a tip you can measure. Moving both mirrors together only slides the pattern; the pair holds either way.</p>
+</section>
+<script>
+(function(){
+const cv=document.getElementById('r2-canvas'),ctx=cv.getContext('2d');
+const W=1220,H=640,DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));cv.width=W*DPR;cv.height=H*DPR;
+const C={bg:'#060a14',ink:'#dbe7ff',dim:'#7088a8',cyan:'#4cc3ff',rose:'#ff7a85',gold:'#e9c98a',vio:'#a99bff',green:'#7fe0b0',rule:'rgba(120,170,255,0.22)'};
+const $=id=>document.getElementById(id);const F=10.0;
+const S={lr:-0.69,k:0.05,d:0.3,e:0.002,auto:1,psi:0.3,pat:0,t:0,beat:0,Eph:0};
+function bind(id,key,fmt,tr){const el=$(id),o=$(id+'-o');const f=()=>{S[key]=parseFloat(el.value);o.textContent=fmt(tr?tr(S[key]):S[key])};el.addEventListener('input',()=>{if(key!=='auto')S.auto=0,$('r2-a').value=0,$('r2-a-o').textContent='0';f()});f()}
+bind('r2-om','lr',v=>v.toFixed(2),v=>Math.exp(v));bind('r2-k','k',v=>v.toFixed(3));bind('r2-d','d',v=>v.toFixed(2));bind('r2-e','e',v=>v.toFixed(4));bind('r2-a','auto',v=>String(v));
+function eig2(a,b,c){const th=0.5*Math.atan2(2*b,a-c);return th}           // angle of the upper eigenvector of [[a,b],[b,c]]
+function arc(x,y,r,a0,a1,col,w){ctx.save();ctx.strokeStyle=col;ctx.lineWidth=w;ctx.beginPath();ctx.arc(x,y,r,a0,a1);ctx.stroke();ctx.restore()}
+function txt(s,x,y,col,size,al,font){ctx.save();ctx.fillStyle=col;ctx.font=(size||16)+'px '+(font||"'IBM Plex Sans', system-ui, sans-serif");ctx.textAlign=al||'left';ctx.fillText(s,x,y);ctx.restore()}
+function arrow(x0,y0,x1,y1,col,w){ctx.save();ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=w;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.stroke();const a=Math.atan2(y1-y0,x1-x0);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x1-14*Math.cos(a-0.4),y1-14*Math.sin(a-0.4));ctx.lineTo(x1-14*Math.cos(a+0.4),y1-14*Math.sin(a+0.4));ctx.closePath();ctx.fill();ctx.restore()}
+let last=performance.now();
+function frame(now){const dt=Math.min(0.05,(now-last)/1000);last=now;S.t+=dt;
+ if(S.auto){S.lr=Math.log(0.05)+(Math.log(20)-Math.log(0.05))*(0.5-0.5*Math.cos(S.t*0.18));$('r2-om').value=S.lr.toFixed(2);$('r2-om-o').textContent=Math.exp(S.lr).toFixed(2)}
+ const k=S.k,Om=Math.exp(S.lr)*2*k,OmL=2*k,delta=Math.sqrt(Om*Om+4*k*k);
+ // Adler phase between the beams (active ring); time scaled so the beat is visible
+ const ts=6/Math.max(OmL,1e-6)*0.15;for(let i=0;i<20;i++){S.psi+=(dt/20)*ts*(Om-OmL*Math.sin(S.psi))}
+ const locked=Math.abs(Om)<=OmL;S.beat=locked?0:Math.sqrt(Om*Om-OmL*OmL);
+ // pair Hamiltonian and its perturbed version (E rotates slowly in time)
+ S.Eph+=dt*0.7;const e=S.e,ea=e*Math.cos(S.Eph),eb=e*Math.sin(1.3*S.Eph),ec=-e*Math.cos(0.7*S.Eph),ex=e*Math.sin(0.9*S.Eph);
+ const th0=eig2(Om/2,k,-Om/2),th1=eig2(Om/2+ea,k+eb,-Om/2+ec);
+ const tip=Math.abs(th1-th0)*180/Math.PI,mix=Math.abs(th0)*180/Math.PI;const mixDisp=0.5*Math.atan(2*k/Math.max(Math.abs(Om),1e-9))*180/Math.PI;
+ const tail=Math.asin(Math.min(1,Math.abs(ex)/(F-delta)))*180/Math.PI,bound=Math.asin(Math.min(1,e/(F-delta)))*180/Math.PI;
+ S.pat+=dt*S.d;
+ ctx.setTransform(DPR,0,0,DPR,0,0);ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
+ // --- left: the ring
+ const cx=300,cy=330,R=200;txt('the ring',40,52,C.ink,26,'left',"'Cormorant Garamond', Georgia, serif");txt('forward (cyan) and backward (rose) beams; gold: the standing-wave pattern they make',40,80,C.dim,14);
+ arc(cx,cy,R,0,2*Math.PI,C.rule,2);
+ // standing-wave intensity |cos(m phi - psi/2 - pat)|^2 weighted by mixing (equal mix -> full contrast)
+ const c2=Math.cos(th0),s2=Math.sin(th0),vis=Math.abs(2*c2*s2);const m=4;
+ for(let i=0;i<360;i++){const a=i/360*2*Math.PI;const I=(1-vis)+vis*Math.pow(Math.cos(m*a-S.psi/2-S.pat),2);ctx.save();ctx.strokeStyle=C.gold;ctx.globalAlpha=0.05+0.95*Math.pow(I,1.6);ctx.lineWidth=14;ctx.beginPath();ctx.arc(cx,cy,R,a,a+2*Math.PI/360+0.004);ctx.stroke();ctx.restore()}
+ // counter-running pulses: speeds differ by the beat when free
+ const base=S.t*1.2;const fa=base+(locked?0:S.beat*ts*0.02*S.t),ba=-base;
+ for(const [ang,col,amp] of [[fa,C.cyan,Math.abs(c2)],[ba,C.rose,Math.abs(s2)]]){for(let j=0;j<14;j++){const a=ang-j*0.045*(col===C.cyan?1:-1);ctx.save();ctx.globalAlpha=(1-j/14)*(0.35+0.65*amp);ctx.fillStyle=col;ctx.beginPath();ctx.arc(cx+R*Math.cos(a),cy+R*Math.sin(a),7-j*0.35,0,7);ctx.fill();ctx.restore()}}
+ txt(locked?'locked: one rhythm, the pattern stands':'free: two rhythms, the pattern slides at the beat',cx,cy+R+52,locked?C.green:C.gold,16,'center');
+ // --- right: the pair (tail) with its tip
+ const px=880,py=330,PR=190;txt('the pair and its tip',650,52,C.ink,26,'left',"'Cormorant Garamond', Georgia, serif");txt('axes: forward and backward modes; the tail is the whole plane',650,80,C.dim,14);
+ const tilt=tail*Math.PI/180*8;ctx.save();ctx.translate(px,py);ctx.scale(1,0.42+tilt);ctx.fillStyle='rgba(76,195,255,0.13)';ctx.strokeStyle=C.cyan;ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,PR,0,7);ctx.fill();ctx.stroke();ctx.restore();
+ const yS=0.42+tilt;const P=(a)=>[px+PR*0.92*Math.cos(a),py-PR*0.92*Math.sin(a)*yS];
+ const fw=P(0),bw=P(Math.PI/2);ctx.save();ctx.setLineDash([5,6]);ctx.strokeStyle=C.dim;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(fw[0],fw[1]);ctx.moveTo(px,py);ctx.lineTo(bw[0],bw[1]);ctx.stroke();ctx.restore();
+ txt('forward',fw[0]+8,fw[1]+18,C.cyan,14);txt('backward',bw[0]-30,bw[1]-10,C.rose,14);
+ const t0=P(th0),t1=P(th1);arrow(px,py,t0[0],t0[1],C.dim,3);arrow(px,py,t1[0],t1[1],C.gold,4);
+ txt('tip',t1[0]+8,t1[1]-8,C.gold,15);
+ // gauges
+ function gauge(x,y,val,max,label,col,unit){arc(x,y,44,Math.PI,2*Math.PI,C.rule,7);arc(x,y,44,Math.PI,Math.PI+Math.PI*Math.min(1,val/max),col,7);txt(val.toFixed(unit==='°'&&val<1?3:2)+unit,x,y-6,col,19,'center');txt(label,x,y+18,C.dim,12,'center')}
+ gauge(700,560,tip,Math.max(1,tip*1.2),'tip turned',C.gold,'°');gauge(880,560,tail,Math.max(bound,1e-6)*1.2,'tail tilted',C.cyan,'°');gauge(1060,560,mixDisp,45,'mixing angle',C.vio,'°');
+ $('r2-state').textContent=locked?'locked — the pair is all you can read':'free — each direction is a tip';
+ $('r2-delta').textContent=delta.toFixed(4);$('r2-mix').textContent=mixDisp.toFixed(2)+'°';$('r2-tip').textContent=tip.toFixed(4)+'°';
+ $('r2-tail').textContent=tail.toFixed(5)+'°';$('r2-bound').textContent=bound.toFixed(5)+'°';$('r2-beat').textContent=locked?'0 (locked)':S.beat.toFixed(4);
+ requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+})();
+</script>

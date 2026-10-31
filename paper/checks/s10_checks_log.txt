@@ -1,0 +1,10 @@
+P1 PASS 5.857517425235653e-15
+P2 PASS 0
+P3 PASS (np.float64(0.0), np.float64(9.686214851708002))
+G1 PASS 6.671103265796633e-15
+G2 PASS (0, np.float64(0.9978320036013826))
+G3 PASS (np.float64(40.705454150811626), np.float64(0.9995339554128111))
+G4 PASS [(4, np.float64(0.38), np.float64(0.38)), (1.2, np.float64(3.13), np.float64(3.15)), (1.02, np.float64(30.82), np.float64(29.01))]
+H1 PASS 7.870229978340329
+H2 FAIL (np.float64(17.81), np.float64(86.8), np.float64(87.24))
+8 / 9
